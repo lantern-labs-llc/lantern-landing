@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
-import { DoodleHangingLantern, DoodleStreetLamp, DoodleCobblestone, DoodleStorefront } from "./Doodles";
 
 const benefits = [
   "No setup fees or monthly retainers",
@@ -13,10 +12,6 @@ const benefits = [
 const PayForPerformance = () => (
   <section className="section-padding bg-lantern-deep text-lantern-cream relative overflow-hidden">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-glow opacity-30 pointer-events-none" />
-    <DoodleHangingLantern className="w-14 top-8 right-[4%] opacity-[0.20] rotate-[8deg]" color="text-lantern-cream" />
-    <DoodleStreetLamp className="w-12 bottom-6 left-[3%] opacity-[0.16] rotate-[-6deg]" color="text-lantern-cream" />
-    <DoodleCobblestone className="w-40 bottom-4 right-[8%] opacity-[0.13] rotate-[3deg]" color="text-lantern-cream" />
-    <DoodleStorefront className="w-20 top-[35%] left-[2%] opacity-[0.10] rotate-[-10deg]" color="text-lantern-cream" />
 
     <div className="max-w-7xl mx-auto relative z-10">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
