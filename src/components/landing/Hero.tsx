@@ -2,18 +2,19 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import HeroIllustration from "./HeroIllustration";
-
-const Hero = () => (
-  <section className="relative min-h-screen flex items-center bg-hero-gradient overflow-hidden pt-16">
+const Hero = () => <section className="relative min-h-screen flex items-center bg-hero-gradient overflow-hidden pt-16">
     <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-glow pointer-events-none animate-glow-pulse" />
 
     <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20 lg:py-0">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="relative z-10"
-      >
+      <motion.div initial={{
+      opacity: 0,
+      y: 30
+    }} animate={{
+      opacity: 1,
+      y: 0
+    }} transition={{
+      duration: 0.7
+    }} className="relative z-10">
         <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-1.5 mb-6">
           <Sparkles size={14} className="text-primary" />
           <span className="text-xs font-semibold tracking-wide uppercase text-primary">
@@ -31,9 +32,7 @@ const Hero = () => (
           <em>you</em> — and then become actual customers.
         </p>
 
-        <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-          Lantern is your no-risk (pay for performance only), know-nothing (no knowledge of AI required), no-brainer solution to connect your store with new customers.
-        </p>
+        <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">Lantern is your no-risk (pay-for-performance), know-nothing (no knowledge of AI required!), no-brainer solution for new customers.</p>
 
         <div className="flex flex-wrap gap-4">
           <Button asChild size="lg" className="shadow-lantern">
@@ -52,16 +51,18 @@ const Hero = () => (
         </p>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative z-10"
-      >
+      <motion.div initial={{
+      opacity: 0,
+      scale: 0.95
+    }} animate={{
+      opacity: 1,
+      scale: 1
+    }} transition={{
+      duration: 0.8,
+      delay: 0.2
+    }} className="relative z-10">
         <HeroIllustration />
       </motion.div>
     </div>
-  </section>
-);
-
+  </section>;
 export default Hero;
