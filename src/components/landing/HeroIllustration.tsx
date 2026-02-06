@@ -56,8 +56,8 @@ const HeroIllustration = () => {
           </g>
 
           {/* Title text placeholders */}
-          <rect x="72" y="92" width="55" height="4" rx="2" fill="hsl(40 33% 93%)" opacity="0.6" />
-          <rect x="72" y="100" width="35" height="3" rx="1.5" fill="hsl(40 33% 93%)" opacity="0.35" />
+          <rect x="80" y="92" width="50" height="4" rx="2" fill="hsl(40 33% 93%)" opacity="0.6" />
+          <rect x="80" y="100" width="32" height="3" rx="1.5" fill="hsl(40 33% 93%)" opacity="0.35" />
 
           {/* ── Chat bubbles (abstract bars) ── */}
 
