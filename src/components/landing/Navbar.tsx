@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import lanternLogo from "@/assets/lantern-logo.png";
+import lanternLogo from "@/assets/lantern-logo-2.png";
 
 const navLinks = [
   { label: "How It Works", href: "#how-it-works" },
