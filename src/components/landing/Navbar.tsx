@@ -17,7 +17,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
         <a href="#" className="flex items-center gap-2.5 text-foreground">
-          <img src={lanternLogo} alt="Lantern logo" className="h-9 w-auto" />
+          <img src={lanternLogo} alt="Lantern logo" className="h-11 w-auto" />
           <span className="font-display text-xl tracking-tight">Lantern</span>
         </a>
 
