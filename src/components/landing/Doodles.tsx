@@ -1,5 +1,5 @@
 /**
- * Abstract, flowy SVG accent doodles themed around light, magnetism & attraction.
+ * Hand-drawn style SVG doodles: lantern streetlights, storefronts, cobblestone, awnings, hanging signs.
  * All positioned absolutely — parent must have `relative overflow-hidden`.
  */
 
@@ -10,111 +10,184 @@ interface DoodleProps {
   color?: string;
 }
 
-/* ── Light Ray – a soft curved beam ── */
-export const DoodleLightRay = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Lantern Streetlight – tall post with glowing lantern ── */
+export const DoodleLanternPost = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 60 140" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <path d="M5 70C20 55 40 15 60 20C80 25 85 60 115 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
-    <path d="M10 75C25 60 45 25 65 30C85 35 90 65 118 18" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.5" className={color} />
+    {/* Post */}
+    <path d="M30 135V50" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={color} />
+    {/* Base */}
+    <path d="M20 135H40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className={color} />
+    <path d="M24 131H36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
+    {/* Arm */}
+    <path d="M30 50C30 50 30 42 38 38" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={color} />
+    {/* Lantern body */}
+    <path d="M33 38L43 38L45 28L41 22L35 22L31 28L33 38Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" className={color} />
+    {/* Lantern top */}
+    <path d="M36 22V17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
+    <path d="M38 22V18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
+    {/* Glow rays */}
+    <path d="M38 30L48 28" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5" className={color} />
+    <path d="M38 32L47 35" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5" className={color} />
+    <path d="M34 28L26 24" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5" className={color} />
   </svg>
 );
 
-/* ── Glow Orb – radiating soft circles ── */
-export const DoodleGlowOrb = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Hanging Lantern – no post, just a dangling lantern ── */
+export const DoodleHangingLantern = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 50 70" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <circle cx="30" cy="30" r="6" stroke="currentColor" strokeWidth="1.5" className={color} />
-    <circle cx="30" cy="30" r="14" stroke="currentColor" strokeWidth="1" opacity="0.6" className={color} />
-    <circle cx="30" cy="30" r="22" stroke="currentColor" strokeWidth="0.7" opacity="0.3" className={color} />
-    <circle cx="30" cy="30" r="28" stroke="currentColor" strokeWidth="0.5" opacity="0.15" className={color} />
+    {/* Chain/hook */}
+    <path d="M25 5V18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
+    <path d="M22 5H28" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
+    {/* Lantern body */}
+    <path d="M18 18H32L35 35L30 45H20L15 35L18 18Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" className={color} />
+    {/* Glass panes */}
+    <line x1="22" y1="20" x2="20" y2="42" stroke="currentColor" strokeWidth="0.8" opacity="0.4" className={color} />
+    <line x1="28" y1="20" x2="30" y2="42" stroke="currentColor" strokeWidth="0.8" opacity="0.4" className={color} />
+    {/* Glow */}
+    <circle cx="25" cy="32" r="4" stroke="currentColor" strokeWidth="0.8" opacity="0.35" className={color} />
+    <circle cx="25" cy="32" r="8" stroke="currentColor" strokeWidth="0.5" opacity="0.15" className={color} />
+    {/* Bottom finial */}
+    <path d="M25 45V50" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
   </svg>
 );
 
-/* ── Magnetic Arc – curved attraction field line ── */
-export const DoodleMagneticArc = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Storefront – small shop with awning and door ── */
+export const DoodleStorefront = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <path d="M10 55C10 25 30 5 50 5C70 5 90 25 90 55" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
-    <path d="M20 55C20 32 33 12 50 12C67 12 80 32 80 55" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5" className={color} />
-    <path d="M30 55C30 38 38 22 50 22C62 22 70 38 70 55" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" opacity="0.3" className={color} />
+    {/* Building */}
+    <rect x="10" y="25" width="80" height="50" rx="2" stroke="currentColor" strokeWidth="1.8" className={color} />
+    {/* Awning */}
+    <path d="M6 25L50 18L94 25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={color} />
+    <path d="M6 25C14 32 22 32 30 25C38 32 46 32 54 25C62 32 70 32 78 25C86 32 94 32 94 25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
+    {/* Door */}
+    <rect x="40" y="48" width="20" height="27" rx="1" stroke="currentColor" strokeWidth="1.5" className={color} />
+    <circle cx="56" cy="62" r="1.5" fill="currentColor" opacity="0.6" className={color} />
+    {/* Windows */}
+    <rect x="16" y="35" width="16" height="14" rx="1" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <rect x="68" y="35" width="16" height="14" rx="1" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <line x1="24" y1="35" x2="24" y2="49" stroke="currentColor" strokeWidth="0.8" className={color} />
+    <line x1="76" y1="35" x2="76" y2="49" stroke="currentColor" strokeWidth="0.8" className={color} />
   </svg>
 );
 
-/* ── Sparkle – small twinkle ── */
-export const DoodleSparkle = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Cafe Storefront – variation with a smaller feel ── */
+export const DoodleCafeShop = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <path d="M12 2L13.5 9.5L21 12L13.5 14.5L12 22L10.5 14.5L3 12L10.5 9.5L12 2Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" className={color} />
+    {/* Building */}
+    <rect x="8" y="22" width="64" height="42" rx="2" stroke="currentColor" strokeWidth="1.8" className={color} />
+    {/* Awning – straight scallops */}
+    <path d="M5 22H75" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={color} />
+    <path d="M5 22C11 28 17 28 23 22C29 28 35 28 41 22C47 28 53 28 59 22C65 28 71 28 75 22" stroke="currentColor" strokeWidth="1.5" className={color} />
+    {/* Window */}
+    <rect x="14" y="32" width="22" height="16" rx="1" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <line x1="25" y1="32" x2="25" y2="48" stroke="currentColor" strokeWidth="0.8" className={color} />
+    {/* Door */}
+    <rect x="46" y="40" width="18" height="24" rx="1" stroke="currentColor" strokeWidth="1.5" className={color} />
+    <circle cx="60" cy="52" r="1.2" fill="currentColor" opacity="0.6" className={color} />
+    {/* Sign */}
+    <rect x="26" y="12" width="28" height="10" rx="2" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <line x1="32" y1="17" x2="48" y2="17" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5" className={color} />
   </svg>
 );
 
-/* ── Flow Line – gentle S-curve ── */
-export const DoodleFlowLine = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Hanging Sign – bracket-mounted shop sign ── */
+export const DoodleHangingSign = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 60 70" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <path d="M0 30C25 30 25 10 50 10C75 10 75 30 100 30C125 30 125 10 140 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
+    {/* Bracket */}
+    <path d="M8 5V15C8 15 8 20 15 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={color} />
+    <path d="M8 5H5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={color} />
+    {/* Chains */}
+    <line x1="18" y1="20" x2="18" y2="28" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <line x1="48" y1="20" x2="48" y2="28" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <path d="M15 20H50" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
+    {/* Sign board */}
+    <rect x="12" y="28" width="42" height="28" rx="3" stroke="currentColor" strokeWidth="1.8" className={color} />
+    {/* Text lines */}
+    <line x1="20" y1="38" x2="46" y2="38" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" className={color} />
+    <line x1="24" y1="45" x2="42" y2="45" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35" className={color} />
   </svg>
 );
 
-/* ── Orbit – elliptical path with dot ── */
-export const DoodleOrbit = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 80 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Cobblestone Path – short wavy path ── */
+export const DoodleCobblestone = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 160 30" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <ellipse cx="40" cy="25" rx="35" ry="18" stroke="currentColor" strokeWidth="1" className={color} />
-    <circle cx="72" cy="18" r="3" fill="currentColor" opacity="0.6" className={color} />
+    {/* Row of cobblestones */}
+    <ellipse cx="15" cy="15" rx="12" ry="6" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <ellipse cx="42" cy="13" rx="10" ry="7" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <ellipse cx="66" cy="16" rx="11" ry="5.5" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <ellipse cx="92" cy="14" rx="12" ry="6.5" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <ellipse cx="118" cy="15" rx="10" ry="6" stroke="currentColor" strokeWidth="1.2" className={color} />
+    <ellipse cx="144" cy="13" rx="11" ry="7" stroke="currentColor" strokeWidth="1.2" className={color} />
   </svg>
 );
 
-/* ── Beam Burst – radiating lines from a point ── */
-export const DoodleBeamBurst = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Window Box – window with flower box ── */
+export const DoodleWindowBox = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 60 70" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <line x1="30" y1="30" x2="30" y2="5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" className={color} />
-    <line x1="30" y1="30" x2="50" y2="10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.8" className={color} />
-    <line x1="30" y1="30" x2="55" y2="25" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.6" className={color} />
-    <line x1="30" y1="30" x2="10" y2="10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.8" className={color} />
-    <line x1="30" y1="30" x2="5" y2="25" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.6" className={color} />
-    <line x1="30" y1="30" x2="18" y2="6" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" opacity="0.4" className={color} />
-    <line x1="30" y1="30" x2="42" y2="6" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" opacity="0.4" className={color} />
-    <circle cx="30" cy="30" r="3" fill="currentColor" opacity="0.5" className={color} />
+    {/* Window frame */}
+    <rect x="8" y="5" width="44" height="38" rx="2" stroke="currentColor" strokeWidth="1.8" className={color} />
+    <line x1="30" y1="5" x2="30" y2="43" stroke="currentColor" strokeWidth="1" className={color} />
+    <line x1="8" y1="24" x2="52" y2="24" stroke="currentColor" strokeWidth="1" className={color} />
+    {/* Flower box */}
+    <rect x="6" y="43" width="48" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" className={color} />
+    {/* Flowers */}
+    <circle cx="18" cy="40" r="4" stroke="currentColor" strokeWidth="1" opacity="0.6" className={color} />
+    <circle cx="30" cy="38" r="4.5" stroke="currentColor" strokeWidth="1" opacity="0.6" className={color} />
+    <circle cx="42" cy="40" r="4" stroke="currentColor" strokeWidth="1" opacity="0.6" className={color} />
+    {/* Stems */}
+    <line x1="18" y1="44" x2="18" y2="50" stroke="currentColor" strokeWidth="0.8" opacity="0.4" className={color} />
+    <line x1="30" y1="42" x2="30" y2="50" stroke="currentColor" strokeWidth="0.8" opacity="0.4" className={color} />
+    <line x1="42" y1="44" x2="42" y2="50" stroke="currentColor" strokeWidth="0.8" opacity="0.4" className={color} />
   </svg>
 );
 
-/* ── Ripple – concentric half-circles ── */
-export const DoodleRipple = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Street Lamp (simple) – shorter, simpler lamp ── */
+export const DoodleStreetLamp = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <path d="M25 38A15 15 0 0 1 55 38" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={color} />
-    <path d="M15 38A25 25 0 0 1 65 38" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.6" className={color} />
-    <path d="M5 38A35 35 0 0 1 75 38" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" opacity="0.3" className={color} />
+    {/* Pole */}
+    <line x1="20" y1="95" x2="20" y2="35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={color} />
+    {/* Base */}
+    <path d="M12 95H28" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className={color} />
+    {/* Lamp head */}
+    <path d="M12 35H28L30 25H10L12 35Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" className={color} />
+    {/* Top */}
+    <path d="M18 25L20 18L22 25" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    {/* Glow */}
+    <path d="M15 35L10 45" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.4" className={color} />
+    <path d="M20 35V47" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.3" className={color} />
+    <path d="M25 35L30 45" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.4" className={color} />
   </svg>
 );
 
-/* ── Swirl – spiral attraction curve ── */
-export const DoodleSwirl = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+/* ── Town Row – row of tiny buildings silhouette ── */
+export const DoodleTownRow = ({ className, color = "text-primary" }: DoodleProps) => (
+  <svg viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg"
     className={cn("absolute pointer-events-none", className)}>
-    <path d="M30 15C38 15 42 22 42 30C42 38 36 42 30 42C24 42 20 38 20 32C20 26 24 23 28 23C32 23 34 26 34 30" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className={color} />
-  </svg>
-);
-
-/* ── Field Lines – magnetic field flowing between two poles ── */
-export const DoodleFieldLines = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
-    className={cn("absolute pointer-events-none", className)}>
-    <circle cx="20" cy="50" r="4" fill="currentColor" opacity="0.4" className={color} />
-    <circle cx="80" cy="50" r="4" fill="currentColor" opacity="0.4" className={color} />
-    <path d="M24 50C35 30 65 30 76 50" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.7" className={color} />
-    <path d="M24 50C35 20 65 20 76 50" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.4" className={color} />
-    <path d="M24 50C35 70 65 70 76 50" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.7" className={color} />
-    <path d="M24 50C35 80 65 80 76 50" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.4" className={color} />
-  </svg>
-);
-
-/* ── Connector Wave – meant to sit between sections ── */
-export const DoodleConnectorWave = ({ className, color = "text-primary" }: DoodleProps) => (
-  <svg viewBox="0 0 400 30" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
-    className={cn("absolute pointer-events-none", className)}>
-    <path d="M0 15C50 5 80 25 130 15C180 5 210 25 260 15C310 5 340 25 400 15" stroke="currentColor" strokeWidth="1" strokeLinecap="round" className={color} />
+    {/* Building silhouettes */}
+    <path d="M5 45V20H25V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    <path d="M25 45V15H45V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    <path d="M45 45V22L55 12L65 22V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    <path d="M65 45V18H85V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    <path d="M85 45V25H105V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    <path d="M105 45V14L115 8L125 14V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    <path d="M125 45V20H145V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    <path d="M145 45V24H165V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    <path d="M165 45V16H185V45" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={color} />
+    {/* Tiny windows */}
+    <rect x="11" y="28" width="4" height="4" stroke="currentColor" strokeWidth="0.7" opacity="0.5" className={color} />
+    <rect x="31" y="22" width="4" height="4" stroke="currentColor" strokeWidth="0.7" opacity="0.5" className={color} />
+    <rect x="71" y="26" width="4" height="4" stroke="currentColor" strokeWidth="0.7" opacity="0.5" className={color} />
+    <rect x="111" y="20" width="4" height="4" stroke="currentColor" strokeWidth="0.7" opacity="0.5" className={color} />
+    <rect x="151" y="30" width="4" height="4" stroke="currentColor" strokeWidth="0.7" opacity="0.5" className={color} />
+    {/* Ground line */}
+    <line x1="0" y1="45" x2="200" y2="45" stroke="currentColor" strokeWidth="1" className={color} />
   </svg>
 );

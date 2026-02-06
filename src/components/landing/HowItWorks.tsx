@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Search, Zap, DollarSign } from "lucide-react";
-import { DoodleMagneticArc, DoodleSparkle, DoodleOrbit } from "./Doodles";
+import { DoodleLanternPost, DoodleCafeShop, DoodleHangingLantern } from "./Doodles";
 
 const steps = [
   {
@@ -28,10 +28,9 @@ const steps = [
 
 const HowItWorks = () => (
   <section id="how-it-works" className="section-padding relative overflow-hidden">
-    <DoodleMagneticArc className="w-24 top-12 left-[3%] opacity-[0.12] rotate-[-10deg]" />
-    <DoodleSparkle className="w-6 top-[25%] right-[8%] opacity-[0.15]" />
-    <DoodleOrbit className="w-20 bottom-16 right-[5%] opacity-[0.11] rotate-[15deg]" />
-    <DoodleSparkle className="w-5 bottom-[30%] left-[10%] opacity-[0.13] rotate-[40deg]" />
+    <DoodleLanternPost className="w-12 top-10 left-[3%] opacity-[0.15]" />
+    <DoodleCafeShop className="w-20 bottom-10 right-[4%] opacity-[0.13]" />
+    <DoodleHangingLantern className="w-9 top-[30%] right-[6%] opacity-[0.14]" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
