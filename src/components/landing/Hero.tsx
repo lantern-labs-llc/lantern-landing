@@ -22,12 +22,12 @@ const Hero = () => (
         </div>
 
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6">
-          Turn AI Chats into{" "}
+          Turn AI chats into{" "}
           <span className="text-gradient-lantern italic">Real Customers</span>
         </h1>
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-          Millions of people now ask chatbots for local recommendations. Lantern makes sure they hear about{" "}
+          Millions of people now ask chatbots for local recommendations. Lantern makes sure the right people hear about{" "}
           <em>you</em> — and then converts that traffic with AI‑optimized landing pages. Pay only for results.
         </p>
 
