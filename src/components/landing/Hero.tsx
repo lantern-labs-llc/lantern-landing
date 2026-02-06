@@ -32,7 +32,7 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
           <em>your business</em> — and then become actual customers.
         </p>
 
-        <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">Lantern is your no-risk (pay-for-performance), know-nothing (no knowledge of AI required!), no-brainer solution for new customers.</p>
+        <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">Lantern is your no-risk, , no-brainer solution for new customers.</p>
 
         <div className="flex flex-wrap gap-4">
           <Button asChild size="lg" className="shadow-lantern">
