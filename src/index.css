@@ -10,10 +10,10 @@
     --background: 40 33% 93%;
     --foreground: 93 33% 18%;
 
-    --card: 40 30% 96%;
+    --card: 40 30% 95%;
     --card-foreground: 93 33% 18%;
 
-    --popover: 40 30% 96%;
+    --popover: 40 30% 95%;
     --popover-foreground: 93 33% 18%;
 
     /* Orange - primary action color */
@@ -24,8 +24,9 @@
     --secondary: 107 18% 52%;
     --secondary-foreground: 40 33% 97%;
 
-    --muted: 80 12% 83%;
-    --muted-foreground: 93 15% 40%;
+    /* Grey - small tonal accents only */
+    --muted: 80 8% 78%;
+    --muted-foreground: 93 15% 38%;
 
     /* Dark green accent */
     --accent: 93 33% 18%;
@@ -34,8 +35,8 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 80 12% 80%;
-    --input: 80 12% 80%;
+    --border: 80 8% 78%;
+    --input: 80 8% 78%;
     --ring: 21 78% 57%;
 
     --radius: 0.75rem;
@@ -47,6 +48,9 @@
     --lantern-warm: 40 25% 90%;
     --lantern-coral: 21 78% 57%;
     --lantern-sage: 107 18% 52%;
+    --lantern-sage-light: 107 16% 90%;
+    --lantern-sage-dark: 107 22% 38%;
+    --lantern-grey: 80 8% 78%;
     --lantern-navy: 93 33% 14%;
 
     --gradient-hero: linear-gradient(135deg, hsl(40 33% 93%) 0%, hsl(40 25% 88%) 100%);

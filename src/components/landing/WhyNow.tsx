@@ -20,7 +20,7 @@ const stats = [
 ];
 
 const WhyNow = () => (
-  <section className="section-padding bg-lantern-warm">
+  <section className="section-padding bg-lantern-sage-light">
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
