@@ -1,18 +1,17 @@
 import { motion } from "framer-motion";
 
 /**
- * Hero illustration: Clean two-part scene.
- * Left: A standalone chat interface with abstract message bars + a map bubble.
- * Right: A charming main street with storefronts and friendly silhouette people.
- * Arcing dashed lines connect the chat to each person.
+ * Hero illustration: Two-part scene.
+ * Left: Standalone chat interface with abstract bars + map bubble.
+ * Right: Main street with storefronts and people.
+ * Bold arcing lines connect chat to people (rendered last / on top).
  */
 
-/* Person positions (for both rendering and attractor lines) */
 const people = [
-  { tx: 280, ty: 320, headR: 8, color: "hsl(21 78% 57%)", delay: 0.9 },
-  { tx: 350, ty: 335, headR: 7, color: "hsl(107 18% 52%)", delay: 1.0 },
-  { tx: 420, ty: 328, headR: 6.5, color: "hsl(93 33% 25%)", delay: 1.1 },
-  { tx: 480, ty: 340, headR: 5.5, color: "hsl(21 78% 62%)", delay: 1.3 },
+  { tx: 280, ty: 310, color: "hsl(21 78% 57%)", delay: 0.9 },
+  { tx: 340, ty: 325, color: "hsl(107 18% 52%)", delay: 1.0 },
+  { tx: 410, ty: 318, color: "hsl(93 33% 25%)", delay: 1.1 },
+  { tx: 470, ty: 330, color: "hsl(21 78% 62%)", delay: 1.3 },
 ];
 
 const HeroIllustration = () => {
@@ -42,23 +41,20 @@ const HeroIllustration = () => {
           <rect x="30" y="80" width="180" height="36" rx="18" fill="hsl(93 33% 25%)" />
           <rect x="30" y="100" width="180" height="16" fill="hsl(93 33% 25%)" />
 
-          {/* Cloud icon (top-left of chat) */}
-          <g transform="translate(46, 88)">
-            <ellipse cx="9" cy="11" rx="9" ry="6" fill="hsl(107 18% 52%)" />
-            <circle cx="5" cy="8" r="5" fill="hsl(107 18% 52%)" />
-            <circle cx="12" cy="6" r="6" fill="hsl(107 18% 52%)" />
-            <circle cx="16" cy="9" r="4" fill="hsl(107 18% 52%)" />
-            {/* Tiny face on cloud */}
-            <circle cx="8" cy="10" r="1" fill="white" />
-            <circle cx="13" cy="10" r="1" fill="white" />
-            <path d="M8 13C9 14 12 14 13 13" stroke="white" strokeWidth="0.7" strokeLinecap="round" fill="none" />
+          {/* Cloud icon (top-left, fluffy, no face) */}
+          <g transform="translate(44, 86)">
+            <ellipse cx="10" cy="13" rx="10" ry="6.5" fill="hsl(107 18% 72%)" />
+            <circle cx="4" cy="9" r="5.5" fill="hsl(107 18% 72%)" />
+            <circle cx="10" cy="5" r="6.5" fill="hsl(107 18% 72%)" />
+            <circle cx="17" cy="7" r="5" fill="hsl(107 18% 72%)" />
+            <circle cx="21" cy="11" r="4" fill="hsl(107 18% 72%)" />
           </g>
 
           {/* Title text placeholders */}
           <rect x="72" y="92" width="55" height="4" rx="2" fill="hsl(40 33% 93%)" opacity="0.6" />
           <rect x="72" y="100" width="35" height="3" rx="1.5" fill="hsl(40 33% 93%)" opacity="0.35" />
 
-          {/* ── Chat bubbles (abstract bars, no real text) ── */}
+          {/* ── Chat bubbles (abstract bars) ── */}
 
           {/* User message 1 */}
           <rect x="100" y="130" width="96" height="26" rx="11" fill="hsl(21 78% 57%)" opacity="0.18" />
@@ -76,75 +72,55 @@ const HeroIllustration = () => {
           <rect x="120" y="225" width="28" height="3" rx="1.5" fill="hsl(21 78% 57%)" opacity="0.25" />
 
           {/* Bot response 2 — MAP bubble */}
-          <rect x="45" y="246" width="120" height="60" rx="12" fill="hsl(107 18% 52%)" opacity="0.08" />
-          <rect x="45" y="246" width="120" height="60" rx="12" fill="none" stroke="hsl(107 18% 52%)" strokeWidth="1.2" opacity="0.25" />
-          {/* Map background — criss-cross streets */}
-          <line x1="55" y1="260" x2="155" y2="260" stroke="hsl(40 18% 78%)" strokeWidth="1" opacity="0.4" />
-          <line x1="55" y1="275" x2="155" y2="275" stroke="hsl(40 18% 78%)" strokeWidth="1" opacity="0.4" />
-          <line x1="55" y1="290" x2="155" y2="290" stroke="hsl(40 18% 78%)" strokeWidth="0.8" opacity="0.3" />
-          <line x1="75" y1="250" x2="75" y2="302" stroke="hsl(40 18% 78%)" strokeWidth="0.8" opacity="0.35" />
-          <line x1="105" y1="250" x2="105" y2="302" stroke="hsl(40 18% 78%)" strokeWidth="1" opacity="0.4" />
-          <line x1="135" y1="250" x2="135" y2="302" stroke="hsl(40 18% 78%)" strokeWidth="0.8" opacity="0.35" />
+          <rect x="45" y="246" width="120" height="70" rx="12" fill="hsl(200 30% 94%)" />
+          <rect x="45" y="246" width="120" height="70" rx="12" fill="none" stroke="hsl(107 18% 52%)" strokeWidth="1.2" opacity="0.3" />
+
+          {/* Water body (top-right of map) */}
+          <path d="M120 246C130 246 145 246 155 246C162 246 165 249 165 255L165 275C155 272 140 268 120 275L120 246Z" fill="hsl(200 50% 78%)" opacity="0.45" />
+
+          {/* Streets — horizontal */}
+          <line x1="48" y1="262" x2="118" y2="262" stroke="hsl(40 18% 82%)" strokeWidth="3" />
+          <line x1="48" y1="278" x2="118" y2="278" stroke="hsl(40 18% 82%)" strokeWidth="2.5" />
+          <line x1="48" y1="292" x2="118" y2="292" stroke="hsl(40 18% 82%)" strokeWidth="2" />
+          <line x1="48" y1="305" x2="118" y2="305" stroke="hsl(40 18% 82%)" strokeWidth="1.5" />
+
+          {/* Streets — vertical */}
+          <line x1="68" y1="250" x2="68" y2="312" stroke="hsl(40 18% 82%)" strokeWidth="2.5" />
+          <line x1="95" y1="250" x2="95" y2="312" stroke="hsl(40 18% 82%)" strokeWidth="3" />
+          <line x1="118" y1="250" x2="118" y2="312" stroke="hsl(40 18% 82%)" strokeWidth="2" />
+
+          {/* Blocks (land between streets) */}
+          <rect x="50" y="264" width="16" height="12" rx="1.5" fill="hsl(40 20% 88%)" opacity="0.5" />
+          <rect x="70" y="264" width="23" height="12" rx="1.5" fill="hsl(40 20% 86%)" opacity="0.45" />
+          <rect x="50" y="280" width="16" height="10" rx="1.5" fill="hsl(40 20% 88%)" opacity="0.4" />
+          <rect x="70" y="280" width="23" height="10" rx="1.5" fill="hsl(40 20% 86%)" opacity="0.5" />
+          <rect x="97" y="264" width="19" height="12" rx="1.5" fill="hsl(107 15% 88%)" opacity="0.4" />
+          <rect x="97" y="280" width="19" height="10" rx="1.5" fill="hsl(107 15% 86%)" opacity="0.45" />
+
+          {/* Green patch / park */}
+          <ellipse cx="60" cy="302" rx="10" ry="5" fill="hsl(107 25% 70%)" opacity="0.35" />
+
           {/* Map pin */}
-          <g transform="translate(102, 258)">
-            <path d="M0 -10C-5 -10 -8 -6 -8 -2C-8 3 0 10 0 10C0 10 8 3 8 -2C8 -6 5 -10 0 -10Z"
-              fill="hsl(21 78% 57%)" opacity="0.8" />
-            <circle cx="0" cy="-3" r="2.5" fill="hsl(40 33% 97%)" />
+          <g transform="translate(88, 267)">
+            <path d="M0 -8C-4 -8 -7 -5 -7 -2C-7 2.5 0 8 0 8C0 8 7 2.5 7 -2C7 -5 4 -8 0 -8Z"
+              fill="hsl(21 78% 57%)" />
+            <circle cx="0" cy="-2.5" r="2.2" fill="hsl(40 33% 97%)" />
           </g>
-          {/* Subtle glow around pin */}
+          {/* Pin glow */}
           <motion.circle
-            cx="102" cy="258" r="10"
-            fill="hsl(21 78% 57%)" opacity="0.06"
-            animate={{ r: [10, 14, 10], opacity: [0.06, 0.12, 0.06] }}
+            cx="88" cy="267" r="10"
+            fill="hsl(21 78% 57%)" opacity="0.08"
+            animate={{ r: [10, 14, 10], opacity: [0.08, 0.15, 0.08] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           />
 
           {/* Input bar at bottom */}
-          <rect x="42" y="318" width="120" height="22" rx="11" fill="hsl(40 25% 90%)"
+          <rect x="42" y="326" width="120" height="22" rx="11" fill="hsl(40 25% 90%)"
             stroke="hsl(80 8% 78%)" strokeWidth="1" />
-          <rect x="52" y="327" width="40" height="3" rx="1.5" fill="hsl(80 8% 78%)" opacity="0.5" />
-          <circle cx="174" cy="329" r="8" fill="hsl(21 78% 57%)" opacity="0.25" />
-          <path d="M171 329L177 329M174 326L174 332" stroke="hsl(21 78% 57%)" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
-
-          {/* Typing indicator */}
-          <rect x="42" y="345" width="40" height="14" rx="7" fill="hsl(107 18% 52%)" opacity="0.08" />
-          {[0, 1, 2].map((i) => (
-            <motion.circle
-              key={i}
-              cx={54 + i * 8}
-              cy="352"
-              r="2"
-              fill="hsl(107 18% 52%)"
-              opacity="0.3"
-              animate={{ opacity: [0.2, 0.6, 0.2] }}
-              transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
-            />
-          ))}
+          <rect x="52" y="335" width="40" height="3" rx="1.5" fill="hsl(80 8% 78%)" opacity="0.5" />
+          <circle cx="174" cy="337" r="8" fill="hsl(21 78% 57%)" opacity="0.25" />
+          <path d="M171 337L177 337M174 334L174 340" stroke="hsl(21 78% 57%)" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
         </motion.g>
-
-        {/* ═══ ARCING ATTRACTOR LINES — chat to each person ═══ */}
-        {people.map((p, i) => {
-          const startX = 210;
-          const startY = 260;
-          const endX = p.tx + 12;
-          const endY = p.ty + p.headR;
-          // Curve upward for a nice arc
-          const cpx = (startX + endX) / 2;
-          const cpy = Math.min(startY, endY) - 40 - i * 15;
-          return (
-            <motion.path
-              key={i}
-              d={`M${startX} ${startY} Q${cpx} ${cpy} ${endX} ${endY}`}
-              stroke="hsl(21 78% 57%)"
-              strokeWidth="1.5"
-              strokeDasharray="5 6"
-              fill="none"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 0.25 }}
-              transition={{ duration: 1.8, delay: 0.6 + i * 0.15, ease: "easeOut" }}
-            />
-          );
-        })}
 
         {/* ═══ RIGHT SIDE — MAIN STREET ═══ */}
         <motion.g
@@ -196,29 +172,6 @@ const HeroIllustration = () => {
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
           <rect x="490" y="315" width="26" height="55" rx="3" fill="hsl(93 33% 25%)" opacity="0.12" />
 
-          {/* ═══ PEOPLE on the street ═══ */}
-          {people.map((p, i) => {
-            const bodyH = p.headR * 4.5;
-            const bodyW = p.headR * 2.2;
-            return (
-              <motion.g
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: p.delay }}
-              >
-                <g transform={`translate(${p.tx}, ${p.ty})`}>
-                  <ellipse cx={bodyW / 2} cy={p.headR + bodyH + 2} rx={bodyW * 0.7} ry={2.5} fill="hsl(93 33% 18%)" opacity="0.06" />
-                  <circle cx={bodyW / 2} cy={p.headR} r={p.headR} fill={p.color} />
-                  <path
-                    d={`M${bodyW * 0.15} ${p.headR * 2.2}C${bodyW * 0.15} ${p.headR * 1.6} ${bodyW * 0.3} ${p.headR * 1.3} ${bodyW / 2} ${p.headR * 1.3}C${bodyW * 0.7} ${p.headR * 1.3} ${bodyW * 0.85} ${p.headR * 1.6} ${bodyW * 0.85} ${p.headR * 2.2}L${bodyW * 0.9} ${p.headR + bodyH}C${bodyW * 0.9} ${p.headR + bodyH + 2} ${bodyW * 0.7} ${p.headR + bodyH + 3} ${bodyW / 2} ${p.headR + bodyH + 3}C${bodyW * 0.3} ${p.headR + bodyH + 3} ${bodyW * 0.1} ${p.headR + bodyH + 2} ${bodyW * 0.1} ${p.headR + bodyH}L${bodyW * 0.15} ${p.headR * 2.2}Z`}
-                    fill={p.color}
-                  />
-                </g>
-              </motion.g>
-            );
-          })}
-
           {/* Bushes */}
           <ellipse cx="270" cy="370" rx="20" ry="10" fill="hsl(107 18% 52%)" opacity="0.2" />
           <ellipse cx="460" cy="372" rx="16" ry="8" fill="hsl(107 18% 52%)" opacity="0.18" />
@@ -238,6 +191,56 @@ const HeroIllustration = () => {
             </g>
           ))}
         </motion.g>
+
+        {/* ═══ PEOPLE (rendered after buildings so they're in front) ═══ */}
+        {people.map((p, i) => (
+          <motion.g
+            key={i}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: p.delay }}
+          >
+            <g transform={`translate(${p.tx}, ${p.ty})`}>
+              {/* Shadow */}
+              <ellipse cx="0" cy="48" rx="9" ry="3" fill="hsl(93 33% 18%)" opacity="0.08" />
+              {/* Head */}
+              <circle cx="0" cy="0" r="7" fill={p.color} />
+              {/* Neck */}
+              <rect x="-2.5" y="6" width="5" height="5" rx="1" fill={p.color} />
+              {/* Torso */}
+              <path d="M-10 14C-10 11 -6 9 0 9C6 9 10 11 10 14L10 30C10 32 6 33 0 33C-6 33 -10 32 -10 30Z" fill={p.color} />
+              {/* Arms */}
+              <path d="M-10 15L-14 26C-14.5 27.5 -13 28 -12 27L-10 22" fill={p.color} opacity="0.85" />
+              <path d="M10 15L14 26C14.5 27.5 13 28 12 27L10 22" fill={p.color} opacity="0.85" />
+              {/* Legs */}
+              <rect x="-6" y="32" width="5" height="14" rx="2" fill={p.color} opacity="0.9" />
+              <rect x="1" y="32" width="5" height="14" rx="2" fill={p.color} opacity="0.9" />
+            </g>
+          </motion.g>
+        ))}
+
+        {/* ═══ ARCING LINES — rendered LAST so they're on top of everything ═══ */}
+        {people.map((p, i) => {
+          const startX = 210;
+          const startY = 260;
+          const endX = p.tx;
+          const endY = p.ty - 5;
+          const cpx = (startX + endX) / 2;
+          const cpy = Math.min(startY, endY) - 50 - i * 18;
+          return (
+            <motion.path
+              key={`line-${i}`}
+              d={`M${startX} ${startY} Q${cpx} ${cpy} ${endX} ${endY}`}
+              stroke="hsl(21 78% 57%)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              fill="none"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.7 }}
+              transition={{ duration: 1.5, delay: 0.5 + i * 0.12, ease: "easeOut" }}
+            />
+          );
+        })}
       </svg>
     </div>
   );
