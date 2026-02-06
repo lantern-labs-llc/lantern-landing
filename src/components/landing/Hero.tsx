@@ -22,9 +22,8 @@ const Hero = () => (
         </div>
 
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6">
-          Help AI Chatbots{" "}
-          <span className="text-gradient-lantern italic">Discover</span>{" "}
-          Your Business
+          Turn AI Chats into{" "}
+          <span className="text-gradient-lantern italic">Real Customers</span>
         </h1>
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
