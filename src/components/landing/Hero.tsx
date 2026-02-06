@@ -31,6 +31,10 @@ const Hero = () => (
           <em>you</em> — and then convert into actual customers.
         </p>
 
+        <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
+          Our mission is to support local business. Lantern is your no-risk (pay for performance only), know-nothing (no knowledge of AI required), no-brainer solution to connect your store with new customers.
+        </p>
+
         <div className="flex flex-wrap gap-4">
           <Button asChild size="lg" className="shadow-lantern">
             <a href="#waitlist">
