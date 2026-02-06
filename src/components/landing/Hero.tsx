@@ -2,11 +2,18 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-illustration.jpg";
+import { DoodleChatBubble, DoodleMapPin, DoodleStar, DoodleLantern } from "./Doodles";
 
 const Hero = () => (
   <section className="relative min-h-screen flex items-center bg-hero-gradient overflow-hidden pt-16">
     {/* Glow effect */}
     <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-glow pointer-events-none animate-glow-pulse" />
+
+    {/* Doodle accents */}
+    <DoodleChatBubble className="w-16 top-[18%] left-[5%] opacity-[0.06] rotate-[-12deg]" />
+    <DoodleMapPin className="w-10 bottom-[20%] left-[8%] opacity-[0.07] rotate-[8deg]" />
+    <DoodleStar className="w-8 top-[25%] right-[6%] opacity-[0.06]" />
+    <DoodleLantern className="w-12 bottom-[15%] right-[5%] opacity-[0.05] rotate-[6deg]" />
 
     <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20 lg:py-0">
       {/* Copy */}
