@@ -29,7 +29,7 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
           Millions of people now ask chatbots for local recommendations. Lantern makes sure the right people hear about{" "}
-          <em>you</em> — and then become actual customers.
+          <em>your business</em> — and then become actual customers.
         </p>
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">Lantern is your no-risk (pay-for-performance), know-nothing (no knowledge of AI required!), no-brainer solution for new customers.</p>
