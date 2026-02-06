@@ -28,7 +28,7 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
         </h1>
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-          Millions of people now ask chatbots for local business recommendations. Lantern makes sure the right people hear about{" "}
+          Millions of people now ask chatbots for local recommendations. Lantern makes sure the right people hear about{" "}
           <em>you</em> — and then become actual customers.
         </p>
 
