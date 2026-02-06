@@ -4,7 +4,7 @@ const team = [
   { name: "Jay Ashton", role: "CEO & Co‑Founder", bio: "Former Google Search lead. Passionate about leveling the playing field for local businesses.", initials: "JA" },
   { name: "Maria Santos", role: "CTO & Co‑Founder", bio: "AI researcher turned entrepreneur. Built recommendation systems at scale.", initials: "MS" },
   { name: "James Okafor", role: "Head of Partnerships", bio: "10 years helping SMBs grow. Knows Main Street inside and out.", initials: "JO" },
-];
+] as const;
 
 const Team = () => (
   <section id="team" className="section-padding bg-lantern-sage-light relative overflow-hidden">
