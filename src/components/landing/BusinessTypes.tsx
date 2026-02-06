@@ -20,9 +20,9 @@ const businesses = [
 
 const BusinessTypes = () => (
   <section id="businesses" className="section-padding relative overflow-hidden">
-    <DoodleCoffee className="w-14 top-20 right-[5%] opacity-[0.06] rotate-[-8deg]" />
-    <DoodleScissors className="w-12 bottom-16 left-[4%] opacity-[0.05] rotate-[15deg]" />
-    <DoodleMapPin className="w-9 top-12 left-[8%] opacity-[0.05] rotate-[-5deg]" />
+    <DoodleCoffee className="w-14 top-20 right-[5%] opacity-[0.14] rotate-[-8deg]" />
+    <DoodleScissors className="w-12 bottom-16 left-[4%] opacity-[0.13] rotate-[15deg]" />
+    <DoodleMapPin className="w-9 top-12 left-[8%] opacity-[0.12] rotate-[-5deg]" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

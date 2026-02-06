@@ -14,8 +14,8 @@ const PayForPerformance = () => (
   <section className="section-padding bg-lantern-deep text-lantern-cream relative overflow-hidden">
     {/* Subtle glow */}
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-glow opacity-30 pointer-events-none" />
-    <DoodleCoins className="w-16 top-16 right-[6%] opacity-[0.08]" color="text-lantern-cream" />
-    <DoodleStar className="w-8 bottom-12 left-[5%] opacity-[0.07] rotate-[12deg]" color="text-lantern-cream" />
+    <DoodleCoins className="w-16 top-16 right-[6%] opacity-[0.16]" color="text-lantern-cream" />
+    <DoodleStar className="w-8 bottom-12 left-[5%] opacity-[0.14] rotate-[12deg]" color="text-lantern-cream" />
 
     <div className="max-w-7xl mx-auto relative z-10">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
