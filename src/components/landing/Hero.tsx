@@ -2,22 +2,21 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-illustration.jpg";
-import { DoodleLanternPost, DoodleHangingLantern, DoodleStorefront, DoodleCobblestone } from "./Doodles";
+import { DoodleLanternPost, DoodleHangingLantern, DoodleStorefront, DoodleCobblestone, DoodleWindowBox } from "./Doodles";
 
 const Hero = () => (
   <section className="relative min-h-screen flex items-center bg-hero-gradient overflow-hidden pt-16">
-    {/* Glow effect */}
     <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-glow pointer-events-none animate-glow-pulse" />
 
-    {/* Doodle accents */}
-    <DoodleLanternPost className="w-14 top-[10%] left-[3%] opacity-[0.18]" />
-    <DoodleHangingLantern className="w-10 top-[8%] right-[5%] opacity-[0.16]" />
-    <DoodleStorefront className="w-24 bottom-[12%] left-[4%] opacity-[0.12]" />
-    <DoodleCobblestone className="w-40 bottom-[6%] right-[8%] opacity-[0.14]" />
-    <DoodleHangingLantern className="w-8 top-[55%] left-[10%] opacity-[0.10] rotate-[8deg]" />
+    {/* Doodle accents – varied angles */}
+    <DoodleLanternPost className="w-16 top-[8%] left-[2%] opacity-[0.18] rotate-[6deg]" />
+    <DoodleHangingLantern className="w-11 top-[6%] right-[6%] opacity-[0.16] -rotate-[10deg]" />
+    <DoodleStorefront className="w-28 bottom-[10%] left-[3%] opacity-[0.13] rotate-[4deg]" />
+    <DoodleCobblestone className="w-44 bottom-[5%] right-[6%] opacity-[0.15] rotate-[-3deg]" />
+    <DoodleWindowBox className="w-12 top-[50%] right-[3%] opacity-[0.11] rotate-[12deg]" />
+    <DoodleHangingLantern className="w-9 bottom-[30%] left-[8%] opacity-[0.10] rotate-[-15deg]" />
 
     <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20 lg:py-0">
-      {/* Copy */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,7 +58,6 @@ const Hero = () => (
         </p>
       </motion.div>
 
-      {/* Hero image */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}

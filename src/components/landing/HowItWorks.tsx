@@ -1,36 +1,19 @@
 import { motion } from "framer-motion";
 import { Search, Zap, DollarSign } from "lucide-react";
-import { DoodleLanternPost, DoodleCafeShop, DoodleHangingLantern } from "./Doodles";
+import { DoodleLanternPost, DoodleCafeShop, DoodleHangingLantern, DoodleCobblestone } from "./Doodles";
 
 const steps = [
-  {
-    icon: Search,
-    step: "01",
-    title: "We Learn Your Business",
-    description:
-      "We dive deep into what makes your business special — your story, your strengths, your community reputation — and craft the perfect AI profile.",
-  },
-  {
-    icon: Zap,
-    step: "02",
-    title: "AI Chatbots Recommend You",
-    description:
-      "When someone asks ChatGPT, Gemini, or any AI assistant for a recommendation in your area, your business comes up — naturally and authentically.",
-  },
-  {
-    icon: DollarSign,
-    step: "03",
-    title: "You Only Pay for Results",
-    description:
-      "Every visitor lands on a custom AI‑optimized page designed to convert. You pay only when it works. No retainers, no guesswork.",
-  },
+  { icon: Search, step: "01", title: "We Learn Your Business", description: "We dive deep into what makes your business special — your story, your strengths, your community reputation — and craft the perfect AI profile." },
+  { icon: Zap, step: "02", title: "AI Chatbots Recommend You", description: "When someone asks ChatGPT, Gemini, or any AI assistant for a recommendation in your area, your business comes up — naturally and authentically." },
+  { icon: DollarSign, step: "03", title: "You Only Pay for Results", description: "Every visitor lands on a custom AI‑optimized page designed to convert. You pay only when it works. No retainers, no guesswork." },
 ];
 
 const HowItWorks = () => (
   <section id="how-it-works" className="section-padding relative overflow-hidden">
-    <DoodleLanternPost className="w-12 top-10 left-[3%] opacity-[0.15]" />
-    <DoodleCafeShop className="w-20 bottom-10 right-[4%] opacity-[0.13]" />
-    <DoodleHangingLantern className="w-9 top-[30%] right-[6%] opacity-[0.14]" />
+    <DoodleLanternPost className="w-14 top-8 left-[2%] opacity-[0.16] rotate-[-7deg]" />
+    <DoodleCafeShop className="w-22 bottom-8 right-[3%] opacity-[0.14] rotate-[5deg]" />
+    <DoodleHangingLantern className="w-10 top-[28%] right-[5%] opacity-[0.15] rotate-[10deg]" />
+    <DoodleCobblestone className="w-36 bottom-4 left-[6%] opacity-[0.11] rotate-[-4deg]" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

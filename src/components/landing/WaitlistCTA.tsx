@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { DoodleLanternPost, DoodleStorefront, DoodleHangingLantern, DoodleTownRow } from "./Doodles";
+import { DoodleLanternPost, DoodleStorefront, DoodleHangingLantern, DoodleTownRow, DoodleStreetLamp } from "./Doodles";
 
 const WaitlistCTA = () => {
   const [email, setEmail] = useState("");
@@ -24,10 +24,11 @@ const WaitlistCTA = () => {
   return (
     <section id="waitlist" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-glow pointer-events-none" />
-      <DoodleLanternPost className="w-14 top-6 left-[3%] opacity-[0.16]" />
-      <DoodleHangingLantern className="w-9 top-10 right-[5%] opacity-[0.15]" />
-      <DoodleStorefront className="w-20 bottom-8 right-[4%] opacity-[0.12]" />
-      <DoodleTownRow className="w-56 bottom-4 left-[8%] opacity-[0.10]" />
+      <DoodleLanternPost className="w-16 top-4 left-[2%] opacity-[0.17] rotate-[5deg]" />
+      <DoodleHangingLantern className="w-10 top-8 right-[4%] opacity-[0.16] rotate-[-12deg]" />
+      <DoodleStorefront className="w-22 bottom-6 right-[3%] opacity-[0.13] rotate-[7deg]" />
+      <DoodleTownRow className="w-60 bottom-2 left-[6%] opacity-[0.11] rotate-[-2deg]" />
+      <DoodleStreetLamp className="w-9 bottom-[35%] left-[5%] opacity-[0.10] rotate-[15deg]" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
