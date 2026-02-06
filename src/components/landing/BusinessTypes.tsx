@@ -7,7 +7,7 @@ import {
   Stethoscope,
   GraduationCap,
 } from "lucide-react";
-import { DoodleCoffee, DoodleScissors, DoodleMapPin } from "./Doodles";
+import { DoodleLightRay, DoodleSwirl, DoodleSparkle, DoodleRipple } from "./Doodles";
 
 const businesses = [
   { icon: UtensilsCrossed, name: "Restaurants & Cafés", desc: "Get recommended when locals ask 'Where should I eat tonight?'" },
@@ -20,9 +20,11 @@ const businesses = [
 
 const BusinessTypes = () => (
   <section id="businesses" className="section-padding relative overflow-hidden">
-    <DoodleCoffee className="w-14 top-20 right-[5%] opacity-[0.14] rotate-[-8deg]" />
-    <DoodleScissors className="w-12 bottom-16 left-[4%] opacity-[0.13] rotate-[15deg]" />
-    <DoodleMapPin className="w-9 top-12 left-[8%] opacity-[0.12] rotate-[-5deg]" />
+    <DoodleLightRay className="w-36 top-16 right-[3%] opacity-[0.10] rotate-[-12deg]" />
+    <DoodleSwirl className="w-14 bottom-20 left-[4%] opacity-[0.13] rotate-[15deg]" />
+    <DoodleSparkle className="w-6 top-[25%] left-[8%] opacity-[0.14] rotate-[-5deg]" />
+    <DoodleRipple className="w-20 bottom-10 right-[10%] opacity-[0.11]" />
+    <DoodleSparkle className="w-5 top-[50%] right-[20%] opacity-[0.12] rotate-[35deg]" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
