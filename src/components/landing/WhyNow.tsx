@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { MessageSquare, TrendingDown, Eye } from "lucide-react";
-import { DoodleGlowOrb, DoodleSparkle, DoodleFlowLine } from "./Doodles";
+import { DoodleStreetLamp, DoodleWindowBox, DoodleHangingSign } from "./Doodles";
 
 const stats = [
   {
@@ -22,10 +22,9 @@ const stats = [
 
 const WhyNow = () => (
   <section className="section-padding bg-lantern-sage-light relative overflow-hidden">
-    <DoodleGlowOrb className="w-14 top-10 right-[6%] opacity-[0.14]" color="text-accent" />
-    <DoodleSparkle className="w-7 bottom-20 left-[5%] opacity-[0.16] rotate-[-15deg]" color="text-accent" />
-    <DoodleFlowLine className="w-48 top-[45%] left-[-3%] opacity-[0.10] rotate-[5deg]" color="text-accent" />
-    <DoodleSparkle className="w-5 top-[30%] left-[40%] opacity-[0.12] rotate-[30deg]" color="text-accent" />
+    <DoodleStreetLamp className="w-10 top-8 right-[5%] opacity-[0.16]" color="text-accent" />
+    <DoodleWindowBox className="w-14 bottom-12 left-[4%] opacity-[0.14]" color="text-accent" />
+    <DoodleHangingSign className="w-12 top-[35%] left-[2%] opacity-[0.12]" color="text-accent" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

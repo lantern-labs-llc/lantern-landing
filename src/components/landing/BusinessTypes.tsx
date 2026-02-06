@@ -7,7 +7,7 @@ import {
   Stethoscope,
   GraduationCap,
 } from "lucide-react";
-import { DoodleLightRay, DoodleSwirl, DoodleSparkle, DoodleRipple } from "./Doodles";
+import { DoodleStorefront, DoodleHangingSign, DoodleLanternPost, DoodleWindowBox } from "./Doodles";
 
 const businesses = [
   { icon: UtensilsCrossed, name: "Restaurants & Cafés", desc: "Get recommended when locals ask 'Where should I eat tonight?'" },
@@ -20,11 +20,10 @@ const businesses = [
 
 const BusinessTypes = () => (
   <section id="businesses" className="section-padding relative overflow-hidden">
-    <DoodleLightRay className="w-36 top-16 right-[3%] opacity-[0.10] rotate-[-12deg]" />
-    <DoodleSwirl className="w-14 bottom-20 left-[4%] opacity-[0.13] rotate-[15deg]" />
-    <DoodleSparkle className="w-6 top-[25%] left-[8%] opacity-[0.14] rotate-[-5deg]" />
-    <DoodleRipple className="w-20 bottom-10 right-[10%] opacity-[0.11]" />
-    <DoodleSparkle className="w-5 top-[50%] right-[20%] opacity-[0.12] rotate-[35deg]" />
+    <DoodleStorefront className="w-24 top-12 right-[3%] opacity-[0.14]" />
+    <DoodleHangingSign className="w-12 bottom-16 left-[3%] opacity-[0.16]" />
+    <DoodleLanternPost className="w-10 top-[40%] left-[2%] opacity-[0.13]" />
+    <DoodleWindowBox className="w-12 bottom-10 right-[8%] opacity-[0.12]" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

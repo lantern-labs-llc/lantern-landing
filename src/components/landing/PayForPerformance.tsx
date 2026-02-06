@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
-import { DoodleBeamBurst, DoodleSparkle, DoodleFieldLines } from "./Doodles";
+import { DoodleHangingLantern, DoodleStreetLamp, DoodleCobblestone } from "./Doodles";
 
 const benefits = [
   "No setup fees or monthly retainers",
@@ -14,10 +14,9 @@ const PayForPerformance = () => (
   <section className="section-padding bg-lantern-deep text-lantern-cream relative overflow-hidden">
     {/* Subtle glow */}
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-glow opacity-30 pointer-events-none" />
-    <DoodleBeamBurst className="w-16 top-14 right-[5%] opacity-[0.14]" color="text-lantern-cream" />
-    <DoodleSparkle className="w-6 bottom-16 left-[4%] opacity-[0.16] rotate-[12deg]" color="text-lantern-cream" />
-    <DoodleFieldLines className="w-24 bottom-[20%] right-[15%] opacity-[0.10] rotate-[30deg]" color="text-lantern-cream" />
-    <DoodleSparkle className="w-5 top-[35%] left-[15%] opacity-[0.12] rotate-[-20deg]" color="text-lantern-cream" />
+    <DoodleHangingLantern className="w-12 top-10 right-[5%] opacity-[0.18]" color="text-lantern-cream" />
+    <DoodleStreetLamp className="w-10 bottom-10 left-[4%] opacity-[0.15]" color="text-lantern-cream" />
+    <DoodleCobblestone className="w-36 bottom-6 right-[10%] opacity-[0.12]" color="text-lantern-cream" />
 
     <div className="max-w-7xl mx-auto relative z-10">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
