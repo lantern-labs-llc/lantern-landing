@@ -46,9 +46,7 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
           </Button>
         </div>
 
-        <p className="mt-6 text-xs text-muted-foreground">
-          🔥 Over 500 businesses already on the waitlist
-        </p>
+        <p className="mt-6 text-xs text-muted-foreground">🔥 Currently focused on our hometown of Charlottesville, VA!</p>
       </motion.div>
 
       <motion.div initial={{
