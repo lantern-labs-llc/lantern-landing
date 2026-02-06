@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
 /**
- * Hero illustration: A clearly winding road (yellow-brick-road style) snakes
- * from the horizon to the foreground. A large friendly lantern glows at the
- * bottom-center. People are scattered randomly along the landscape, with
- * dashed magnetic attractor lines pulling them toward the lantern.
+ * Beacon / Magnet metaphor illustration (v1 layout):
+ * Central glowing lantern with stylized human silhouettes scattered around,
+ * drawn toward it along curved dashed attractor lines.
+ * Lantern post design from the latest iteration.
  */
 
 const Person = ({
@@ -32,39 +32,30 @@ const Person = ({
   </svg>
 );
 
-/* ── People scattered randomly across the scene ── */
-interface ScatteredPerson {
-  x: number; y: number; size: number; color: string; delay: number; flip?: boolean;
+interface FlowingPerson {
+  x: number; y: number; size: number; color: string; delay: number;
+  flip?: boolean; dx: number; dy: number;
 }
 
-const people: ScatteredPerson[] = [
-  // Far
-  { x: 18, y: 12, size: 13, color: "hsl(21 78% 67%)", delay: 1.0 },
-  { x: 72, y: 10, size: 12, color: "hsl(107 18% 52%)", delay: 1.1, flip: true },
-  { x: 8, y: 22, size: 14, color: "hsl(93 33% 25%)", delay: 0.9 },
-  { x: 82, y: 18, size: 13, color: "hsl(21 78% 57%)", delay: 0.95, flip: true },
-  // Mid
-  { x: 5, y: 38, size: 20, color: "hsl(107 22% 42%)", delay: 0.7 },
-  { x: 85, y: 35, size: 18, color: "hsl(21 78% 62%)", delay: 0.75, flip: true },
-  { x: 25, y: 45, size: 22, color: "hsl(21 78% 57%)", delay: 0.6 },
-  { x: 70, y: 42, size: 19, color: "hsl(107 18% 52%)", delay: 0.65, flip: true },
-  // Close
-  { x: 2, y: 58, size: 28, color: "hsl(93 33% 18%)", delay: 0.4 },
-  { x: 80, y: 55, size: 26, color: "hsl(21 78% 57%)", delay: 0.45, flip: true },
-  { x: 15, y: 70, size: 32, color: "hsl(107 22% 42%)", delay: 0.3 },
-  { x: 75, y: 72, size: 30, color: "hsl(21 78% 62%)", delay: 0.35, flip: true },
+const people: FlowingPerson[] = [
+  { x: 2, y: 8, size: 28, color: "hsl(21 78% 57%)", delay: 0.3, dx: 6, dy: 8 },
+  { x: 10, y: 22, size: 34, color: "hsl(107 18% 52%)", delay: 0.5, dx: 5, dy: 5 },
+  { x: 0, y: 48, size: 30, color: "hsl(93 33% 18%)", delay: 0.7, dx: 8, dy: 3 },
+  { x: 12, y: 72, size: 32, color: "hsl(21 78% 57%)", delay: 0.4, flip: true, dx: 5, dy: -4 },
+  { x: 28, y: 82, size: 26, color: "hsl(107 18% 52%)", delay: 0.9, dx: 3, dy: -6 },
+  { x: 72, y: 6, size: 30, color: "hsl(107 18% 52%)", delay: 0.6, flip: true, dx: -5, dy: 7 },
+  { x: 82, y: 20, size: 26, color: "hsl(93 33% 18%)", delay: 0.8, flip: true, dx: -7, dy: 5 },
+  { x: 85, y: 50, size: 32, color: "hsl(21 78% 57%)", delay: 0.45, flip: true, dx: -8, dy: 2 },
+  { x: 75, y: 75, size: 28, color: "hsl(93 33% 18%)", delay: 0.65, flip: true, dx: -5, dy: -5 },
+  { x: 60, y: 85, size: 24, color: "hsl(107 18% 52%)", delay: 1.0, flip: true, dx: -2, dy: -7 },
 ];
 
-/* Lantern center in SVG coords (where attractor lines converge) */
 const LANTERN_CX = 200;
-const LANTERN_CY = 360;
+const LANTERN_CY = 200;
 
-/* Build a curved attractor path from person to lantern */
 const attractorPath = (px: number, py: number) => {
-  // Convert percent to SVG coords (400x420 viewBox)
   const sx = (px / 100) * 400 + 15;
-  const sy = (py / 100) * 420 + 10;
-  // Control point — offset sideways for a nice curve
+  const sy = (py / 100) * 400 + 10;
   const cpx = (sx + LANTERN_CX) / 2 + (sx < LANTERN_CX ? -40 : 40);
   const cpy = (sy + LANTERN_CY) / 2;
   return `M${sx} ${sy} Q${cpx} ${cpy} ${LANTERN_CX} ${LANTERN_CY}`;
@@ -72,91 +63,9 @@ const attractorPath = (px: number, py: number) => {
 
 const HeroIllustration = () => {
   return (
-    <div className="relative w-full max-w-lg mx-auto" style={{ aspectRatio: "0.95" }}>
-      {/* ── Road + attractor lines + scenery ── */}
-      <svg
-        viewBox="0 0 400 420"
-        className="absolute inset-0 w-full h-full"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        {/* ── Winding road — S-curve from horizon to foreground ── */}
-        {/* Road surface */}
-        <path
-          d="M185 30 C150 80, 260 130, 240 180
-             C220 230, 120 260, 140 310
-             C160 360, 100 390, 60 420
-             L340 420
-             C300 390, 240 360, 260 310
-             C280 260, 380 230, 360 180
-             C340 130, 250 80, 215 30 Z"
-          fill="hsl(40 28% 83%)"
-          opacity="0.5"
-        />
-        {/* Road edges */}
-        <path
-          d="M185 30 C150 80, 260 130, 240 180
-             C220 230, 120 260, 140 310
-             C160 360, 100 390, 60 420"
-          stroke="hsl(40 20% 72%)"
-          strokeWidth="2"
-          fill="none"
-          opacity="0.5"
-        />
-        <path
-          d="M215 30 C250 80, 340 130, 360 180
-             C380 230, 280 260, 260 310
-             C240 360, 300 390, 340 420"
-          stroke="hsl(40 20% 72%)"
-          strokeWidth="2"
-          fill="none"
-          opacity="0.5"
-        />
-
-        {/* Center line — dashed, follows the S-curve */}
-        <path
-          d="M200 30 C200 80, 300 130, 300 180
-             C300 230, 200 260, 200 310
-             C200 360, 200 390, 200 420"
-          stroke="hsl(40 18% 68%)"
-          strokeWidth="2.5"
-          strokeDasharray="12 10"
-          fill="none"
-          opacity="0.5"
-        />
-
-        {/* Grass tufts */}
-        {[
-          { x: 135, y: 150 }, { x: 370, y: 170 },
-          { x: 100, y: 260 }, { x: 300, y: 280 },
-          { x: 55, y: 370 }, { x: 350, y: 360 },
-          { x: 165, y: 90 }, { x: 240, y: 100 },
-        ].map((g, i) => (
-          <g key={i} opacity="0.3">
-            <path d={`M${g.x} ${g.y}C${g.x - 3} ${g.y - 12} ${g.x} ${g.y - 16} ${g.x + 3} ${g.y - 8}`}
-              stroke="hsl(107 18% 52%)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            <path d={`M${g.x + 5} ${g.y}C${g.x + 3} ${g.y - 10} ${g.x + 7} ${g.y - 14} ${g.x + 10} ${g.y - 6}`}
-              stroke="hsl(107 18% 52%)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-          </g>
-        ))}
-
-        {/* Tiny roadside flowers */}
-        {[
-          { cx: 140, cy: 130, c: "hsl(21 78% 67%)" },
-          { cx: 365, cy: 190, c: "hsl(45 85% 65%)" },
-          { cx: 105, cy: 280, c: "hsl(21 78% 62%)" },
-          { cx: 295, cy: 300, c: "hsl(45 85% 65%)" },
-          { cx: 50, cy: 380, c: "hsl(21 78% 67%)" },
-        ].map((f, i) => (
-          <g key={i}>
-            {[0, 72, 144, 216, 288].map((a) => {
-              const rad = (a * Math.PI) / 180;
-              return <circle key={a} cx={f.cx + Math.cos(rad) * 3.5} cy={f.cy + Math.sin(rad) * 3.5} r="2" fill={f.c} opacity="0.45" />;
-            })}
-            <circle cx={f.cx} cy={f.cy} r="1.5" fill="hsl(45 90% 70%)" opacity="0.55" />
-          </g>
-        ))}
-
-        {/* ── Magnetic attractor lines from each person to lantern ── */}
+    <div className="relative w-full max-w-lg mx-auto" style={{ aspectRatio: "1" }}>
+      {/* Attractor lines */}
+      <svg viewBox="0 0 400 400" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
         {people.map((p, i) => (
           <motion.path
             key={i}
@@ -166,30 +75,27 @@ const HeroIllustration = () => {
             strokeDasharray="5 7"
             fill="none"
             initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.22 }}
+            animate={{ pathLength: 1, opacity: 0.25 }}
             transition={{ duration: 2, delay: p.delay, ease: "easeOut" }}
           />
         ))}
       </svg>
 
-      {/* ── Lantern glow ── */}
+      {/* Ambient glow */}
       <motion.div
-        className="absolute left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
-        style={{
-          width: "55%", height: "30%", bottom: "6%",
-          background: "radial-gradient(ellipse, hsl(45 90% 70% / 0.2) 0%, hsl(21 78% 57% / 0.06) 50%, transparent 80%)",
-        }}
-        animate={{ scale: [1, 1.06, 1], opacity: [0.7, 1, 0.7] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] h-[55%] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, hsl(45 90% 70% / 0.18) 0%, hsl(21 78% 57% / 0.06) 50%, transparent 80%)" }}
+        animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* ── Lantern post ── */}
+      {/* Central Lantern (latest version design) */}
       <motion.div
-        className="absolute left-1/2 -translate-x-1/2 z-30"
-        style={{ width: "28%", bottom: "0%" }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+        style={{ width: "28%" }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.1 }}
       >
         <svg viewBox="0 0 120 260" fill="none" className="w-full h-full">
           {/* Rays */}
@@ -245,41 +151,39 @@ const HeroIllustration = () => {
         </svg>
       </motion.div>
 
-      {/* ── People scattered around the scene ── */}
+      {/* People */}
       {people.map((p, i) => (
         <motion.div
           key={i}
           className="absolute z-10"
           style={{ left: `${p.x}%`, top: `${p.y}%` }}
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: p.delay, ease: "easeOut" }}
+          initial={{ opacity: 0, x: -p.dx * 3, y: -p.dy * 3 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          transition={{ duration: 1, delay: p.delay, ease: "easeOut" }}
         >
           <motion.div
-            animate={{
-              x: [0, (LANTERN_CX / 400 * 100 - p.x) * 0.06, 0],
-              y: [0, (LANTERN_CY / 420 * 100 - p.y) * 0.04, 0],
-            }}
-            transition={{ duration: 4 + i * 0.25, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
+            animate={{ x: [0, p.dx, 0], y: [0, p.dy, 0] }}
+            transition={{ duration: 4 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
           >
             <Person color={p.color} size={p.size} flip={p.flip} />
           </motion.div>
         </motion.div>
       ))}
 
-      {/* ── Sparkles near lantern ── */}
+      {/* Sparkles */}
       {[
-        { x: "44%", y: "62%", d: 0 },
-        { x: "54%", y: "58%", d: 0.8 },
-        { x: "42%", y: "72%", d: 1.4 },
-        { x: "56%", y: "68%", d: 0.5 },
+        { x: "42%", y: "38%", d: 0 },
+        { x: "56%", y: "42%", d: 0.6 },
+        { x: "38%", y: "55%", d: 1.2 },
+        { x: "58%", y: "52%", d: 0.9 },
+        { x: "48%", y: "35%", d: 1.5 },
       ].map((s, i) => (
         <motion.div
           key={i}
-          className="absolute w-1.5 h-1.5 rounded-full bg-primary/30"
+          className="absolute w-1.5 h-1.5 rounded-full bg-primary/40"
           style={{ top: s.y, left: s.x }}
-          animate={{ opacity: [0, 0.6, 0], scale: [0.5, 1.3, 0.5] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: s.d }}
+          animate={{ opacity: [0, 0.7, 0], scale: [0.5, 1.2, 0.5] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: s.d }}
         />
       ))}
     </div>
