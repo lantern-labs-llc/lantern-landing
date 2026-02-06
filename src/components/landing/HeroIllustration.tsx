@@ -2,10 +2,18 @@ import { motion } from "framer-motion";
 
 /**
  * Hero illustration: Clean two-part scene.
- * Left: A standalone chat interface with conversation bubbles.
- * Right: A charming main street with storefronts and a friendly person
- * stepping out from the chat side toward the street.
+ * Left: A standalone chat interface with abstract message bars + a map bubble.
+ * Right: A charming main street with storefronts and friendly silhouette people.
+ * Arcing dashed lines connect the chat to each person.
  */
+
+/* Person positions (for both rendering and attractor lines) */
+const people = [
+  { tx: 280, ty: 320, headR: 8, color: "hsl(21 78% 57%)", delay: 0.9 },
+  { tx: 350, ty: 335, headR: 7, color: "hsl(107 18% 52%)", delay: 1.0 },
+  { tx: 420, ty: 328, headR: 6.5, color: "hsl(93 33% 25%)", delay: 1.1 },
+  { tx: 480, ty: 340, headR: 5.5, color: "hsl(21 78% 62%)", delay: 1.3 },
+];
 
 const HeroIllustration = () => {
   return (
@@ -33,66 +41,78 @@ const HeroIllustration = () => {
           {/* Top bar */}
           <rect x="30" y="80" width="180" height="36" rx="18" fill="hsl(93 33% 25%)" />
           <rect x="30" y="100" width="180" height="16" fill="hsl(93 33% 25%)" />
-          {/* Bot avatar dot */}
-          <circle cx="55" cy="97" r="8" fill="hsl(107 18% 52%)" />
-          <circle cx="53" cy="95" r="1.2" fill="white" />
-          <circle cx="57" cy="95" r="1.2" fill="white" />
-          <path d="M52 99C53 100.5 57 100.5 58 99" stroke="white" strokeWidth="0.8" strokeLinecap="round" fill="none" />
-          {/* Title text */}
-          <rect x="70" y="92" width="55" height="4" rx="2" fill="hsl(40 33% 93%)" opacity="0.6" />
-          <rect x="70" y="100" width="35" height="3" rx="1.5" fill="hsl(40 33% 93%)" opacity="0.35" />
+
+          {/* Cloud icon (top-left of chat) */}
+          <g transform="translate(46, 88)">
+            <ellipse cx="9" cy="11" rx="9" ry="6" fill="hsl(107 18% 52%)" />
+            <circle cx="5" cy="8" r="5" fill="hsl(107 18% 52%)" />
+            <circle cx="12" cy="6" r="6" fill="hsl(107 18% 52%)" />
+            <circle cx="16" cy="9" r="4" fill="hsl(107 18% 52%)" />
+            {/* Tiny face on cloud */}
+            <circle cx="8" cy="10" r="1" fill="white" />
+            <circle cx="13" cy="10" r="1" fill="white" />
+            <path d="M8 13C9 14 12 14 13 13" stroke="white" strokeWidth="0.7" strokeLinecap="round" fill="none" />
+          </g>
+
+          {/* Title text placeholders */}
+          <rect x="72" y="92" width="55" height="4" rx="2" fill="hsl(40 33% 93%)" opacity="0.6" />
+          <rect x="72" y="100" width="35" height="3" rx="1.5" fill="hsl(40 33% 93%)" opacity="0.35" />
+
+          {/* ── Chat bubbles (abstract bars, no real text) ── */}
 
           {/* User message 1 */}
-          <rect x="95" y="130" width="100" height="30" rx="12" fill="hsl(21 78% 57%)" opacity="0.18" />
-          <text x="108" y="148" fontSize="9" fill="hsl(21 78% 50%)" fontFamily="DM Sans, sans-serif" fontWeight="500">
-            Best pizza near me?
-          </text>
+          <rect x="100" y="130" width="96" height="26" rx="11" fill="hsl(21 78% 57%)" opacity="0.18" />
+          <rect x="112" y="139" width="52" height="3.5" rx="1.5" fill="hsl(21 78% 57%)" opacity="0.45" />
+          <rect x="112" y="146" width="32" height="3" rx="1.5" fill="hsl(21 78% 57%)" opacity="0.3" />
 
           {/* Bot response 1 */}
-          <rect x="45" y="172" width="115" height="38" rx="12" fill="hsl(107 18% 52%)" opacity="0.12" />
-          <text x="56" y="188" fontSize="8" fill="hsl(93 33% 25%)" fontFamily="DM Sans, sans-serif">
-            I'd recommend trying
-          </text>
-          <text x="56" y="200" fontSize="9" fill="hsl(93 33% 25%)" fontFamily="DM Sans, sans-serif" fontWeight="600">
-            Mario's on Main St! ⭐
-          </text>
+          <rect x="45" y="168" width="110" height="30" rx="11" fill="hsl(107 18% 52%)" opacity="0.12" />
+          <rect x="56" y="177" width="65" height="3.5" rx="1.5" fill="hsl(107 18% 52%)" opacity="0.4" />
+          <rect x="56" y="184" width="42" height="3" rx="1.5" fill="hsl(107 18% 52%)" opacity="0.28" />
 
           {/* User message 2 */}
-          <rect x="105" y="222" width="90" height="26" rx="12" fill="hsl(21 78% 57%)" opacity="0.15" />
-          <text x="116" y="239" fontSize="8.5" fill="hsl(21 78% 50%)" fontFamily="DM Sans, sans-serif" fontWeight="500">
-            How do I get there?
-          </text>
+          <rect x="110" y="210" width="82" height="24" rx="11" fill="hsl(21 78% 57%)" opacity="0.15" />
+          <rect x="120" y="218" width="44" height="3.5" rx="1.5" fill="hsl(21 78% 57%)" opacity="0.4" />
+          <rect x="120" y="225" width="28" height="3" rx="1.5" fill="hsl(21 78% 57%)" opacity="0.25" />
 
-          {/* Bot response 2 — the recommendation with glow */}
-          <motion.rect
-            x="45" y="260" width="130" height="34" rx="12"
-            fill="hsl(45 90% 70%)" opacity="0.15"
-            animate={{ opacity: [0.1, 0.22, 0.1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          {/* Bot response 2 — MAP bubble */}
+          <rect x="45" y="246" width="120" height="60" rx="12" fill="hsl(107 18% 52%)" opacity="0.08" />
+          <rect x="45" y="246" width="120" height="60" rx="12" fill="none" stroke="hsl(107 18% 52%)" strokeWidth="1.2" opacity="0.25" />
+          {/* Map background — criss-cross streets */}
+          <line x1="55" y1="260" x2="155" y2="260" stroke="hsl(40 18% 78%)" strokeWidth="1" opacity="0.4" />
+          <line x1="55" y1="275" x2="155" y2="275" stroke="hsl(40 18% 78%)" strokeWidth="1" opacity="0.4" />
+          <line x1="55" y1="290" x2="155" y2="290" stroke="hsl(40 18% 78%)" strokeWidth="0.8" opacity="0.3" />
+          <line x1="75" y1="250" x2="75" y2="302" stroke="hsl(40 18% 78%)" strokeWidth="0.8" opacity="0.35" />
+          <line x1="105" y1="250" x2="105" y2="302" stroke="hsl(40 18% 78%)" strokeWidth="1" opacity="0.4" />
+          <line x1="135" y1="250" x2="135" y2="302" stroke="hsl(40 18% 78%)" strokeWidth="0.8" opacity="0.35" />
+          {/* Map pin */}
+          <g transform="translate(102, 258)">
+            <path d="M0 -10C-5 -10 -8 -6 -8 -2C-8 3 0 10 0 10C0 10 8 3 8 -2C8 -6 5 -10 0 -10Z"
+              fill="hsl(21 78% 57%)" opacity="0.8" />
+            <circle cx="0" cy="-3" r="2.5" fill="hsl(40 33% 97%)" />
+          </g>
+          {/* Subtle glow around pin */}
+          <motion.circle
+            cx="102" cy="258" r="10"
+            fill="hsl(21 78% 57%)" opacity="0.06"
+            animate={{ r: [10, 14, 10], opacity: [0.06, 0.12, 0.06] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           />
-          <rect x="45" y="260" width="130" height="34" rx="12"
-            fill="none" stroke="hsl(21 78% 57%)" strokeWidth="1.2" opacity="0.35" />
-          <text x="56" y="276" fontSize="8" fill="hsl(93 33% 25%)" fontFamily="DM Sans, sans-serif">
-            Just step right through →
-          </text>
-          <text x="56" y="287" fontSize="7.5" fill="hsl(93 33% 25%)" fontFamily="DM Sans, sans-serif" opacity="0.5">
-            It's waiting for you!
-          </text>
 
           {/* Input bar at bottom */}
-          <rect x="42" y="305" width="120" height="22" rx="11" fill="hsl(40 25% 90%)"
+          <rect x="42" y="318" width="120" height="22" rx="11" fill="hsl(40 25% 90%)"
             stroke="hsl(80 8% 78%)" strokeWidth="1" />
-          <rect x="52" y="314" width="40" height="3" rx="1.5" fill="hsl(80 8% 78%)" opacity="0.5" />
-          <circle cx="174" cy="316" r="8" fill="hsl(21 78% 57%)" opacity="0.25" />
-          <path d="M171 316L177 316M174 313L174 319" stroke="hsl(21 78% 57%)" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
+          <rect x="52" y="327" width="40" height="3" rx="1.5" fill="hsl(80 8% 78%)" opacity="0.5" />
+          <circle cx="174" cy="329" r="8" fill="hsl(21 78% 57%)" opacity="0.25" />
+          <path d="M171 329L177 329M174 326L174 332" stroke="hsl(21 78% 57%)" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
 
-          {/* Typing indicator dots */}
-          <rect x="42" y="335" width="40" height="16" rx="8" fill="hsl(107 18% 52%)" opacity="0.08" />
+          {/* Typing indicator */}
+          <rect x="42" y="345" width="40" height="14" rx="7" fill="hsl(107 18% 52%)" opacity="0.08" />
           {[0, 1, 2].map((i) => (
             <motion.circle
               key={i}
               cx={54 + i * 8}
-              cy="343"
+              cy="352"
               r="2"
               fill="hsl(107 18% 52%)"
               opacity="0.3"
@@ -102,17 +122,29 @@ const HeroIllustration = () => {
           ))}
         </motion.g>
 
-        {/* ═══ CONNECTING ARROW / PATH from chat to street ═══ */}
-        <motion.path
-          d="M210 290 C240 290, 260 310, 280 340"
-          stroke="hsl(21 78% 57%)"
-          strokeWidth="2"
-          strokeDasharray="6 5"
-          fill="none"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.3 }}
-          transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
-        />
+        {/* ═══ ARCING ATTRACTOR LINES — chat to each person ═══ */}
+        {people.map((p, i) => {
+          const startX = 210;
+          const startY = 260;
+          const endX = p.tx + 12;
+          const endY = p.ty + p.headR;
+          // Curve upward for a nice arc
+          const cpx = (startX + endX) / 2;
+          const cpy = Math.min(startY, endY) - 40 - i * 15;
+          return (
+            <motion.path
+              key={i}
+              d={`M${startX} ${startY} Q${cpx} ${cpy} ${endX} ${endY}`}
+              stroke="hsl(21 78% 57%)"
+              strokeWidth="1.5"
+              strokeDasharray="5 6"
+              fill="none"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.25 }}
+              transition={{ duration: 1.8, delay: 0.6 + i * 0.15, ease: "easeOut" }}
+            />
+          );
+        })}
 
         {/* ═══ RIGHT SIDE — MAIN STREET ═══ */}
         <motion.g
@@ -120,32 +152,26 @@ const HeroIllustration = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
-          {/* Building 1 — bakery/café */}
+          {/* Building 1 */}
           <rect x="270" y="195" width="90" height="175" rx="4" fill="hsl(40 30% 95%)"
             stroke="hsl(93 33% 25%)" strokeWidth="2" />
-          {/* Awning */}
           <path d="M265 198H365L360 218H270L265 198Z" fill="hsl(21 78% 62%)" opacity="0.65" />
-          {/* Windows */}
           <rect x="282" y="228" width="28" height="30" rx="3" fill="hsl(45 85% 80%)" opacity="0.4"
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
           <line x1="296" y1="228" x2="296" y2="258" stroke="hsl(93 33% 25%)" strokeWidth="0.8" opacity="0.3" />
           <rect x="320" y="228" width="28" height="30" rx="3" fill="hsl(45 85% 80%)" opacity="0.4"
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
           <line x1="334" y1="228" x2="334" y2="258" stroke="hsl(93 33% 25%)" strokeWidth="0.8" opacity="0.3" />
-          {/* Door */}
           <rect x="300" y="305" width="30" height="65" rx="3" fill="hsl(93 33% 25%)" opacity="0.12" />
           <circle cx="325" cy="340" r="2" fill="hsl(93 33% 25%)" opacity="0.3" />
-          {/* Sign */}
           <rect x="290" y="272" width="50" height="18" rx="4" fill="hsl(40 33% 93%)"
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
           <rect x="298" y="278" width="34" height="3.5" rx="1.5" fill="hsl(93 33% 25%)" opacity="0.4" />
 
-          {/* Building 2 — taller, different color */}
+          {/* Building 2 */}
           <rect x="370" y="160" width="85" height="210" rx="4" fill="hsl(107 16% 91%)"
             stroke="hsl(93 33% 25%)" strokeWidth="2" />
-          {/* Awning */}
           <path d="M366 163H460L456 180H370L366 163Z" fill="hsl(107 18% 52%)" opacity="0.55" />
-          {/* Windows — two rows */}
           <rect x="382" y="190" width="24" height="26" rx="3" fill="hsl(45 85% 80%)" opacity="0.35"
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
           <rect x="418" y="190" width="24" height="26" rx="3" fill="hsl(45 85% 80%)" opacity="0.35"
@@ -154,15 +180,13 @@ const HeroIllustration = () => {
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
           <rect x="418" y="230" width="24" height="26" rx="3" fill="hsl(45 85% 80%)" opacity="0.35"
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
-          {/* Door */}
           <rect x="396" y="310" width="30" height="60" rx="3" fill="hsl(93 33% 25%)" opacity="0.12" />
           <circle cx="421" cy="342" r="2" fill="hsl(93 33% 25%)" opacity="0.3" />
-          {/* Sign */}
           <rect x="388" y="272" width="46" height="18" rx="4" fill="hsl(40 33% 93%)"
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
           <rect x="396" y="278" width="30" height="3.5" rx="1.5" fill="hsl(93 33% 25%)" opacity="0.4" />
 
-          {/* Building 3 — peeking from edge, shorter */}
+          {/* Building 3 */}
           <rect x="465" y="210" width="95" height="160" rx="4" fill="hsl(40 30% 94%)"
             stroke="hsl(93 33% 25%)" strokeWidth="2" />
           <path d="M461 213H560L557 228H465L461 213Z" fill="hsl(21 78% 67%)" opacity="0.5" />
@@ -172,47 +196,30 @@ const HeroIllustration = () => {
             stroke="hsl(93 33% 25%)" strokeWidth="1" />
           <rect x="490" y="315" width="26" height="55" rx="3" fill="hsl(93 33% 25%)" opacity="0.12" />
 
-          {/* ═══ PERSON on the street — simple, friendly silhouette ═══ */}
-          <motion.g
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-          >
-            <g transform="translate(280, 320)">
-              <ellipse cx="12" cy="52" rx="10" ry="3" fill="hsl(93 33% 18%)" opacity="0.06" />
-              <circle cx="12" cy="6" r="8" fill="hsl(21 78% 57%)" />
-              <path d="M4 18C4 13 7 10 12 10C17 10 20 13 20 18L21 44C21 47 17 48 12 48C7 48 3 47 3 44L4 18Z"
-                fill="hsl(21 78% 57%)" />
-            </g>
-          </motion.g>
+          {/* ═══ PEOPLE on the street ═══ */}
+          {people.map((p, i) => {
+            const bodyH = p.headR * 4.5;
+            const bodyW = p.headR * 2.2;
+            return (
+              <motion.g
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: p.delay }}
+              >
+                <g transform={`translate(${p.tx}, ${p.ty})`}>
+                  <ellipse cx={bodyW / 2} cy={p.headR + bodyH + 2} rx={bodyW * 0.7} ry={2.5} fill="hsl(93 33% 18%)" opacity="0.06" />
+                  <circle cx={bodyW / 2} cy={p.headR} r={p.headR} fill={p.color} />
+                  <path
+                    d={`M${bodyW * 0.15} ${p.headR * 2.2}C${bodyW * 0.15} ${p.headR * 1.6} ${bodyW * 0.3} ${p.headR * 1.3} ${bodyW / 2} ${p.headR * 1.3}C${bodyW * 0.7} ${p.headR * 1.3} ${bodyW * 0.85} ${p.headR * 1.6} ${bodyW * 0.85} ${p.headR * 2.2}L${bodyW * 0.9} ${p.headR + bodyH}C${bodyW * 0.9} ${p.headR + bodyH + 2} ${bodyW * 0.7} ${p.headR + bodyH + 3} ${bodyW / 2} ${p.headR + bodyH + 3}C${bodyW * 0.3} ${p.headR + bodyH + 3} ${bodyW * 0.1} ${p.headR + bodyH + 2} ${bodyW * 0.1} ${p.headR + bodyH}L${bodyW * 0.15} ${p.headR * 2.2}Z`}
+                    fill={p.color}
+                  />
+                </g>
+              </motion.g>
+            );
+          })}
 
-          {/* Second person further down */}
-          <motion.g
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1 }}
-          >
-            <g transform="translate(380, 330)">
-              <circle cx="9" cy="5" r="6.5" fill="hsl(107 18% 52%)" />
-              <path d="M3 15C3 11 5 9 9 9C13 9 15 11 15 15L16 36C16 38 13 39 9 39C5 39 2 38 2 36L3 15Z"
-                fill="hsl(107 18% 52%)" />
-            </g>
-          </motion.g>
-
-          {/* Third person, smaller / further */}
-          <motion.g
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.3 }}
-          >
-            <g transform="translate(450, 340)">
-              <circle cx="7" cy="4" r="5" fill="hsl(93 33% 25%)" />
-              <path d="M3 12C3 9 4 8 7 8C10 8 11 9 11 12L12 28C12 30 10 30 7 30C4 30 2 30 2 28L3 12Z"
-                fill="hsl(93 33% 25%)" />
-            </g>
-          </motion.g>
-
-          {/* Bushes / greenery */}
+          {/* Bushes */}
           <ellipse cx="270" cy="370" rx="20" ry="10" fill="hsl(107 18% 52%)" opacity="0.2" />
           <ellipse cx="460" cy="372" rx="16" ry="8" fill="hsl(107 18% 52%)" opacity="0.18" />
           <ellipse cx="540" cy="370" rx="22" ry="10" fill="hsl(107 18% 52%)" opacity="0.15" />
