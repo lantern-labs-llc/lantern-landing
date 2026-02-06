@@ -24,9 +24,9 @@ const WaitlistCTA = () => {
   return (
     <section id="waitlist" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-glow pointer-events-none" />
-      <DoodleEnvelope className="w-16 top-16 left-[6%] opacity-[0.06] rotate-[-10deg]" />
-      <DoodleStar className="w-8 top-12 right-[8%] opacity-[0.05] rotate-[14deg]" />
-      <DoodleStorefront className="w-18 bottom-10 right-[4%] opacity-[0.04] rotate-[5deg]" />
+      <DoodleEnvelope className="w-16 top-16 left-[6%] opacity-[0.14] rotate-[-10deg]" />
+      <DoodleStar className="w-8 top-12 right-[8%] opacity-[0.13] rotate-[14deg]" />
+      <DoodleStorefront className="w-18 bottom-10 right-[4%] opacity-[0.12] rotate-[5deg]" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
