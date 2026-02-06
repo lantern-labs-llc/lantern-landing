@@ -6,56 +6,56 @@
 
 @layer base {
   :root {
-    /* Lantern warm palette */
-    --background: 35 47% 96%;
-    --foreground: 225 28% 14%;
+    /* Lantern palette: cream base, dark green + orange accents */
+    --background: 40 33% 93%;
+    --foreground: 93 33% 18%;
 
-    --card: 36 43% 98%;
-    --card-foreground: 225 28% 14%;
+    --card: 40 30% 96%;
+    --card-foreground: 93 33% 18%;
 
-    --popover: 36 43% 98%;
-    --popover-foreground: 225 28% 14%;
+    --popover: 40 30% 96%;
+    --popover-foreground: 93 33% 18%;
 
-    /* Warm amber - the lantern glow */
-    --primary: 38 78% 56%;
-    --primary-foreground: 225 28% 14%;
+    /* Orange - primary action color */
+    --primary: 21 78% 57%;
+    --primary-foreground: 40 33% 97%;
 
-    /* Soft sage green - trust & growth */
-    --secondary: 125 22% 58%;
-    --secondary-foreground: 0 0% 100%;
+    /* Sage green - secondary */
+    --secondary: 107 18% 52%;
+    --secondary-foreground: 40 33% 97%;
 
-    --muted: 35 25% 91%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 80 12% 83%;
+    --muted-foreground: 93 15% 40%;
 
-    /* Coral accent - warmth & energy */
-    --accent: 14 68% 62%;
-    --accent-foreground: 0 0% 100%;
+    /* Dark green accent */
+    --accent: 93 33% 18%;
+    --accent-foreground: 40 33% 93%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 35 25% 87%;
-    --input: 35 25% 87%;
-    --ring: 38 78% 56%;
+    --border: 80 12% 80%;
+    --input: 80 12% 80%;
+    --ring: 21 78% 57%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
-    --lantern-glow: 38 85% 65%;
-    --lantern-deep: 225 28% 14%;
-    --lantern-cream: 35 47% 96%;
-    --lantern-warm: 30 40% 92%;
-    --lantern-coral: 14 68% 62%;
-    --lantern-sage: 125 22% 58%;
-    --lantern-navy: 220 40% 20%;
+    --lantern-glow: 21 78% 62%;
+    --lantern-deep: 93 33% 18%;
+    --lantern-cream: 40 33% 93%;
+    --lantern-warm: 40 25% 90%;
+    --lantern-coral: 21 78% 57%;
+    --lantern-sage: 107 18% 52%;
+    --lantern-navy: 93 33% 14%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(35 47% 96%) 0%, hsl(38 60% 90%) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(38 85% 65% / 0.15) 0%, transparent 70%);
-    --gradient-cta: linear-gradient(135deg, hsl(38 78% 56%) 0%, hsl(30 80% 50%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(40 33% 93%) 0%, hsl(40 25% 88%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(21 78% 57% / 0.1) 0%, transparent 70%);
+    --gradient-cta: linear-gradient(135deg, hsl(21 78% 57%) 0%, hsl(16 70% 50%) 100%);
 
-    --shadow-soft: 0 4px 20px -4px hsl(38 78% 56% / 0.15);
-    --shadow-card: 0 2px 12px -2px hsl(225 28% 14% / 0.08);
-    --shadow-glow: 0 0 40px 8px hsl(38 85% 65% / 0.12);
+    --shadow-soft: 0 4px 20px -4px hsl(21 78% 57% / 0.15);
+    --shadow-card: 0 2px 12px -2px hsl(93 33% 18% / 0.08);
+    --shadow-glow: 0 0 40px 8px hsl(21 78% 57% / 0.1);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -68,31 +68,25 @@
   }
 
   .dark {
-    --background: 225 28% 10%;
-    --foreground: 35 30% 92%;
-    --card: 225 28% 13%;
-    --card-foreground: 35 30% 92%;
-    --popover: 225 28% 13%;
-    --popover-foreground: 35 30% 92%;
-    --primary: 38 78% 56%;
-    --primary-foreground: 225 28% 14%;
-    --secondary: 125 22% 40%;
+    --background: 93 33% 12%;
+    --foreground: 40 30% 92%;
+    --card: 93 33% 15%;
+    --card-foreground: 40 30% 92%;
+    --popover: 93 33% 15%;
+    --popover-foreground: 40 30% 92%;
+    --primary: 21 78% 57%;
+    --primary-foreground: 40 33% 97%;
+    --secondary: 107 18% 40%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 225 20% 18%;
-    --muted-foreground: 35 15% 60%;
-    --accent: 14 68% 55%;
+    --muted: 93 20% 20%;
+    --muted-foreground: 80 10% 60%;
+    --accent: 21 78% 50%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-    --border: 225 20% 20%;
-    --input: 225 20% 20%;
-    --ring: 38 78% 56%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
+    --border: 93 20% 22%;
+    --input: 93 20% 22%;
+    --ring: 21 78% 57%;
   }
 
   body {
@@ -116,7 +110,7 @@
 
   .text-gradient-lantern {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(38 78% 56%), hsl(14 68% 62%));
+    background-image: linear-gradient(135deg, hsl(21 78% 57%), hsl(107 18% 52%));
   }
 
   .bg-hero-gradient {
