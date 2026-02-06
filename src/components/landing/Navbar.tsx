@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import LanternLogo from "./LanternLogo";
+import lanternLogo from "@/assets/lantern-logo.png";
 
 const navLinks = [
   { label: "How It Works", href: "#how-it-works" },
@@ -17,7 +17,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
         <a href="#" className="flex items-center gap-2.5 text-foreground">
-          <LanternLogo className="h-8 w-auto" />
+          <img src={lanternLogo} alt="Lantern logo" className="h-9 w-auto" />
           <span className="font-display text-xl tracking-tight">Lantern</span>
         </a>
 
