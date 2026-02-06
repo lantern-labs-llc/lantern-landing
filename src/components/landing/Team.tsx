@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { DoodleHeart, DoodleLantern } from "./Doodles";
+import { DoodleGlowOrb, DoodleSwirl, DoodleSparkle } from "./Doodles";
 
 const team = [
   {
@@ -24,8 +24,10 @@ const team = [
 
 const Team = () => (
   <section id="team" className="section-padding bg-lantern-sage-light relative overflow-hidden">
-    <DoodleHeart className="w-10 top-14 right-[7%] opacity-[0.15] rotate-[8deg]" color="text-accent" />
-    <DoodleLantern className="w-11 bottom-10 left-[5%] opacity-[0.14] rotate-[-10deg]" color="text-accent" />
+    <DoodleGlowOrb className="w-12 top-12 right-[6%] opacity-[0.14]" color="text-accent" />
+    <DoodleSwirl className="w-10 bottom-14 left-[5%] opacity-[0.13] rotate-[-10deg]" color="text-accent" />
+    <DoodleSparkle className="w-6 top-[40%] left-[12%] opacity-[0.15] rotate-[20deg]" color="text-accent" />
+    <DoodleSparkle className="w-5 bottom-[30%] right-[12%] opacity-[0.12] rotate-[-25deg]" color="text-accent" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

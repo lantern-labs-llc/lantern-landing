@@ -2,18 +2,21 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-illustration.jpg";
-import { DoodleChatBubble, DoodleMapPin, DoodleStar, DoodleLantern } from "./Doodles";
+import { DoodleLightRay, DoodleGlowOrb, DoodleSparkle, DoodleBeamBurst, DoodleSwirl } from "./Doodles";
 
 const Hero = () => (
   <section className="relative min-h-screen flex items-center bg-hero-gradient overflow-hidden pt-16">
     {/* Glow effect */}
     <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-glow pointer-events-none animate-glow-pulse" />
 
-    {/* Doodle accents */}
-    <DoodleChatBubble className="w-16 top-[18%] left-[5%] opacity-[0.14] rotate-[-12deg]" />
-    <DoodleMapPin className="w-10 bottom-[20%] left-[8%] opacity-[0.15] rotate-[8deg]" />
-    <DoodleStar className="w-8 top-[25%] right-[6%] opacity-[0.13]" />
-    <DoodleLantern className="w-12 bottom-[15%] right-[5%] opacity-[0.12] rotate-[6deg]" />
+    {/* Abstract doodle accents */}
+    <DoodleLightRay className="w-40 top-[12%] left-[2%] opacity-[0.12] rotate-[10deg]" />
+    <DoodleGlowOrb className="w-16 top-[20%] right-[7%] opacity-[0.14]" />
+    <DoodleSparkle className="w-6 top-[30%] right-[15%] opacity-[0.16]" />
+    <DoodleSparkle className="w-5 top-[60%] left-[12%] opacity-[0.13] rotate-[25deg]" />
+    <DoodleBeamBurst className="w-14 bottom-[18%] right-[4%] opacity-[0.11] rotate-[-15deg]" />
+    <DoodleSwirl className="w-12 bottom-[25%] left-[5%] opacity-[0.12] rotate-[20deg]" />
+    <DoodleLightRay className="w-32 bottom-[8%] right-[12%] opacity-[0.08] rotate-[-20deg]" />
 
     <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20 lg:py-0">
       {/* Copy */}
