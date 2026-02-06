@@ -41,13 +41,18 @@ const HeroIllustration = () => {
           <rect x="30" y="80" width="180" height="36" rx="18" fill="hsl(93 33% 25%)" />
           <rect x="30" y="100" width="180" height="16" fill="hsl(93 33% 25%)" />
 
-          {/* Cloud icon (top-left, fluffy, no face) */}
+          {/* Cloud icon (top-left, classic cloud shape, no face) */}
           <g transform="translate(44, 86)">
-            <ellipse cx="10" cy="13" rx="10" ry="6.5" fill="hsl(107 18% 72%)" />
-            <circle cx="4" cy="9" r="5.5" fill="hsl(107 18% 72%)" />
-            <circle cx="10" cy="5" r="6.5" fill="hsl(107 18% 72%)" />
-            <circle cx="17" cy="7" r="5" fill="hsl(107 18% 72%)" />
-            <circle cx="21" cy="11" r="4" fill="hsl(107 18% 72%)" />
+            {/* Flat base */}
+            <ellipse cx="12" cy="15" rx="13" ry="5" fill="hsl(107 18% 75%)" />
+            {/* Left bump */}
+            <circle cx="4" cy="11" r="6" fill="hsl(107 18% 75%)" />
+            {/* Center tall bump */}
+            <circle cx="12" cy="6" r="8" fill="hsl(107 18% 75%)" />
+            {/* Right bump */}
+            <circle cx="20" cy="9" r="6.5" fill="hsl(107 18% 75%)" />
+            {/* Small right puff */}
+            <circle cx="25" cy="12" r="4.5" fill="hsl(107 18% 75%)" />
           </g>
 
           {/* Title text placeholders */}
@@ -72,43 +77,57 @@ const HeroIllustration = () => {
           <rect x="120" y="225" width="28" height="3" rx="1.5" fill="hsl(21 78% 57%)" opacity="0.25" />
 
           {/* Bot response 2 — MAP bubble */}
-          <rect x="45" y="246" width="120" height="70" rx="12" fill="hsl(200 30% 94%)" />
+          <defs>
+            <clipPath id="mapClip">
+              <rect x="45" y="246" width="120" height="70" rx="12" />
+            </clipPath>
+          </defs>
+          <rect x="45" y="246" width="120" height="70" rx="12" fill="hsl(160 20% 95%)" />
+          <g clipPath="url(#mapClip)">
+            {/* Water body — organic river/coast shape */}
+            <path d="M130 246L165 246L165 316L145 316C145 300 135 295 125 290C115 285 120 270 130 265C140 260 138 250 130 246Z" fill="hsl(200 45% 80%)" opacity="0.5" />
+            <path d="M145 316L165 316L165 290C158 295 150 305 145 316Z" fill="hsl(200 45% 75%)" opacity="0.35" />
+
+            {/* Main roads — thicker */}
+            <line x1="48" y1="268" x2="128" y2="268" stroke="hsl(45 15% 85%)" strokeWidth="4" />
+            <line x1="48" y1="290" x2="125" y2="290" stroke="hsl(45 15% 85%)" strokeWidth="3.5" />
+            <line x1="75" y1="248" x2="75" y2="316" stroke="hsl(45 15% 85%)" strokeWidth="4" />
+            <line x1="105" y1="248" x2="105" y2="288" stroke="hsl(45 15% 85%)" strokeWidth="3.5" />
+
+            {/* Secondary roads */}
+            <line x1="48" y1="256" x2="128" y2="256" stroke="hsl(45 10% 88%)" strokeWidth="2" />
+            <line x1="48" y1="302" x2="120" y2="302" stroke="hsl(45 10% 88%)" strokeWidth="2" />
+            <line x1="60" y1="248" x2="60" y2="316" stroke="hsl(45 10% 88%)" strokeWidth="2" />
+            <line x1="90" y1="248" x2="90" y2="316" stroke="hsl(45 10% 88%)" strokeWidth="2" />
+
+            {/* Building blocks */}
+            <rect x="49" y="258" width="9" height="8" rx="1" fill="hsl(30 20% 85%)" opacity="0.6" />
+            <rect x="62" y="258" width="11" height="8" rx="1" fill="hsl(30 25% 83%)" opacity="0.55" />
+            <rect x="77" y="258" width="11" height="8" rx="1" fill="hsl(20 20% 86%)" opacity="0.5" />
+            <rect x="49" y="270" width="9" height="18" rx="1" fill="hsl(30 20% 84%)" opacity="0.5" />
+            <rect x="62" y="270" width="11" height="18" rx="1" fill="hsl(35 22% 82%)" opacity="0.55" />
+            <rect x="77" y="270" width="11" height="18" rx="1" fill="hsl(25 18% 85%)" opacity="0.5" />
+            <rect x="49" y="292" width="9" height="8" rx="1" fill="hsl(30 20% 86%)" opacity="0.45" />
+            <rect x="62" y="292" width="11" height="8" rx="1" fill="hsl(30 22% 84%)" opacity="0.5" />
+            <rect x="92" y="258" width="11" height="8" rx="1" fill="hsl(30 18% 86%)" opacity="0.45" />
+            <rect x="92" y="270" width="11" height="18" rx="1" fill="hsl(30 20% 84%)" opacity="0.5" />
+
+            {/* Green park areas */}
+            <ellipse cx="56" cy="308" rx="6" ry="4" fill="hsl(120 30% 70%)" opacity="0.4" />
+            <ellipse cx="82" cy="308" rx="8" ry="5" fill="hsl(120 30% 65%)" opacity="0.35" />
+            <circle cx="70" cy="305" r="2" fill="hsl(120 35% 60%)" opacity="0.3" />
+          </g>
           <rect x="45" y="246" width="120" height="70" rx="12" fill="none" stroke="hsl(107 18% 52%)" strokeWidth="1.2" opacity="0.3" />
 
-          {/* Water body (top-right of map) */}
-          <path d="M120 246C130 246 145 246 155 246C162 246 165 249 165 255L165 275C155 272 140 268 120 275L120 246Z" fill="hsl(200 50% 78%)" opacity="0.45" />
-
-          {/* Streets — horizontal */}
-          <line x1="48" y1="262" x2="118" y2="262" stroke="hsl(40 18% 82%)" strokeWidth="3" />
-          <line x1="48" y1="278" x2="118" y2="278" stroke="hsl(40 18% 82%)" strokeWidth="2.5" />
-          <line x1="48" y1="292" x2="118" y2="292" stroke="hsl(40 18% 82%)" strokeWidth="2" />
-          <line x1="48" y1="305" x2="118" y2="305" stroke="hsl(40 18% 82%)" strokeWidth="1.5" />
-
-          {/* Streets — vertical */}
-          <line x1="68" y1="250" x2="68" y2="312" stroke="hsl(40 18% 82%)" strokeWidth="2.5" />
-          <line x1="95" y1="250" x2="95" y2="312" stroke="hsl(40 18% 82%)" strokeWidth="3" />
-          <line x1="118" y1="250" x2="118" y2="312" stroke="hsl(40 18% 82%)" strokeWidth="2" />
-
-          {/* Blocks (land between streets) */}
-          <rect x="50" y="264" width="16" height="12" rx="1.5" fill="hsl(40 20% 88%)" opacity="0.5" />
-          <rect x="70" y="264" width="23" height="12" rx="1.5" fill="hsl(40 20% 86%)" opacity="0.45" />
-          <rect x="50" y="280" width="16" height="10" rx="1.5" fill="hsl(40 20% 88%)" opacity="0.4" />
-          <rect x="70" y="280" width="23" height="10" rx="1.5" fill="hsl(40 20% 86%)" opacity="0.5" />
-          <rect x="97" y="264" width="19" height="12" rx="1.5" fill="hsl(107 15% 88%)" opacity="0.4" />
-          <rect x="97" y="280" width="19" height="10" rx="1.5" fill="hsl(107 15% 86%)" opacity="0.45" />
-
-          {/* Green patch / park */}
-          <ellipse cx="60" cy="302" rx="10" ry="5" fill="hsl(107 25% 70%)" opacity="0.35" />
-
           {/* Map pin */}
-          <g transform="translate(88, 267)">
+          <g transform="translate(85, 272)">
             <path d="M0 -8C-4 -8 -7 -5 -7 -2C-7 2.5 0 8 0 8C0 8 7 2.5 7 -2C7 -5 4 -8 0 -8Z"
               fill="hsl(21 78% 57%)" />
             <circle cx="0" cy="-2.5" r="2.2" fill="hsl(40 33% 97%)" />
           </g>
           {/* Pin glow */}
           <motion.circle
-            cx="88" cy="267" r="10"
+            cx="85" cy="272" r="10"
             fill="hsl(21 78% 57%)" opacity="0.08"
             animate={{ r: [10, 14, 10], opacity: [0.08, 0.15, 0.08] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
@@ -219,14 +238,15 @@ const HeroIllustration = () => {
           </motion.g>
         ))}
 
-        {/* ═══ ARCING LINES — rendered LAST so they're on top of everything ═══ */}
+        {/* ═══ ARCING LINES — start from the right edge (front) of chat window ═══ */}
         {people.map((p, i) => {
+          // Start points spread along the right edge of the chat frame
           const startX = 210;
-          const startY = 260;
+          const startY = 180 + i * 35;
           const endX = p.tx;
           const endY = p.ty - 5;
           const cpx = (startX + endX) / 2;
-          const cpy = Math.min(startY, endY) - 50 - i * 18;
+          const cpy = Math.min(startY, endY) - 40 - i * 12;
           return (
             <motion.path
               key={`line-${i}`}
