@@ -23,7 +23,7 @@ const Hero = () => (
 
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6">
           Turn AI chats into{" "}
-          <span className="text-gradient-lantern italic">Real Customers</span>
+          <span className="text-gradient-lantern italic">real customers</span>
         </h1>
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
