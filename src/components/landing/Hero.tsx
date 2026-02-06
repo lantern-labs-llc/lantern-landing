@@ -28,7 +28,7 @@ const Hero = () => (
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
           Millions of people now ask chatbots for local business recommendations. Lantern makes sure the right people hear about{" "}
-          <em>you</em> — and then convert into actual customers.
+          <em>you</em> — and then become actual customers.
         </p>
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
