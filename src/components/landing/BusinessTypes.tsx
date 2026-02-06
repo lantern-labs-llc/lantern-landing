@@ -1,13 +1,8 @@
 import { motion } from "framer-motion";
 import {
-  UtensilsCrossed,
-  Scissors,
-  Wrench,
-  Dumbbell,
-  Stethoscope,
-  GraduationCap,
+  UtensilsCrossed, Scissors, Wrench, Dumbbell, Stethoscope, GraduationCap,
 } from "lucide-react";
-import { DoodleStorefront, DoodleHangingSign, DoodleLanternPost, DoodleWindowBox } from "./Doodles";
+import { DoodleStorefront, DoodleHangingSign, DoodleLanternPost, DoodleWindowBox, DoodleCafeShop } from "./Doodles";
 
 const businesses = [
   { icon: UtensilsCrossed, name: "Restaurants & Cafés", desc: "Get recommended when locals ask 'Where should I eat tonight?'" },
@@ -20,10 +15,11 @@ const businesses = [
 
 const BusinessTypes = () => (
   <section id="businesses" className="section-padding relative overflow-hidden">
-    <DoodleStorefront className="w-24 top-12 right-[3%] opacity-[0.14]" />
-    <DoodleHangingSign className="w-12 bottom-16 left-[3%] opacity-[0.16]" />
-    <DoodleLanternPost className="w-10 top-[40%] left-[2%] opacity-[0.13]" />
-    <DoodleWindowBox className="w-12 bottom-10 right-[8%] opacity-[0.12]" />
+    <DoodleStorefront className="w-26 top-10 right-[2%] opacity-[0.15] rotate-[-6deg]" />
+    <DoodleHangingSign className="w-14 bottom-12 left-[2%] opacity-[0.17] rotate-[8deg]" />
+    <DoodleLanternPost className="w-12 top-[38%] left-[1%] opacity-[0.14] rotate-[-12deg]" />
+    <DoodleWindowBox className="w-13 bottom-8 right-[7%] opacity-[0.13] rotate-[6deg]" />
+    <DoodleCafeShop className="w-18 top-[15%] left-[40%] opacity-[0.08] rotate-[3deg]" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
