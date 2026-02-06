@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MessageSquare, TrendingDown, Eye } from "lucide-react";
+import { DoodleLightbulb, DoodleStar } from "./Doodles";
 
 const stats = [
   {
@@ -20,7 +21,9 @@ const stats = [
 ];
 
 const WhyNow = () => (
-  <section className="section-padding bg-lantern-sage-light">
+  <section className="section-padding bg-lantern-sage-light relative overflow-hidden">
+    <DoodleLightbulb className="w-14 top-12 right-[7%] opacity-[0.07] rotate-[10deg]" color="text-accent" />
+    <DoodleStar className="w-8 bottom-16 left-[6%] opacity-[0.06] rotate-[-15deg]" color="text-accent" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

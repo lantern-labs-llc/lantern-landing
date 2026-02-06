@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { DoodleHeart, DoodleLantern } from "./Doodles";
 
 const team = [
   {
@@ -22,7 +23,9 @@ const team = [
 ];
 
 const Team = () => (
-  <section id="team" className="section-padding bg-lantern-sage-light">
+  <section id="team" className="section-padding bg-lantern-sage-light relative overflow-hidden">
+    <DoodleHeart className="w-10 top-14 right-[7%] opacity-[0.06] rotate-[8deg]" color="text-accent" />
+    <DoodleLantern className="w-11 bottom-10 left-[5%] opacity-[0.06] rotate-[-10deg]" color="text-accent" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

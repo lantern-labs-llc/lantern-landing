@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { DoodleEnvelope, DoodleStar, DoodleStorefront } from "./Doodles";
 
 const WaitlistCTA = () => {
   const [email, setEmail] = useState("");
@@ -23,6 +24,9 @@ const WaitlistCTA = () => {
   return (
     <section id="waitlist" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-glow pointer-events-none" />
+      <DoodleEnvelope className="w-16 top-16 left-[6%] opacity-[0.06] rotate-[-10deg]" />
+      <DoodleStar className="w-8 top-12 right-[8%] opacity-[0.05] rotate-[14deg]" />
+      <DoodleStorefront className="w-18 bottom-10 right-[4%] opacity-[0.04] rotate-[5deg]" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
