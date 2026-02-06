@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Search, Zap, DollarSign } from "lucide-react";
-import { DoodleLanternPost, DoodleCafeShop, DoodleHangingLantern, DoodleCobblestone } from "./Doodles";
 
 const steps = [
   { icon: Search, step: "01", title: "We Learn Your Business", description: "We dive deep into what makes your business special — your story, your strengths, your community reputation — and craft the perfect AI profile." },
@@ -10,10 +9,6 @@ const steps = [
 
 const HowItWorks = () => (
   <section id="how-it-works" className="section-padding relative overflow-hidden">
-    <DoodleLanternPost className="w-14 top-8 left-[2%] opacity-[0.16] rotate-[-7deg]" />
-    <DoodleCafeShop className="w-22 bottom-8 right-[3%] opacity-[0.14] rotate-[5deg]" />
-    <DoodleHangingLantern className="w-10 top-[28%] right-[5%] opacity-[0.15] rotate-[10deg]" />
-    <DoodleCobblestone className="w-36 bottom-4 left-[6%] opacity-[0.11] rotate-[-4deg]" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

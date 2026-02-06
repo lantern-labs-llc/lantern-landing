@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { MessageSquare, TrendingDown, Eye } from "lucide-react";
-import { DoodleStreetLamp, DoodleWindowBox, DoodleHangingSign, DoodleHangingLantern } from "./Doodles";
 
 const stats = [
   { icon: MessageSquare, stat: "40%", label: "of consumers now use AI for local recommendations" },
@@ -10,10 +9,6 @@ const stats = [
 
 const WhyNow = () => (
   <section className="section-padding bg-lantern-sage-light relative overflow-hidden">
-    <DoodleStreetLamp className="w-11 top-6 right-[4%] opacity-[0.17] rotate-[-8deg]" color="text-accent" />
-    <DoodleWindowBox className="w-16 bottom-8 left-[3%] opacity-[0.15] rotate-[5deg]" color="text-accent" />
-    <DoodleHangingSign className="w-13 top-[30%] left-[1%] opacity-[0.13] rotate-[12deg]" color="text-accent" />
-    <DoodleHangingLantern className="w-9 bottom-[25%] right-[8%] opacity-[0.12] rotate-[-14deg]" color="text-accent" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { DoodleHangingLantern, DoodleCafeShop, DoodleStreetLamp, DoodleWindowBox } from "./Doodles";
 
 const team = [
   { name: "Alex Chen", role: "CEO & Co‑Founder", bio: "Former Google Search lead. Passionate about leveling the playing field for local businesses.", initials: "AC" },
@@ -9,10 +8,6 @@ const team = [
 
 const Team = () => (
   <section id="team" className="section-padding bg-lantern-sage-light relative overflow-hidden">
-    <DoodleHangingLantern className="w-11 top-8 right-[4%] opacity-[0.17] rotate-[12deg]" color="text-accent" />
-    <DoodleCafeShop className="w-20 bottom-8 left-[2%] opacity-[0.14] rotate-[-5deg]" color="text-accent" />
-    <DoodleStreetLamp className="w-9 top-[40%] left-[3%] opacity-[0.15] rotate-[8deg]" color="text-accent" />
-    <DoodleWindowBox className="w-11 bottom-[20%] right-[6%] opacity-[0.12] rotate-[-10deg]" color="text-accent" />
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
