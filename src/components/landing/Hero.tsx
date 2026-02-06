@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import heroImage from "@/assets/hero-illustration.jpg";
+import HeroIllustration from "./HeroIllustration";
 
 const Hero = () => (
   <section className="relative min-h-screen flex items-center bg-hero-gradient overflow-hidden pt-16">
@@ -55,14 +55,7 @@ const Hero = () => (
         transition={{ duration: 0.8, delay: 0.2 }}
         className="relative z-10"
       >
-        <div className="rounded-2xl overflow-hidden shadow-glow-lantern border border-border/50">
-          <img
-            src={heroImage}
-            alt="Charming Main Street businesses glowing warmly at golden hour"
-            className="w-full h-auto"
-            loading="eager"
-          />
-        </div>
+        <HeroIllustration />
       </motion.div>
     </div>
   </section>
