@@ -12,7 +12,7 @@ const BullseyeIcon = ({ size = 22, className = "" }: { size?: number; className?
 );
 const stats = [{
   icon: TrendingUp,
-  stat: ">50%",
+  stat: "50%",
   label: "of consumers now use AI for buying decisions (McKinsey)"
 }, {
   icon: BullseyeIcon,
