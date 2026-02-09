@@ -3,9 +3,11 @@ import { MessageSquare, TrendingUp } from "lucide-react";
 
 const BullseyeIcon = ({ size = 22, className = "" }: { size?: number; className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
-    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
-    <circle cx="12" cy="12" r="6" stroke="currentColor" strokeWidth="2" fill="none" />
-    <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+    <circle cx="11" cy="13" r="9" stroke="currentColor" strokeWidth="1.8" fill="none" />
+    <circle cx="11" cy="13" r="5" stroke="currentColor" strokeWidth="1.8" fill="none" />
+    <circle cx="11" cy="13" r="1.8" fill="currentColor" />
+    <line x1="11" y1="13" x2="20" y2="4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <polyline points="16,4 20,4 20,8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
   </svg>
 );
 const stats = [{
