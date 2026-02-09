@@ -14,7 +14,7 @@ const stats = [{
   label: "of consumers now use AI for buying decisions (McKinsey)"
 }, {
   icon: BullseyeIcon,
-  stat: "only 1 or 2",
+  stat: "1 or 2",
   label: "local businesses are recommended by AI, down from Google's 10+"
 }, {
   icon: MessageSquare,
