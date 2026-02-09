@@ -13,7 +13,7 @@ const steps = [{
 }, {
   icon: DollarSign,
   step: "03",
-  title: "You Only Pay for Results",
+  title: "You Get New Customers",
   description: "Every visitor lands on a custom AI‑optimized page designed to convert. You pay only when it works. No retainers, no guesswork."
 }];
 const HowItWorks = () => <section id="how-it-works" className="section-padding relative overflow-hidden">
