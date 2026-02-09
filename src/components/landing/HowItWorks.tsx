@@ -4,7 +4,7 @@ const steps = [{
   icon: Search,
   step: "01",
   title: "We Optimize Your AI Profile",
-  description: "We dive deep into what makes your business special — your story, your strengths, your community reputation — and craft the perfect AI profile."
+  description: "Lantern makes sure AI knows what makes your business unique - your story, your strengths, your reputation."
 }, {
   icon: Zap,
   step: "02",
