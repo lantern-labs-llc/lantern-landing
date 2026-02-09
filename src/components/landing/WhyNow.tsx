@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { MessageSquare, TrendingDown, Eye } from "lucide-react";
 const stats = [{
   icon: MessageSquare,
-  stat: ">50%",
+  stat: "53%",
   label: "of consumers now use AI for local recommendations"
 }, {
   icon: TrendingDown,
