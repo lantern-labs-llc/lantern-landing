@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import { MessageSquare, TrendingDown, Eye } from "lucide-react";
+import { MessageSquare, TrendingUp, Eye } from "lucide-react";
 const stats = [{
   icon: MessageSquare,
   stat: "53%",
   label: "of consumers now use gen AI in their daily lives (Deloitte)"
 }, {
-  icon: TrendingDown,
+  icon: TrendingUp,
   stat: "–30%",
   label: "drop in traditional search traffic for local businesses"
 }, {
