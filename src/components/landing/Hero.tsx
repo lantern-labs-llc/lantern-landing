@@ -28,8 +28,7 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
         </h1>
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-          AI chatbots are quickly becoming the main source for local recommendations for millions of people. Lantern makes sure the right people hear about{" "}
-          <em>your business</em> and then become <em>actual customers</em>.
+          Your next customer just asked AI for a recommendation. Did you get mentioned? Lantern is your AI partner—putting your business in front of people who are ready to buy, then making sure they become your customers.
         </p>
 
         
