@@ -6,7 +6,7 @@ const stats = [{
   label: "of consumers now use gen AI in their daily lives (Deloitte)"
 }, {
   icon: TrendingUp,
-  stat: "~50%",
+  stat: ">50%",
   label: "of consumers now seek out AI for buying decisions (McKinsey)"
 }, {
   icon: Eye,
