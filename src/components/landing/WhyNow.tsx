@@ -11,7 +11,7 @@ const stats = [{
 }, {
   icon: Eye,
   stat: "1 or 2",
-  label: "of Main St. businesses are optimized for AI discovery"
+  label: "local businesses are recommended by AI, down from Google's 10+"
 }];
 const WhyNow = () => <section className="section-padding bg-lantern-sage-light relative overflow-hidden">
     <div className="max-w-7xl mx-auto">
