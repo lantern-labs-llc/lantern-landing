@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const team = [
-  { name: "Matt King", role: "CEO & Co‑Founder", bio: "Former Google Search lead. Passionate about leveling the playing field for local businesses.", initials: "MK" },
+  { name: "Matt King", role: "Co‑Founder", bio: "Former Google Search lead. Passionate about leveling the playing field for local businesses.", initials: "MK" },
   { name: "Maria Santos", role: "CTO & Co‑Founder", bio: "AI researcher turned entrepreneur. Built recommendation systems at scale.", initials: "MS" },
   { name: "James Okafor", role: "Head of Partnerships", bio: "10 years helping SMBs grow. Knows Main Street inside and out.", initials: "JO" },
 ] as const;
