@@ -14,7 +14,7 @@ const steps = [{
   icon: DollarSign,
   step: "03",
   title: "You Get New Customers",
-  description: "Chatbot referrals land on pages, managed by Lantern and optimized by AI, designed to convert. You pay only for new business."
+  description: "Chatbot users land on your new landing pages, managed by Lantern and optimized by AI for conversion. You pay only for performance."
 }];
 const HowItWorks = () => <section id="how-it-works" className="section-padding relative overflow-hidden">
     <div className="max-w-7xl mx-auto">
