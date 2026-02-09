@@ -27,9 +27,10 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
           <span className="text-gradient-lantern italic">real customers</span>
         </h1>
 
-        <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-          Your next customer just asked AI for a recommendation. Did you get mentioned? Lantern is your AI partner—putting your business in front of people who are ready to buy, then making sure they become your customers.
-        </p>
+        <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">Your next customer just asked AI for a recommendation. Did you get mentioned?  
+
+
+Lantern is your AI partner—putting your business in front of people who are ready to buy, then making sure they become your customers.</p>
 
         
 
@@ -45,7 +46,7 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
           </Button>
         </div>
 
-        <p className="mt-6 text-xs text-muted-foreground">🔥 Currently focused on our hometown of Charlottesville, VA!</p>
+        <p className="mt-6 text-xs text-muted-foreground">🔥 Currently focused on our hometown of Charlottesville, VA.</p>
       </motion.div>
 
       <motion.div initial={{
