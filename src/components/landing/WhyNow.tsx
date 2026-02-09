@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
 import { MessageSquare, TrendingUp } from "lucide-react";
-
-const BullseyeIcon = ({ size = 22, className = "" }: { size?: number; className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+const BullseyeIcon = ({
+  size = 22,
+  className = ""
+}: {
+  size?: number;
+  className?: string;
+}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
     <circle cx="11" cy="13" r="9" stroke="currentColor" strokeWidth="1.8" fill="none" />
     <circle cx="11" cy="13" r="5" stroke="currentColor" strokeWidth="1.8" fill="none" />
     <circle cx="11" cy="13" r="1.8" fill="currentColor" />
     <line x1="11" y1="13" x2="20" y2="4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     <polyline points="16,4 20,4 20,8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-  </svg>
-);
+  </svg>;
 const stats = [{
   icon: TrendingUp,
   stat: "50%",
@@ -38,7 +41,7 @@ const WhyNow = () => <section className="section-padding bg-lantern-sage-light r
           The World Changed.{" "}
           <span className="italic text-gradient-lantern">Have You?</span>
         </h2>
-        <p className="text-muted-foreground text-lg">People are replacing Google with ChatGPT, Gemini, and Claude to find local businesses-like yours. If AI doesn't know you exist, neither do your future customers.</p>
+        <p className="text-muted-foreground text-lg">People are replacing Google with ChatGPT, Gemini, and Claude to find local businesses. If AI doesn't know you exist, neither do your future customers.</p>
       </motion.div>
 
       <div className="grid md:grid-cols-3 gap-8">
