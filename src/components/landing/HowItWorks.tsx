@@ -8,7 +8,7 @@ const steps = [{
 }, {
   icon: Zap,
   step: "02",
-  title: "AI Chatbots Recommend You",
+  title: "Chatbots Recommend You",
   description: "When someone asks ChatGPT, Gemini, or any AI assistant for a recommendation in your area, your business comes up — naturally and authentically."
 }, {
   icon: DollarSign,
