@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* Lantern palette: cream base, dark green + orange accents */
-    --background: 40 33% 93%;
+    --background: 40 33% 96%;
     --foreground: 93 33% 18%;
 
     --card: 40 30% 95%;
@@ -44,7 +44,7 @@
     /* Custom tokens */
     --lantern-glow: 21 78% 62%;
     --lantern-deep: 93 33% 18%;
-    --lantern-cream: 40 33% 93%;
+    --lantern-cream: 40 33% 96%;
     --lantern-warm: 40 25% 90%;
     --lantern-coral: 21 78% 57%;
     --lantern-sage: 107 18% 52%;
