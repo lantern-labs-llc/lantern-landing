@@ -14,7 +14,7 @@ const steps = [{
   icon: DollarSign,
   step: "03",
   title: "You Get New Customers",
-  description: "Lantern helps converts your new prospects into paying customers. You only pay for new business. No risk, no up-front cost, no problem."
+  description: "Lantern helps convert new prospects. You only pay for new business. No risk, no up-front cost, no-brainer!"
 }];
 const HowItWorks = () => <section id="how-it-works" className="section-padding relative overflow-hidden">
     <div className="max-w-7xl mx-auto">
