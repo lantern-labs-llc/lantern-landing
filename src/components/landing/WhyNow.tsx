@@ -7,7 +7,7 @@ const stats = [{
 }, {
   icon: TrendingUp,
   stat: "~50%",
-  label: "drop in traditional search traffic for local businesses"
+  label: "of consumers now seek out AI for buying decisions (McKinsey)"
 }, {
   icon: Eye,
   stat: "0%",
