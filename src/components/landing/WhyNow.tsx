@@ -10,7 +10,7 @@ const stats = [{
   label: "of consumers now seek out AI for buying decisions (McKinsey)"
 }, {
   icon: Eye,
-  stat: "0%",
+  stat: "1.2%",
   label: "of Main St. businesses are optimized for AI discovery"
 }];
 const WhyNow = () => <section className="section-padding bg-lantern-sage-light relative overflow-hidden">
