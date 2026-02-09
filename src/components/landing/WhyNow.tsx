@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageSquare, TrendingUp, Eye } from "lucide-react";
+import { MessageSquare, TrendingUp, Target } from "lucide-react";
 const stats = [{
   icon: MessageSquare,
   stat: "53%",
@@ -9,7 +9,7 @@ const stats = [{
   stat: ">50%",
   label: "of consumers now seek out AI for buying decisions (McKinsey)"
 }, {
-  icon: Eye,
+  icon: Target,
   stat: "1 or 2",
   label: "local businesses are recommended by AI, down from Google's 10+"
 }];
