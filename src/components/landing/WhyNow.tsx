@@ -28,7 +28,7 @@ const WhyNow = () => <section className="section-padding bg-lantern-sage-light r
           The World Changed.{" "}
           <span className="italic text-gradient-lantern">Have You?</span>
         </h2>
-        <p className="text-muted-foreground text-lg">People are replacing Google with ChatGPT, Gemini, and Claude to find local businesses. If AI doesn't know you exist, neither do your future customers.</p>
+        <p className="text-muted-foreground text-lg">People are replacing Google with ChatGPT, Gemini, and Claude to find local businesses-like yours. If AI doesn't know you exist, neither do your future customers.</p>
       </motion.div>
 
       <div className="grid md:grid-cols-3 gap-8">
