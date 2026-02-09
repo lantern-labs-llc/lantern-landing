@@ -3,7 +3,7 @@ import { Search, Zap, DollarSign } from "lucide-react";
 const steps = [{
   icon: Search,
   step: "01",
-  title: "We Learn Your Business",
+  title: "We Optimize Your AI Profile",
   description: "We dive deep into what makes your business special — your story, your strengths, your community reputation — and craft the perfect AI profile."
 }, {
   icon: Zap,
