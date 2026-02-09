@@ -23,7 +23,7 @@ const stats = [{
   label: "businesses are recommended by AI per search"
 }, {
   icon: ArrowBigDown,
-  stat: "53%",
+  stat: "20-50%",
   label: "of consumers now use gen AI in their daily lives (Deloitte)"
 }];
 const WhyNow = () => <section className="section-padding bg-lantern-sage-light relative overflow-hidden">
