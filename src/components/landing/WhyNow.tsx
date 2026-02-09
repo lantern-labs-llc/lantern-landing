@@ -9,10 +9,6 @@ const BullseyeIcon = ({ size = 22, className = "" }: { size?: number; className?
   </svg>
 );
 const stats = [{
-  icon: MessageSquare,
-  stat: "53%",
-  label: "of consumers now use gen AI in their daily lives (Deloitte)"
-}, {
   icon: TrendingUp,
   stat: ">50%",
   label: "of consumers now seek out AI for buying decisions (McKinsey)"
@@ -20,6 +16,10 @@ const stats = [{
   icon: BullseyeIcon,
   stat: "1 or 2",
   label: "local businesses are recommended by AI, down from Google's 10+"
+}, {
+  icon: MessageSquare,
+  stat: "53%",
+  label: "of consumers now use gen AI in their daily lives (Deloitte)"
 }];
 const WhyNow = () => <section className="section-padding bg-lantern-sage-light relative overflow-hidden">
     <div className="max-w-7xl mx-auto">
