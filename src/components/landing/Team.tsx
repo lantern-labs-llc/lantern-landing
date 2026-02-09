@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const team = [
   { name: "Matt King", role: "Co‑Founder", bio: "Passionate about supporting local businesses and community. Lover of Skink.", initials: "MK" },
   { name: "Jay Ashton", role: "Co‑Founder", bio: "Invented the Internet. Also loves Skink.", initials: "JA" },
-  { name: "James Okafor", role: "Head of Partnerships", bio: "10 years helping SMBs grow. Knows Main Street inside and out.", initials: "JO" },
+  { name: "Rebecca Okafor", role: "Head of Partnerships", bio: "10 years helping SMBs grow. Knows Main Street inside and out.", initials: "RO" },
 ] as const;
 
 const Team = () => (
