@@ -44,7 +44,7 @@ const WhyNow = () => <section className="section-padding bg-lantern-sage-light r
         delay: i * 0.15
       }} className="bg-card rounded-xl p-8 shadow-card-lantern text-center">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
-              <item.icon size={22} className="text-primary" />
+              <item.icon size={22} className="text-primary" {...(item.icon === Target ? { fill: "currentColor" } : {})} />
             </div>
             <p className="font-display text-4xl mb-2">{item.stat}</p>
             <p className="text-muted-foreground text-sm">{item.label}</p>
