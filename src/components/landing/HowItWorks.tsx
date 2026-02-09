@@ -14,7 +14,7 @@ const steps = [{
   icon: DollarSign,
   step: "03",
   title: "You Get New Customers",
-  description: "Every visitor lands on a custom AI‑optimized page designed to convert. You pay only when it works. No retainers, no guesswork."
+  description: "Chatbot referrals land on pages, managed by Lantern and optimized by AI, designed to convert. You pay only for new business."
 }];
 const HowItWorks = () => <section id="how-it-works" className="section-padding relative overflow-hidden">
     <div className="max-w-7xl mx-auto">
