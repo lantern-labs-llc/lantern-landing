@@ -24,7 +24,7 @@ const stats = [{
 }, {
   icon: ArrowBigDown,
   stat: "20-50%",
-  label: "of consumers now use gen AI in their daily lives (Deloitte)"
+  label: "of search traffic could be lost by unprepared businesses (McKinsey)"
 }];
 const WhyNow = () => <section className="section-padding bg-lantern-sage-light relative overflow-hidden">
     <div className="max-w-7xl mx-auto">
