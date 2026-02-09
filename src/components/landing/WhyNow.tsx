@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageSquare, TrendingUp } from "lucide-react";
+import { ArrowBigDown, TrendingUp } from "lucide-react";
 const BullseyeIcon = ({
   size = 22,
   className = ""
@@ -22,7 +22,7 @@ const stats = [{
   stat: "1 or 2",
   label: "businesses are recommended by AI per search"
 }, {
-  icon: MessageSquare,
+  icon: ArrowBigDown,
   stat: "53%",
   label: "of consumers now use gen AI in their daily lives (Deloitte)"
 }];
