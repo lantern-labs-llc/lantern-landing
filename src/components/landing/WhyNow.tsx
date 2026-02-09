@@ -17,7 +17,7 @@ const stats = [{
 }, {
   icon: BullseyeIcon,
   stat: "1 or 2",
-  label: "businesses are recommended by AI per search, down from Google's 10+"
+  label: "businesses are recommended by AI per search"
 }, {
   icon: MessageSquare,
   stat: "53%",
