@@ -3,7 +3,7 @@ import { MessageSquare, TrendingDown, Eye } from "lucide-react";
 const stats = [{
   icon: MessageSquare,
   stat: "53%",
-  label: "of consumers now use AI for local recommendations"
+  label: "of consumers now use gen AI in their daily lives"
 }, {
   icon: TrendingDown,
   stat: "–30%",
