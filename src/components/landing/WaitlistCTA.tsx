@@ -1,23 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { ArrowRight } from "lucide-react";
 const WaitlistCTA = () => {
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const {
-    toast
-  } = useToast();
+  const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    setSubmitted(true);
-    toast({
-      title: "You're on the list! 🎉",
-      description: "We'll reach out soon with early access details."
-    });
+    navigate(`/waitlist?email=${encodeURIComponent(email)}`);
   };
   return <section id="waitlist" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-glow pointer-events-none" />
@@ -42,22 +35,13 @@ const WaitlistCTA = () => {
         </h2>
         <p className="text-muted-foreground text-lg mb-8 leading-relaxed">Join our waitlist. Early members get priority access.</p>
 
-        {submitted ? <motion.div initial={{
-        opacity: 0,
-        scale: 0.95
-      }} animate={{
-        opacity: 1,
-        scale: 1
-      }} className="flex items-center justify-center gap-3 bg-secondary/10 rounded-xl px-6 py-4">
-            <CheckCircle2 className="text-secondary" size={22} />
-            <span className="font-medium">You're on the list! We'll be in touch soon.</span>
-          </motion.div> : <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input type="email" placeholder="you@yourbusiness.com" value={email} onChange={e => setEmail(e.target.value)} required className="flex-1 h-12 bg-card" />
             <Button type="submit" size="lg" className="shadow-lantern h-12">
               Join Waitlist
               <ArrowRight size={16} className="ml-2" />
             </Button>
-          </form>}
+          </form>
 
         <p className="mt-4 text-xs text-muted-foreground">
           No spam. No commitments. Just early access.
