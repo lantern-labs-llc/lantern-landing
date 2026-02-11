@@ -25,7 +25,7 @@ const Footer = () => {
         <a href={linkHref("team")} className="hover:text-lantern-cream transition-colors">Team</a>
       </div>
 
-      <p className="text-sm text-lantern-cream/50">© {new Date().getFullYear()} Lantern. All rights reserved.</p>
+      <p className="text-sm text-lantern-cream/50">© {new Date().getFullYear()}</p>
     </div>
   </footer>
   );
