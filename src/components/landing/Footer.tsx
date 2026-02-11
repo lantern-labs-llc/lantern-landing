@@ -9,7 +9,7 @@ const Footer = () => {
   return (
   <footer className="bg-lantern-sage-dark text-lantern-cream px-6 md:px-12 py-16">
     <div className="max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+      <div className="flex flex-col md:flex-row items-start justify-between gap-8">
         <div className="flex items-center gap-3 text-lantern-cream">
           <a href={isHome ? "#" : "/"} className="flex items-center gap-3">
             <img src={lanternLogo} alt="Lantern logo" className="h-11 w-auto" />
@@ -20,13 +20,13 @@ const Footer = () => {
           </a>
         </div>
 
-        <p className="text-sm text-lantern-cream/50">© {new Date().getFullYear()}</p>
-      </div>
+        <div className="flex gap-8 text-base text-lantern-cream/70">
+          <a href={linkHref("how-it-works")} className="hover:text-lantern-cream transition-colors">How It Works</a>
+          <a href={linkHref("businesses")} className="hover:text-lantern-cream transition-colors">For Businesses</a>
+          <a href={linkHref("team")} className="hover:text-lantern-cream transition-colors">Team</a>
+        </div>
 
-      <div className="flex justify-center gap-8 text-base text-lantern-cream/70 mt-8">
-        <a href={linkHref("how-it-works")} className="hover:text-lantern-cream transition-colors">How It Works</a>
-        <a href={linkHref("businesses")} className="hover:text-lantern-cream transition-colors">For Businesses</a>
-        <a href={linkHref("team")} className="hover:text-lantern-cream transition-colors">Team</a>
+        <p className="text-sm text-lantern-cream/50">© 2026 Lantern Labs, LLC</p>
       </div>
     </div>
   </footer>
