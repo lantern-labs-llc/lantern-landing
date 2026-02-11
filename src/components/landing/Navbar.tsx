@@ -1,22 +1,28 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import lanternLogo from "@/assets/lantern-logo-2.png";
 
 const navLinks = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "For Businesses", href: "#businesses" },
-  { label: "Team", href: "#team" },
+  { label: "How It Works", hash: "how-it-works" },
+  { label: "For Businesses", hash: "businesses" },
+  { label: "Team", hash: "team" },
 ];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  const isWaitlistPage = location.pathname === "/waitlist";
+
+  const linkHref = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
-        <a href="#" className="flex items-center gap-2.5 text-foreground">
+        <a href={isHome ? "#" : "/"} className="flex items-center gap-2.5 text-foreground">
           <img src={lanternLogo} alt="Lantern logo" className="h-11 w-auto" />
           <span className="font-display text-xl tracking-tight">Lantern</span>
         </a>
@@ -25,16 +31,18 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
-              key={link.href}
-              href={link.href}
+              key={link.hash}
+              href={linkHref(link.hash)}
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               {link.label}
             </a>
           ))}
-          <Button asChild size="sm">
-            <a href="#waitlist">Join the Waitlist</a>
-          </Button>
+          {!isWaitlistPage && (
+            <Button asChild size="sm">
+              <a href={isHome ? "#waitlist" : "/#waitlist"}>Join the Waitlist</a>
+            </Button>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -55,17 +63,19 @@ const Navbar = () => {
             <div className="px-6 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
-                  key={link.href}
-                  href={link.href}
+                  key={link.hash}
+                  href={linkHref(link.hash)}
                   className="text-sm font-medium text-muted-foreground"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
-              <Button asChild size="sm" className="w-fit">
-                <a href="#waitlist" onClick={() => setMobileOpen(false)}>Join the Waitlist</a>
-              </Button>
+              {!isWaitlistPage && (
+                <Button asChild size="sm" className="w-fit">
+                  <a href={isHome ? "#waitlist" : "/#waitlist"} onClick={() => setMobileOpen(false)}>Join the Waitlist</a>
+                </Button>
+              )}
             </div>
           </motion.div>
         )}
