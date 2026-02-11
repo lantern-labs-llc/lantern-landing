@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 
 const team = [
+  { name: "Cindy", role: "Head of Partnerships", bio: "10 years helping SMBs grow. She's really just an AI construct.", initials: "C" },
   { name: "Matt King", role: "Co‑Founder", bio: "Passionate about supporting local businesses and community. Lover of Skink.", initials: "MK" },
   { name: "Jay Ashton", role: "Co‑Founder", bio: "Invented the Internet. Also loves Skink.", initials: "JA" },
-  { name: "Cindy", role: "Head of Partnerships", bio: "10 years helping SMBs grow. She's really just an AI construct.", initials: "C" },
 ] as const;
 
 const Team = () => (
