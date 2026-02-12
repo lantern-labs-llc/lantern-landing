@@ -105,6 +105,21 @@ export default function BusinessLandingClient({ business }: BusinessLandingClien
               Call {business.phone}
             </a>
           </div>
+
+          {promo && (
+            <p className="text-[13px] text-wr-text-muted mt-[18px] font-light flex items-center justify-center gap-1.5">
+              <span className="text-wr-copper text-sm">✦</span>
+              Use code{" "}
+              <span
+                onClick={copyCoupon}
+                className="font-medium text-wr-text tracking-[1.5px] cursor-pointer border-b-[1.5px] border-dashed border-wr-border-dashed pb-px"
+              >
+                {promo.code}
+              </span>{" "}
+              for {promo.description}
+              {couponCopied && <span className="text-wr-copper ml-1">· Copied!</span>}
+            </p>
+          )}
         </div>
       </div>
 
@@ -128,32 +143,6 @@ export default function BusinessLandingClient({ business }: BusinessLandingClien
           </div>
         ))}
       </div>
-
-      {/* Coupon */}
-      {promo && (
-        <div
-          id="coupon"
-          ref={addRef("coupon")}
-          className="py-12 px-8 max-md:px-5 flex justify-center"
-        >
-          <div
-            className={`fade-up ${isVisible("coupon") ? "visible" : ""} py-7 px-10 rounded-xl text-center max-w-[420px] w-full bg-wr-cream border-[1.5px] border-dashed border-wr-border-dashed relative`}
-          >
-            <div className="text-[11px] tracking-[2.5px] uppercase text-wr-copper mb-3.5 font-medium">
-              {promo.description}
-            </div>
-            <div
-              onClick={copyCoupon}
-              className="font-wr-heading text-[34px] font-medium text-wr-text tracking-[6px] cursor-pointer py-1 mb-2.5 select-all"
-            >
-              {promo.code}
-            </div>
-            <div className="text-xs text-wr-text-muted font-light">
-              {couponCopied ? "✓ Copied!" : "Tap to copy · Enter at checkout · Valid 30 days"}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Services */}
       <div
@@ -220,12 +209,13 @@ export default function BusinessLandingClient({ business }: BusinessLandingClien
           <div
             className={`fade-up ${isVisible("about") ? "visible" : ""} max-w-[640px] mx-auto flex gap-8 items-center flex-wrap justify-center max-md:flex-col max-md:text-center`}
           >
-            {/* Photo placeholder */}
-            <div className="w-[180px] h-[220px] rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-wr-border to-[#DDD2C4] flex items-center justify-center border border-wr-border">
-              <div className="text-center opacity-45">
-                <div className="text-[28px] mb-1">📷</div>
-                <div className="text-[10px] text-wr-text-muted tracking-[0.5px]">Photo</div>
-              </div>
+            {/* Megan + dog photo */}
+            <div className="w-[180px] h-[220px] rounded-xl overflow-hidden shrink-0 border border-wr-border">
+              <img
+                src="/images/well-room-megan.webp"
+                alt="Megan Kingdon with her dog at Well Room"
+                className="w-full h-full object-cover object-[center_60%]"
+              />
             </div>
 
             <div className="flex-1 min-w-[260px]">

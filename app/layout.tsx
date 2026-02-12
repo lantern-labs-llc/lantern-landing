@@ -3,12 +3,12 @@ import "@/index.css";
 import Providers from "@/components/providers/QueryProvider";
 
 export const metadata: Metadata = {
-  title: "Lantern — Help AI Chatbots Discover Your Business",
+  title: "Lantern - New customers from AI chatbots",
   description:
     "Lantern helps local businesses get recommended by AI chatbots and converts that traffic with AI-optimized landing pages. Pay only for results.",
   icons: { icon: "/favicon.png" },
   openGraph: {
-    title: "Lantern — Help AI Chatbots Discover Your Business",
+    title: "Lantern - New customers from AI chatbots",
     description:
       "Lantern helps local businesses get recommended by AI chatbots. Pay only for results.",
     type: "website",
