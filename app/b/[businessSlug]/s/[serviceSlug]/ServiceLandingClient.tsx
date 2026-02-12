@@ -399,32 +399,11 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
             className="block no-underline"
           >
             <div className="rounded-xl overflow-hidden border border-wr-border">
-              <div className="h-[180px] bg-gradient-to-br from-[#F8F5F0] via-[#F0ECE6] to-[#F5F1EB] flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 opacity-[0.06]">
-                  {[...Array(7)].map((_, i) => (
-                    <div
-                      key={`h${i}`}
-                      className="absolute left-0 right-0 h-px bg-[#8B8580]"
-                      style={{ top: `${(i + 1) * 13}%`, transform: `rotate(${i % 2 === 0 ? -1.5 : 2}deg)` }}
-                    />
-                  ))}
-                  {[...Array(5)].map((_, i) => (
-                    <div
-                      key={`v${i}`}
-                      className="absolute top-0 bottom-0 w-px bg-[#8B8580]"
-                      style={{ left: `${(i + 1) * 16}%`, transform: `rotate(${i % 2 === 0 ? 0.5 : -0.5}deg)` }}
-                    />
-                  ))}
-                </div>
-                <div className="text-center z-[1]">
-                  <div className="w-9 h-9 rounded-[50%_50%_50%_0] bg-wr-copper -rotate-45 mx-auto mb-3 shadow-[0_3px_12px_rgba(184,132,90,0.2)] flex items-center justify-center">
-                    <div className="w-3 h-3 rounded-full bg-white rotate-45" />
-                  </div>
-                  <div className="text-[13px] font-medium text-wr-text bg-white/90 py-1.5 px-3.5 rounded-md">
-                    {business.address}
-                  </div>
-                </div>
-              </div>
+              <img
+                src={`/images/maps/${business.slug}.png`}
+                alt={`Map showing ${business.name} at ${business.address}`}
+                className="w-full h-[180px] object-cover"
+              />
               <div className="bg-white py-3.5 px-5 flex justify-between items-center flex-wrap gap-2 border-t border-wr-border">
                 <div>
                   <div className="text-sm font-medium text-wr-text">{business.name}</div>
