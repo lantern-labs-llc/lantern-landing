@@ -1,23 +1,21 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getBusinessBySlug } from "@/data/businesses";
 import JsonLd from "@/components/business/JsonLd";
-import FAQAccordion from "@/components/business/FAQAccordion";
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ businessSlug: string }>;
-}) {
+}): Promise<Metadata> {
   const { businessSlug } = await params;
   const business = getBusinessBySlug(businessSlug);
   if (!business) return {};
   return {
-    title: `${business.name} — ${business.city}, ${business.state} | Business Information`,
-    description: `Complete guide to ${business.name} in ${business.city}, ${business.state}. ${business.services.map((s) => s.name).join(", ")}. Hours, pricing, FAQs, reviews, and booking info.`,
-    openGraph: {
-      title: business.name,
-      description: business.description,
-      type: "website",
+    title: `${business.name} — Wellness & Aesthetics in ${business.city}, ${business.state} | Services, Pricing & Info`,
+    description: `${business.name} is a board-certified NP-led wellness and aesthetics practice in ${business.city}, ${business.state}. Infrared sauna, IV therapy, cryotherapy, Botox, fillers, laser treatments, facials, and more. ${business.rating} stars, ${business.reviewCount}+ Google reviews.`,
+    alternates: {
+      canonical: `https://www.lantern.llc/b/${business.slug}/info`,
     },
   };
 }
@@ -31,472 +29,307 @@ export default async function BusinessInfoPage({
   const business = getBusinessBySlug(businessSlug);
   if (!business) notFound();
 
-  const hoursSummary = business.hours
-    .filter((h) => !h.closed)
-    .map((h) => `${h.day}: ${h.open}–${h.close}`)
-    .join(", ");
+  const infoFacts = business.infoFacts || [];
+  const infoFaqs = business.infoFaqs || business.faqs;
+  const infoReviews = business.infoReviews || business.reviews;
+  const serviceCategories = business.serviceCategories || [];
+  const aboutSections = business.aboutSections || [business.description];
+  const differentiators = business.differentiators || [];
 
-  const openDays = business.hours.filter((h) => !h.closed);
-  const hoursShort =
-    openDays.length > 0
-      ? `${openDays[0].day.slice(0, 3)}–${openDays[openDays.length - 1].day.slice(0, 3)}, ${openDays[0].open} – ${openDays[0].close}`
-      : "";
-
-  const localBusinessSchema = {
+  // JSON-LD: HealthAndBeautyBusiness
+  const businessSchema = {
     "@context": "https://schema.org",
     "@type": "HealthAndBeautyBusiness",
     name: business.name,
-    description: business.description,
+    description: `Board-certified NP-led wellness and aesthetics practice in ${business.city}, Virginia. Services include infrared sauna, IV therapy, cryotherapy, Botox, dermal fillers, laser treatments, facials, microneedling, and more. Founded in ${business.founded || "2020"} by dual board-certified nurse practitioner ${business.owner}.`,
     url: business.website,
-    telephone: business.phone,
+    telephone: `+1-${business.phone.replace(/[^0-9]/g, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: business.address,
+      streetAddress: business.address.replace("St NW", "Street NW"),
       addressLocality: business.city,
       addressRegion: business.state,
       postalCode: business.zip,
       addressCountry: "US",
     },
-    ...(business.latitude && business.longitude
-      ? {
-          geo: {
-            "@type": "GeoCoordinates",
-            latitude: business.latitude,
-            longitude: business.longitude,
-          },
-        }
-      : {}),
-    openingHoursSpecification: business.hours
-      .filter((h) => !h.closed)
-      .map((h) => ({
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: business.latitude,
+      longitude: business.longitude,
+    },
+    openingHoursSpecification: [
+      {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: h.day,
-        opens: h.open,
-        closes: h.close,
-      })),
-    ...(business.rating
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: String(business.rating),
-            reviewCount: String(business.reviewCount),
-            bestRating: "5",
-          },
-        }
-      : {}),
-    ...(business.owner
-      ? {
-          founder: {
-            "@type": "Person",
-            name: business.owner,
-            jobTitle: business.ownerTitle,
-          },
-        }
-      : {}),
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "10:00",
+        closes: "16:00",
+      },
+    ],
+    priceRange: "$35–$2800",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: String(business.rating),
+      reviewCount: String(business.reviewCount),
+      bestRating: "5",
+    },
+    founder: {
+      "@type": "Person",
+      name: business.owner,
+      jobTitle: "Founder & Nurse Practitioner",
+      description: `Dual board-certified nurse practitioner (ANP-C, WHNP-C). Columbia University MSN graduate. Founded ${business.name} in ${business.founded || "2020"}.`,
+      hasCredential: [
+        { "@type": "EducationalOccupationalCredential", credentialCategory: "Board Certification", name: "Adult Nurse Practitioner - Certified (ANP-C)" },
+        { "@type": "EducationalOccupationalCredential", credentialCategory: "Board Certification", name: "Women's Health Nurse Practitioner - Certified (WHNP-C)" },
+        { "@type": "EducationalOccupationalCredential", credentialCategory: "Degree", name: "Master of Science in Nursing (MSN)", recognizedBy: { "@type": "Organization", name: "Columbia University" } },
+      ],
+    },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Services",
-      itemListElement: business.services.map((s) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: s.name,
-          description: s.shortDescription,
-        },
+      name: `${business.name} Services`,
+      itemListElement: serviceCategories.map((cat) => ({
+        "@type": "OfferCatalog",
+        name: `${cat.name} Services`,
+        itemListElement: cat.services.map((s) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: s.name,
+            url: `https://www.lantern.llc/b/${business.slug}/s/${s.slug}/info`,
+            description: s.details,
+          },
+        })),
       })),
     },
-    areaServed: {
-      "@type": "City",
-      name: business.city,
-      containedInPlace: {
-        "@type": "State",
-        name: business.state,
-      },
-    },
+    sameAs: [
+      "https://www.google.com/maps/place/Well+Room",
+      "https://www.yelp.com/biz/well-room-charlottesville",
+    ],
   };
 
-  const faqSchema =
-    business.faqs.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: business.faqs.map((f) => ({
-            "@type": "Question",
-            name: f.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: f.answer,
-            },
-          })),
-        }
-      : null;
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: infoFaqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  };
 
   return (
-    <>
-      <JsonLd data={localBusinessSchema} />
-      {faqSchema && <JsonLd data={faqSchema} />}
+    <div
+      className="bg-white text-wr-text leading-[1.7] max-w-[720px] mx-auto py-10 px-6"
+      style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}
+    >
+      <JsonLd data={businessSchema} />
+      <JsonLd data={faqSchema} />
 
-      {/* Page Header */}
-      <header className="border-b border-wr-border py-4 bg-wr-white">
-        <div className="max-w-[740px] mx-auto px-6 flex items-center justify-between">
-          <div className="font-wr-heading text-[1.1rem] font-medium text-wr-text tracking-[0.02em]">
-            {business.name}{" "}
-            <span className="text-wr-copper">·</span> {business.city}
-          </div>
-          <div className="text-[0.78rem] text-wr-text-muted tracking-[0.04em] uppercase">
-            Independent Business Profile
-          </div>
-        </div>
+      {/* Header */}
+      <header>
+        <h1 className="text-2xl font-semibold mb-2">{business.name}</h1>
+        <p className="text-[15px] text-wr-text-info mb-6">
+          Wellness &amp; Aesthetics · {business.city}, Virginia
+        </p>
+        <p className="text-[13px] text-wr-text-muted mb-8">
+          Independent business profile · Last updated February 2026
+        </p>
       </header>
 
-      <main className="max-w-[740px] mx-auto px-6">
-        {/* Fact Block */}
-        <div className="bg-wr-white border border-wr-border rounded-[2px] p-10 max-[600px]:p-7 my-10">
-          <h1 className="font-wr-heading text-[1.75rem] max-[600px]:text-[1.5rem] font-medium text-wr-text mb-1 tracking-[0.01em]">
-            {business.name}
-          </h1>
-          <p className="text-[0.85rem] text-wr-text-muted mb-8 tracking-[0.03em]">
-            {business.address}, {business.city}, {business.state} {business.zip}
-          </p>
-
-          <div className="grid grid-cols-2 max-[600px]:grid-cols-1 gap-0">
-            {/* Rating */}
-            {business.rating && (
-              <div className="py-2.5 border-t border-wr-border flex flex-col pr-6 max-[600px]:pr-0">
-                <span className="text-[0.7rem] uppercase tracking-[0.1em] text-wr-text-muted mb-0.5">
-                  Rating
-                </span>
-                <span className="text-[0.92rem] text-wr-text font-normal">
-                  <span className="text-wr-copper tracking-[1px]">★★★★★</span>{" "}
-                  {business.rating} · {business.reviewCount}+ reviews
-                </span>
-              </div>
-            )}
-            {/* Services */}
-            <div className="py-2.5 border-t border-wr-border max-[600px]:border-l-0 border-l border-l-wr-border flex flex-col pl-6 max-[600px]:pl-0">
-              <span className="text-[0.7rem] uppercase tracking-[0.1em] text-wr-text-muted mb-0.5">
-                Services
-              </span>
-              <span className="text-[0.92rem] text-wr-text font-normal">
-                {business.services.length} offered
-              </span>
-            </div>
-            {/* Hours */}
-            <div className="py-2.5 border-t border-wr-border flex flex-col pr-6 max-[600px]:pr-0">
-              <span className="text-[0.7rem] uppercase tracking-[0.1em] text-wr-text-muted mb-0.5">
-                Hours
-              </span>
-              <span className="text-[0.92rem] text-wr-text font-normal">
-                {hoursShort}
-              </span>
-            </div>
-            {/* Parking */}
-            {business.parking && (
-              <div className="py-2.5 border-t border-wr-border max-[600px]:border-l-0 border-l border-l-wr-border flex flex-col pl-6 max-[600px]:pl-0">
-                <span className="text-[0.7rem] uppercase tracking-[0.1em] text-wr-text-muted mb-0.5">
-                  Parking
-                </span>
-                <span className="text-[0.92rem] text-wr-text font-normal">
-                  {business.parking}
-                </span>
-              </div>
-            )}
-            {/* Phone */}
-            <div className="py-2.5 border-t border-wr-border flex flex-col pr-6 max-[600px]:pr-0">
-              <span className="text-[0.7rem] uppercase tracking-[0.1em] text-wr-text-muted mb-0.5">
-                Phone
-              </span>
-              <span className="text-[0.92rem] text-wr-text font-normal">
-                <a
-                  href={`tel:${business.phone}`}
-                  className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-                >
-                  {business.phone}
-                </a>
-              </span>
-            </div>
-            {/* Booking */}
-            {business.bookingUrl && (
-              <div className="py-2.5 border-t border-wr-border max-[600px]:border-l-0 border-l border-l-wr-border flex flex-col pl-6 max-[600px]:pl-0">
-                <span className="text-[0.7rem] uppercase tracking-[0.1em] text-wr-text-muted mb-0.5">
-                  Booking
-                </span>
-                <span className="text-[0.92rem] text-wr-text font-normal">
-                  <a
-                    href={business.bookingUrl}
-                    className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-                  >
-                    Book online
-                  </a>
-                </span>
-              </div>
-            )}
-            {/* Founded by */}
-            {business.owner && (
-              <div className="py-2.5 border-t border-wr-border flex flex-col pr-6 max-[600px]:pr-0">
-                <span className="text-[0.7rem] uppercase tracking-[0.1em] text-wr-text-muted mb-0.5">
-                  Founded by
-                </span>
-                <span className="text-[0.92rem] text-wr-text font-normal">
-                  {business.owner}
-                  {business.ownerTitle ? `, ${business.ownerTitle}` : ""}
-                </span>
-              </div>
-            )}
-          </div>
+      {/* Booking callout */}
+      <div className="bg-wr-cream border border-wr-border rounded-lg p-4 px-5 mb-8 flex justify-between items-center flex-wrap gap-3">
+        <div className="text-[15px]">
+          <strong>Ready to book?</strong> Visit our booking page or call {business.phone}.
         </div>
+        <a
+          href={`/b/${business.slug}`}
+          className="bg-wr-info-link text-white no-underline py-2 px-5 rounded-md text-sm font-medium whitespace-nowrap"
+        >
+          Book at {business.name} →
+        </a>
+      </div>
 
-        {/* About */}
-        <section className="my-12">
-          <h2 className="font-wr-heading text-[1.35rem] font-medium text-wr-text mb-5 tracking-[0.01em]">
-            About {business.name}
-          </h2>
-          <p className="text-[0.95rem] text-wr-text-light mb-4">
-            {business.description}
-          </p>
-        </section>
-
-        {/* Services */}
-        <section className="my-12">
-          <h2 className="font-wr-heading text-[1.35rem] font-medium text-wr-text mb-5 tracking-[0.01em]">
-            Services
-          </h2>
-          <div className="space-y-4">
-            {business.services.map((service) => (
-              <div
-                key={service.slug}
-                className="border-b border-wr-border pb-4 last:border-0"
-              >
-                <h3 className="font-normal text-wr-text text-[0.95rem]">
-                  <a
-                    href={`/b/${business.slug}/s/${service.slug}/info`}
-                    className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-                  >
-                    {service.name}
-                  </a>
-                </h3>
-                <p className="text-[0.95rem] text-wr-text-light mt-0.5">
-                  {service.shortDescription}
-                </p>
-                <div className="flex gap-4 mt-1 text-[0.82rem] text-wr-text-muted">
-                  {service.duration && <span>{service.duration}</span>}
-                  {service.price && <span>{service.price}</span>}
-                </div>
-              </div>
-            ))}
+      {/* Fact grid */}
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4 my-5">
+        {infoFacts.map((fact) => (
+          <div key={fact.label} className="bg-wr-cream border border-wr-border rounded-lg py-3.5 px-4">
+            <div className="text-xs text-wr-text-muted uppercase tracking-[0.5px] mb-1">{fact.label}</div>
+            <div className="text-[15px] font-medium">
+              {fact.label === "Phone" ? (
+                <a href={`tel:${business.phone}`} className="text-wr-info-link">{fact.value}</a>
+              ) : (
+                fact.value
+              )}
+            </div>
           </div>
-        </section>
+        ))}
+      </div>
 
-        {/* Hours */}
-        <section className="my-12">
-          <h2 className="font-wr-heading text-[1.35rem] font-medium text-wr-text mb-5 tracking-[0.01em]">
-            Hours
+      {/* About */}
+      <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+        About {business.name}
+      </h2>
+      {aboutSections.map((p, i) => (
+        <p key={i} className="mb-3 text-base">{p}</p>
+      ))}
+
+      {/* What Makes It Different */}
+      {differentiators.length > 0 && (
+        <>
+          <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+            What Makes {business.name} Different
           </h2>
-          <table className="w-full border-collapse my-5">
+          {differentiators.map((d, i) => (
+            <p key={i} className="mb-3 text-base">
+              <strong>{d.title}:</strong> {d.text}
+            </p>
+          ))}
+        </>
+      )}
+
+      {/* Services by category */}
+      <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+        Services &amp; Pricing
+      </h2>
+
+      {serviceCategories.map((cat) => (
+        <div key={cat.name} className="mb-6">
+          <h3 className="text-base font-semibold mt-6 mb-2">{cat.name}</h3>
+          <table className="w-full border-collapse my-4 text-[15px]">
+            <thead>
+              <tr>
+                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Service</th>
+                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Details</th>
+                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Starting Price</th>
+              </tr>
+            </thead>
             <tbody>
-              {business.hours.map((h) => (
-                <tr key={h.day} className="border-b border-wr-border">
-                  <td className="py-2.5 text-wr-text-muted text-[0.8rem] uppercase tracking-[0.06em] w-[140px] pr-6 font-normal align-top">
-                    {h.day}
+              {cat.services.map((s) => (
+                <tr key={s.slug} className="border-b border-wr-border-light">
+                  <td className="py-2.5 px-3">
+                    <a href={`/b/${business.slug}/s/${s.slug}/info`} className="text-wr-info-link">
+                      {s.name}
+                    </a>
                   </td>
-                  <td className="py-2.5 text-[0.92rem] text-wr-text">
-                    {h.closed ? "Closed" : `${h.open} – ${h.close}`}
-                  </td>
+                  <td className="py-2.5 px-3">{s.details}</td>
+                  <td className="py-2.5 px-3">{s.startingPrice}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </section>
-
-        {/* Contact */}
-        <section className="my-12">
-          <h2 className="font-wr-heading text-[1.35rem] font-medium text-wr-text mb-5 tracking-[0.01em]">
-            Contact
-          </h2>
-          <table className="w-full border-collapse my-5">
-            <tbody>
-              <tr className="border-b border-wr-border">
-                <td className="py-2.5 text-wr-text-muted text-[0.8rem] uppercase tracking-[0.06em] w-[140px] pr-6 font-normal align-top">
-                  Address
-                </td>
-                <td className="py-2.5 text-[0.92rem] text-wr-text">
-                  {business.address}, {business.city}, {business.state}{" "}
-                  {business.zip}
-                </td>
-              </tr>
-              <tr className="border-b border-wr-border">
-                <td className="py-2.5 text-wr-text-muted text-[0.8rem] uppercase tracking-[0.06em] w-[140px] pr-6 font-normal align-top">
-                  Phone
-                </td>
-                <td className="py-2.5 text-[0.92rem] text-wr-text">
-                  <a
-                    href={`tel:${business.phone}`}
-                    className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-                  >
-                    {business.phone}
-                  </a>
-                </td>
-              </tr>
-              {business.website && (
-                <tr className="border-b border-wr-border">
-                  <td className="py-2.5 text-wr-text-muted text-[0.8rem] uppercase tracking-[0.06em] w-[140px] pr-6 font-normal align-top">
-                    Website
-                  </td>
-                  <td className="py-2.5 text-[0.92rem] text-wr-text">
-                    <a
-                      href={business.website}
-                      className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {business.website.replace(/^https?:\/\/(www\.)?/, "")}
-                    </a>
-                  </td>
-                </tr>
-              )}
-              {business.bookingUrl && (
-                <tr className="border-b border-wr-border">
-                  <td className="py-2.5 text-wr-text-muted text-[0.8rem] uppercase tracking-[0.06em] w-[140px] pr-6 font-normal align-top">
-                    Booking
-                  </td>
-                  <td className="py-2.5 text-[0.92rem] text-wr-text">
-                    <a
-                      href={business.bookingUrl}
-                      className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-                    >
-                      Book online
-                    </a>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </section>
-
-        {/* FAQ */}
-        {business.faqs.length > 0 && (
-          <section className="my-12">
-            <h2 className="font-wr-heading text-[1.35rem] font-medium text-wr-text mb-5 tracking-[0.01em]">
-              Frequently asked questions
-            </h2>
-            <FAQAccordion faqs={business.faqs} defaultOpen={0} />
-          </section>
-        )}
-
-        <hr className="border-0 border-t border-wr-border my-12" />
-
-        {/* Reviews */}
-        {business.reviews.length > 0 && (
-          <section className="my-12">
-            <h2 className="font-wr-heading text-[1.35rem] font-medium text-wr-text mb-5 tracking-[0.01em]">
-              What customers say
-            </h2>
-            {business.reviews.map((review, i) => (
-              <div
-                key={i}
-                className={`py-6 border-b border-wr-border ${i === 0 ? "border-t" : ""}`}
-              >
-                {review.label && (
-                  <div className="text-[0.7rem] uppercase tracking-[0.1em] text-wr-copper mb-2">
-                    {review.label}
-                  </div>
-                )}
-                <blockquote className="font-wr-heading text-[1.05rem] italic text-wr-text leading-[1.7] mb-2">
-                  &ldquo;{review.text}&rdquo;
-                </blockquote>
-                <cite className="not-italic text-[0.8rem] text-wr-text-muted">
-                  — {review.author}
-                  {review.source ? `, ${review.source} Review` : ""}
-                </cite>
-              </div>
-            ))}
-          </section>
-        )}
-
-        {/* First-visit link */}
-        {business.promoCode && (
-          <div className="text-center p-6 my-8 bg-wr-white border border-wr-border rounded-[2px]">
-            <p className="text-[0.88rem] text-wr-text-light">
-              First time visiting {business.name}?{" "}
-              <a
-                href={`/b/${business.slug}`}
-                className="text-wr-copper-dark font-normal no-underline border-b border-wr-copper"
-              >
-                See the first-visit offer →
-              </a>
-            </p>
-          </div>
-        )}
-
-        {/* About Block */}
-        <div className="bg-wr-sage p-10 max-[600px]:p-7 rounded-[2px] my-12">
-          <h2 className="font-wr-heading text-[1.35rem] font-medium text-wr-text mb-4">
-            About {business.name}
-          </h2>
-          <p className="text-[0.92rem] text-wr-text-light mb-3">
-            {business.description}
-          </p>
-          <ul className="flex flex-wrap gap-x-4 gap-y-1.5 my-4 list-none p-0">
-            {business.services.map((s) => (
-              <li
-                key={s.slug}
-                className="text-[0.82rem] text-wr-text-light py-1"
-              >
-                <span className="text-wr-copper">· </span>
-                {s.name}
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-wrap gap-x-8 gap-y-2 mt-5 text-[0.85rem]">
-            {business.website && (
-              <a
-                href={business.website}
-                className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-              >
-                {business.website.replace(/^https?:\/\/(www\.)?/, "")}
-              </a>
-            )}
-            {business.bookingUrl && (
-              <a
-                href={business.bookingUrl}
-                className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-              >
-                Book online
-              </a>
-            )}
-            <a
-              href={`tel:${business.phone}`}
-              className="text-wr-copper-dark no-underline border-b border-wr-copper-light"
-            >
-              {business.phone}
-            </a>
-          </div>
         </div>
-      </main>
+      ))}
 
-      {/* Page Footer */}
-      <footer className="border-t border-wr-border py-6 mt-12">
-        <div className="max-w-[740px] mx-auto px-6">
-          <p className="text-[0.75rem] text-wr-text-muted text-center leading-[1.7]">
-            {business.name} business profile · Information verified February 2026
-            <br />
-            Maintained by{" "}
-            <a
-              href="https://lantern.llc"
-              className="text-wr-copper-dark no-underline"
-            >
-              Lantern
-            </a>{" "}
-            ·{" "}
-            <a
-              href="mailto:hello@lantern.llc"
-              className="text-wr-copper-dark no-underline"
-            >
-              Report an issue
-            </a>
+      <p className="text-base">
+        Bundles and multi-packs are available at a discount. See{" "}
+        <a href="https://www.wellroomva.com/bundles-packages" className="text-wr-info-link">
+          bundles &amp; packages
+        </a>{" "}
+        for details.
+      </p>
+
+      {/* FAQ */}
+      <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+        Frequently Asked Questions
+      </h2>
+      {infoFaqs.map((faq, i) => (
+        <div key={i} className="mb-5">
+          <p className="font-semibold mb-1">{faq.question}</p>
+          <p className="text-wr-text-mid">{faq.answer}</p>
+        </div>
+      ))}
+
+      {/* Reviews */}
+      <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+        What Clients Say
+      </h2>
+      {infoReviews.map((review, i) => (
+        <div key={i} className="mb-5 p-4 bg-wr-cream rounded-lg border border-wr-border">
+          <p className="italic mb-1.5">&ldquo;{review.text}&rdquo;</p>
+          <p className="text-[13px] text-wr-text-muted">
+            — {review.author}
+            {review.source ? `, ${review.source} Review` : ""}
           </p>
         </div>
+      ))}
+      <p>
+        <a href="https://g.co/kgs/WHegSC" className="text-wr-info-link">
+          Read all {business.reviewCount}+ reviews on Google →
+        </a>
+      </p>
+
+      {/* External profiles */}
+      <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+        Reviews &amp; Profiles
+      </h2>
+      <table className="w-full border-collapse my-4 text-[15px]">
+        <thead>
+          <tr>
+            <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Platform</th>
+            <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Rating</th>
+            <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-wr-border-light">
+            <td className="py-2.5 px-3">Google</td>
+            <td className="py-2.5 px-3">{business.rating} ★ ({business.reviewCount}+ reviews)</td>
+            <td className="py-2.5 px-3">
+              <a href="https://g.co/kgs/WHegSC" className="text-wr-info-link">Google Business Profile →</a>
+            </td>
+          </tr>
+          <tr className="border-b border-wr-border-light">
+            <td className="py-2.5 px-3">Yelp</td>
+            <td className="py-2.5 px-3">5.0 ★</td>
+            <td className="py-2.5 px-3">
+              <a href="https://www.yelp.com/biz/well-room-charlottesville" className="text-wr-info-link">Yelp →</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* How to Book */}
+      <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+        How to Book
+      </h2>
+      <p className="mb-3">
+        <strong>Online:</strong>{" "}
+        <a href={`/b/${business.slug}`} className="text-wr-info-link">Book at {business.name} →</a>
+      </p>
+      <p className="mb-3">
+        <strong>Phone:</strong>{" "}
+        <a href={`tel:${business.phone}`} className="text-wr-info-link">{business.phone}</a>
+      </p>
+      <p className="mb-3">
+        <strong>Address:</strong> {business.address.replace("St NW", "Street NW")}, {business.city}, {business.state} {business.zip} (
+        <a
+          href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${business.name}, ${business.address}, ${business.city}, ${business.state} ${business.zip}`)}`}
+          className="text-wr-info-link"
+        >
+          Get directions
+        </a>
+        )
+      </p>
+      {business.website && (
+        <p className="mb-3">
+          <strong>Website:</strong>{" "}
+          <a href={business.website} className="text-wr-info-link">
+            {business.website.replace(/^https?:\/\/(www\.)?/, "")}
+          </a>
+        </p>
+      )}
+
+      {/* Footer */}
+      <footer className="mt-12 pt-6 border-t border-wr-border-warm text-[13px] text-wr-text-muted">
+        <p>
+          This is an independent business profile maintained by{" "}
+          <a href="https://lantern.llc" className="text-wr-text-muted">Lantern</a>.
+          Information is based on publicly available data and verified with the business.
+          Last updated February 2026.
+        </p>
       </footer>
-    </>
+    </div>
   );
 }

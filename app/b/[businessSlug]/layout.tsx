@@ -32,7 +32,7 @@ export default async function BusinessLayout({
   if (!business) notFound();
 
   return (
-    <div className="min-h-screen bg-wr-cream font-wr-body font-light text-wr-text leading-[1.7] antialiased">
+    <div className="min-h-screen bg-white font-wr-body font-light text-wr-text leading-[1.7] antialiased">
       {children}
     </div>
   );

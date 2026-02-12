@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -148,7 +148,70 @@
   }
 
   .wr-body {
-    font-family: 'Jost', system-ui, sans-serif;
+    font-family: 'DM Sans', system-ui, sans-serif;
     font-weight: 300;
   }
+}
+
+/* ===========================================
+   Landing Page animation & interactive utilities
+   =========================================== */
+
+/* Scroll-triggered fade-up animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-1 { transition-delay: 0.08s; }
+.stagger-2 { transition-delay: 0.16s; }
+.stagger-3 { transition-delay: 0.24s; }
+.stagger-4 { transition-delay: 0.32s; }
+
+/* Review carousel dots */
+.review-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid #C99A60;
+  background: transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.review-dot.active {
+  background: #C99A60;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Service cards (LP) */
+.lp-service-card {
+  transition: all 0.25s ease;
+}
+.lp-service-card:hover {
+  border-color: #C99A60;
+  box-shadow: 0 4px 20px rgba(184, 142, 95, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Session cards (S-LP) */
+.lp-session-card {
+  transition: all 0.25s ease;
+}
+.lp-session-card:hover {
+  border-color: #B8845A;
+  box-shadow: 0 4px 20px rgba(184, 132, 90, 0.1);
+  transform: translateY(-2px);
+}
+
+/* FAQ items (LP) */
+.lp-faq-item {
+  transition: background 0.2s ease;
+}
+.lp-faq-item:hover {
+  background: #FDFAF5;
 }

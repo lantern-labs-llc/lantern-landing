@@ -23,6 +23,7 @@ export interface Review {
   date?: string;
   source?: string;
   label?: string;
+  service?: string;
 }
 
 export interface TrustSignal {
@@ -39,11 +40,42 @@ export interface HowItWorksStep {
 export interface PricingItem {
   name: string;
   price: string;
+  description?: string;
+  featured?: boolean;
+  tag?: string;
 }
 
 export interface DetailsRow {
   label: string;
   value: string;
+}
+
+export interface FactCard {
+  label: string;
+  value: string;
+}
+
+export interface ServiceListItem {
+  name: string;
+  slug: string;
+  details: string;
+  startingPrice: string;
+}
+
+export interface ServiceCategory {
+  name: string;
+  services: ServiceListItem[];
+}
+
+export interface ExpectItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface BenefitItem {
+  title: string;
+  description: string;
 }
 
 export interface Service {
@@ -61,7 +93,30 @@ export interface Service {
   whatToExpect?: DetailsRow[];
   commonReasons?: string[];
   beforeAfter?: { before: string; after: string };
-  facts?: DetailsRow[];
+  facts?: FactCard[];
+  // LP-specific fields
+  lpExpectItems?: ExpectItem[];
+  lpBenefits?: BenefitItem[];
+  lpReviews?: Review[];
+  lpFaqs?: FAQ[];
+  lpTrustItems?: { top: string; bottom: string }[];
+  // Info page fields
+  infoReviews?: Review[];
+}
+
+export interface LPServiceCard {
+  name: string;
+  description: string;
+  price: string;
+  bookingUrl: string;
+  tag?: string;
+}
+
+export interface PractitionerInfo {
+  name: string;
+  fullTitle: string;
+  credentials: string;
+  bio: string;
 }
 
 export interface Business {
@@ -94,4 +149,19 @@ export interface Business {
   howItWorks?: HowItWorksStep[];
   heroSubtitle?: string;
   parking?: string;
+  founded?: string;
+  // Service categories for info pages
+  serviceCategories?: ServiceCategory[];
+  // LP-specific
+  lpServiceCards?: LPServiceCard[];
+  lpReviews?: Review[];
+  lpTrustItems?: { value: string; label: string }[];
+  lpBookingSteps?: { step: string; title: string; description: string }[];
+  practitioner?: PractitionerInfo;
+  // Info page specific
+  infoFacts?: FactCard[];
+  infoReviews?: Review[];
+  infoFaqs?: FAQ[];
+  aboutSections?: string[];
+  differentiators?: { title: string; text: string }[];
 }
