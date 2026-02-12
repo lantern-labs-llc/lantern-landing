@@ -1,13 +1,16 @@
+"use client";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import lanternLogo from "@/assets/lantern-logo-2.png";
+
+const lanternLogo = "/lantern-logo-2.png";
 
 const PASSWORD = "lantern";
 
 const PasswordGate = ({ children }: { children: React.ReactNode }) => {
   const [unlocked, setUnlocked] = useState(
-    () => sessionStorage.getItem("site_unlocked") === "true"
+    () => typeof window !== "undefined" && sessionStorage.getItem("site_unlocked") === "true"
   );
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);

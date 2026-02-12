@@ -1,9 +1,12 @@
+"use client";
+
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import lanternLogo from "@/assets/lantern-logo-2.png";
+
+const lanternLogo = "/lantern-logo-2.png";
 
 const navLinks = [
   { label: "How It Works", hash: "how-it-works" },
@@ -13,9 +16,9 @@ const navLinks = [
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
-  const isWaitlistPage = location.pathname === "/waitlist";
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const isWaitlistPage = pathname === "/waitlist";
 
   const linkHref = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
 

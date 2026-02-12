@@ -1,16 +1,18 @@
+"use client";
+
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
 const WaitlistCTA = () => {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    navigate(`/waitlist?email=${encodeURIComponent(email)}`);
+    router.push(`/waitlist?email=${encodeURIComponent(email)}`);
   };
   return <section id="waitlist" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-glow pointer-events-none" />

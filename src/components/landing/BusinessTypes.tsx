@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import {
   UtensilsCrossed, Scissors, Wrench, Dumbbell, Stethoscope, GraduationCap,

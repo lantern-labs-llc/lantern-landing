@@ -8,18 +8,18 @@ import Team from "@/components/landing/Team";
 import WaitlistCTA from "@/components/landing/WaitlistCTA";
 import Footer from "@/components/landing/Footer";
 
-const Index = () => (
-  <div className="min-h-screen bg-background">
-    <Navbar />
-    <Hero />
-    <WhyNow />
-    <HowItWorks />
-    <PayForPerformance />
-    <BusinessTypes />
-    <Team />
-    <WaitlistCTA />
-    <Footer />
-  </div>
-);
-
-export default Index;
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <Hero />
+      <WhyNow />
+      <HowItWorks />
+      <PayForPerformance />
+      <BusinessTypes />
+      <Team />
+      <WaitlistCTA />
+      <Footer />
+    </div>
+  );
+}

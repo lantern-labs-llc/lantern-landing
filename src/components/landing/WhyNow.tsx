@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { ArrowBigDown, TrendingUp } from "lucide-react";
 const BullseyeIcon = ({

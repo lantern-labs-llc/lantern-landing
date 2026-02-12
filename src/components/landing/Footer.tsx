@@ -1,9 +1,12 @@
-import { useLocation } from "react-router-dom";
-import lanternLogo from "@/assets/lantern-logo-2.png";
+"use client";
+
+import { usePathname } from "next/navigation";
+
+const lanternLogo = "/lantern-logo-2.png";
 
 const Footer = () => {
-  const location = useLocation();
-  const isHome = location.pathname === "/";
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const linkHref = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
 
   return (

@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,8 +36,8 @@ const US_STATES = [
   { value: "VI", label: "U.S. Virgin Islands" },
 ];
 
-const Waitlist = () => {
-  const [searchParams] = useSearchParams();
+export default function WaitlistPage() {
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
 
@@ -56,7 +58,7 @@ const Waitlist = () => {
     e.preventDefault();
     setSubmitted(true);
     toast({
-      title: "You're on the list! 🎉",
+      title: "You're on the list!",
       description: "We'll reach out soon with early access details.",
     });
   };
@@ -81,7 +83,7 @@ const Waitlist = () => {
               Join the <span className="italic text-gradient-lantern">Waitlist</span>
             </h1>
             <p className="text-muted-foreground leading-relaxed">
-              Tell us a bit about your business and we'll be in touch.
+              Tell us a bit about your business and we&apos;ll be in touch.
             </p>
           </div>
 
@@ -92,7 +94,7 @@ const Waitlist = () => {
               className="flex items-center justify-center gap-3 bg-secondary/10 rounded-xl px-6 py-6 text-center"
             >
               <CheckCircle2 className="text-secondary shrink-0" size={22} />
-              <span className="font-medium">You're on the list! We'll be in touch soon.</span>
+              <span className="font-medium">You&apos;re on the list! We&apos;ll be in touch soon.</span>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -198,6 +200,4 @@ const Waitlist = () => {
       <Footer />
     </div>
   );
-};
-
-export default Waitlist;
+}

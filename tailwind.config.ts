@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -69,6 +70,21 @@ export default {
           grey: "hsl(var(--lantern-grey))",
           navy: "hsl(var(--lantern-navy))",
         },
+        wr: {
+          cream: "#FAF7F2",
+          "cream-deep": "#F3EDE3",
+          copper: "#B8896A",
+          "copper-light": "#D4A882",
+          "copper-dark": "#9A7259",
+          "copper-glow": "rgba(184, 137, 106, 0.1)",
+          text: "#2C2C2C",
+          "text-light": "#5A5A5A",
+          "text-muted": "#8A8A8A",
+          border: "#E5DED5",
+          white: "#FFFFFF",
+          sage: "#E8EDE5",
+          "sage-dark": "#D4DDD0",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -78,6 +94,8 @@ export default {
       fontFamily: {
         display: ["DM Serif Display", "Georgia", "serif"],
         sans: ["DM Sans", "system-ui", "sans-serif"],
+        "wr-heading": ["Cormorant Garamond", "Georgia", "serif"],
+        "wr-body": ["Jost", "system-ui", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
@@ -105,5 +123,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

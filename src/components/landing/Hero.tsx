@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
@@ -24,7 +26,7 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
 
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6">
           Turn AI chats into{" "}
-          <span className="text-gradient-lantern italic">real customers</span>
+          <span className="text-gradient-lantern italic">new customers</span>
         </h1>
 
         <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">Your next customer just asked AI for a recommendation. Did you get mentioned? Lantern is your AI partner—putting your business in front of people who are ready to buy, then making sure they become your customers.</p>
