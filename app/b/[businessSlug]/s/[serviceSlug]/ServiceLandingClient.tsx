@@ -168,7 +168,7 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
             <div className="w-[240px] min-h-[300px] rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-[#F0E8DC] to-wr-border flex items-center justify-center border border-wr-border max-md:w-full max-md:min-h-[200px]">
               <div className="text-center opacity-45">
                 <div className="text-[32px] mb-1">📷</div>
-                <div className="text-[10px] text-wr-text-muted tracking-[0.5px]">Sauna room photo</div>
+                <div className="text-[10px] text-wr-text-muted tracking-[0.5px]">{service.name} photo</div>
               </div>
             </div>
 
@@ -241,14 +241,16 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
             ))}
           </div>
 
-          <div className="text-center mt-[18px]">
-            <a
-              href="https://www.wellroomva.com/bundles-packages"
-              className="text-[13px] text-wr-copper no-underline border-b border-wr-copper/30 pb-0.5"
-            >
-              Sauna bundles &amp; multi-packs also available →
-            </a>
-          </div>
+          {business.bundlesUrl && (
+            <div className="text-center mt-[18px]">
+              <a
+                href={business.bundlesUrl}
+                className="text-[13px] text-wr-copper no-underline border-b border-wr-copper/30 pb-0.5"
+              >
+                Bundles &amp; multi-packs also available →
+              </a>
+            </div>
+          )}
         </div>
       )}
 
@@ -262,10 +264,10 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
           <div className="max-w-[600px] mx-auto">
             <div className="text-center mb-9">
               <div className="text-[11px] tracking-[3px] uppercase text-wr-copper mb-2.5 font-medium">
-                Why infrared
+                {service.lpBenefitLabel || "Benefits"}
               </div>
               <h2 className="font-wr-heading text-[clamp(26px,4vw,32px)] font-light text-wr-text">
-                What it does for your body
+                {service.lpBenefitSectionTitle || "What it does for you"}
               </h2>
             </div>
 
@@ -295,7 +297,7 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
           className="py-14 px-8 max-md:px-5 max-w-[560px] mx-auto text-center"
         >
           <div className="text-[11px] tracking-[3px] uppercase text-wr-copper mb-7 font-medium">
-            Sauna regulars say
+            {service.lpReviewLabel || "What clients say"}
           </div>
           <div className={`fade-up ${isVisible("reviews") ? "visible" : ""} min-h-[140px]`}>
             <div className="text-wr-copper-light mb-4 tracking-[3px] text-lg">★ ★ ★ ★ ★</div>
@@ -330,7 +332,7 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
               FAQ
             </div>
             <h2 className="font-wr-heading text-[clamp(26px,4vw,32px)] font-light text-wr-text">
-              Before your first session
+              {service.lpFaqLabel || "Common questions"}
             </h2>
           </div>
 
@@ -366,7 +368,7 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
         <div className="bg-wr-cream border-t border-b border-wr-border py-7 px-8 text-center">
           <div className="max-w-[480px] mx-auto flex items-center gap-4 justify-center flex-wrap">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-wr-copper-light to-wr-copper flex items-center justify-center text-lg text-white shrink-0 font-wr-heading font-medium">
-              MK
+              {practitioner.name.split(" ").map(w => w[0]).join("")}
             </div>
             <div className="text-left">
               <div className="text-sm font-medium text-wr-text">{practitioner.fullTitle}</div>
@@ -386,7 +388,7 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
       >
         <div className="text-center mb-6">
           <h2 className="font-wr-heading text-2xl font-light text-wr-text">
-            10th Street, Downtown Charlottesville
+            {business.address.replace(/^\d+\s*/, "")}, Downtown {business.city}
           </h2>
         </div>
         <div className={`fade-up ${isVisible("location") ? "visible" : ""}`}>
@@ -437,7 +439,9 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
           <div className="flex justify-center gap-6 mt-4 flex-wrap">
             {[
               { label: business.parking || "Free parking", icon: "P" },
-              { label: "Mon–Fri 10am–4pm", icon: "◷" },
+              { label: business.hours.filter(h => !h.closed).length > 0
+                ? `${business.hours.filter(h => !h.closed)[0]?.day?.slice(0,3)}–${business.hours.filter(h => !h.closed).slice(-1)[0]?.day?.slice(0,3)} ${business.hours.filter(h => !h.closed)[0]?.open?.replace(/:00/g, "").toLowerCase()}–${business.hours.filter(h => !h.closed)[0]?.close?.replace(/:00/g, "").toLowerCase()}`
+                : "See hours", icon: "◷" },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-1.5 text-xs text-wr-text-muted">
                 <span className="text-wr-copper text-[13px]">{item.icon}</span>
@@ -493,7 +497,7 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
           </a>
         </div>
         <div className="text-[11px] text-wr-text-subtle">
-          {business.address}, {business.city}, {business.state} · Mon–Fri 10am–4pm
+          {business.address}, {business.city}, {business.state}
         </div>
         <div className="text-[11px] text-wr-text-faint mt-2.5">
           Powered by <a href="https://lantern.llc" className="text-wr-text-subtle no-underline">Lantern</a>

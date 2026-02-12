@@ -100,8 +100,21 @@ export interface Service {
   lpReviews?: Review[];
   lpFaqs?: FAQ[];
   lpTrustItems?: { top: string; bottom: string }[];
+  lpBenefitLabel?: string;
+  lpReviewLabel?: string;
+  lpFaqLabel?: string;
+  lpBenefitSectionTitle?: string;
   // Info page fields
   infoReviews?: Review[];
+  educationalSections?: { heading: string; paragraphs: string[] }[];
+  comparisonTable?: { headers: string[]; rows: string[][] };
+  researchBottomLine?: string;
+  researchSources?: string;
+  whatsIncluded?: { title: string; description: string }[];
+  candidacy?: { goodFor: string; consultFirst: string; safety?: string };
+  // Meta
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export interface LPServiceCard {
@@ -158,6 +171,8 @@ export interface Business {
   lpTrustItems?: { value: string; label: string }[];
   lpBookingSteps?: { step: string; title: string; description: string }[];
   practitioner?: PractitionerInfo;
+  bundlesUrl?: string;
+  externalProfiles?: { platform: string; rating: string; reviewCount?: string; url: string }[];
   // Info page specific
   infoFacts?: FactCard[];
   infoReviews?: Review[];

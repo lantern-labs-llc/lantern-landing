@@ -29,8 +29,8 @@ export async function generateMetadata({
   const service = getServiceBySlug(business, serviceSlug);
   if (!service) return {};
   return {
-    title: `${service.name} at ${business.name} — ${business.city}, ${business.state} | How It Works, Pricing, FAQs`,
-    description: `Everything you need to know about ${service.name.toLowerCase()} at ${business.name} in ${business.city}, ${business.state}. How it works, pricing, session options, and practical FAQs.`,
+    title: service.metaTitle || `${service.name} at ${business.name} — ${business.city}, ${business.state} | How It Works, Pricing, FAQs`,
+    description: service.metaDescription || `Everything you need to know about ${service.name.toLowerCase()} at ${business.name} in ${business.city}, ${business.state}. How it works, pricing, session options, and practical FAQs.`,
     alternates: {
       canonical: `https://www.lantern.llc/b/${business.slug}/s/${service.slug}/info`,
     },
@@ -122,8 +122,9 @@ export default async function ServiceInfoPage({
         }
       : null;
 
-  // Is this the infrared sauna? If so, render rich educational content
-  const isSauna = service.slug === "infrared-sauna";
+  const educationalSections = service.educationalSections || [];
+  const whatsIncluded = service.whatsIncluded || [];
+  const externalProfiles = business.externalProfiles || [];
 
   return (
     <div
@@ -140,7 +141,7 @@ export default async function ServiceInfoPage({
         </h1>
         <p className="text-[15px] text-wr-text-info mb-6">
           {service.isPrivate ? "Private " : ""}
-          {service.name} Sessions · {business.city}, Virginia
+          {service.name} Sessions · {business.city}, {business.state}
         </p>
         <p className="text-[13px] text-wr-text-muted mb-8">
           Independent service profile · Last updated February 2026 ·{" "}
@@ -177,101 +178,61 @@ export default async function ServiceInfoPage({
         </div>
       )}
 
-      {/* Educational content — Sauna-specific */}
-      {isSauna && (
+      {/* Educational content — data-driven */}
+      {educationalSections.map((section, i) => (
+        <div key={i}>
+          <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+            {section.heading}
+          </h2>
+          {section.paragraphs.map((p, j) => (
+            <p key={j} className="mb-3" dangerouslySetInnerHTML={{ __html: p }} />
+          ))}
+        </div>
+      ))}
+
+      {/* Comparison table */}
+      {service.comparisonTable && (
+        <table className="w-full border-collapse my-4 text-[15px]">
+          <thead>
+            <tr>
+              {service.comparisonTable.headers.map((h, i) => (
+                <th key={i} className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {service.comparisonTable.rows.map((row, i) => (
+              <tr key={i} className="border-b border-wr-border-light">
+                {row.map((cell, j) => (
+                  <td key={j} className={`py-2.5 px-3${j === 0 ? " font-semibold" : ""}`}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {/* Research bottom line */}
+      {service.researchBottomLine && (
+        <div className="bg-wr-cream border border-wr-border rounded-lg p-4 px-5 my-5">
+          <p><strong>Bottom line:</strong> {service.researchBottomLine}</p>
+        </div>
+      )}
+      {service.researchSources && (
+        <p className="text-[13px] text-wr-text-muted italic">{service.researchSources}</p>
+      )}
+
+      {/* Candidacy */}
+      {service.candidacy && (
         <>
           <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
-            What Is Infrared Sauna Therapy?
+            Who Is {service.name} Good For?
           </h2>
-          <p className="mb-3">
-            Infrared sauna therapy uses infrared light wavelengths to heat the body directly, rather than heating the surrounding air like a traditional sauna. Because the heat targets your body rather than the room, infrared saunas operate at lower, more comfortable air temperatures — typically 110–150°F compared to 150–195°F in a traditional Finnish sauna.
-          </p>
-          <p className="mb-3">There are two main types of infrared wavelengths used in sauna therapy:</p>
-          <p className="mb-3">
-            <strong>Near-infrared</strong> has a shorter wavelength and is absorbed closer to the skin&apos;s surface. It&apos;s associated with skin health, wound healing, and cellular repair. Near-infrared is the same wavelength range used in red light therapy devices.
-          </p>
-          <p className="mb-3">
-            <strong>Far-infrared</strong> has a longer wavelength and penetrates deeper into tissue — research suggests approximately 1–2 inches. It&apos;s the primary driver of the deep warming and sweating effect. Far-infrared has been the focus of most clinical studies on infrared sauna therapy.
-          </p>
-          <p className="mb-3">
-            {business.name}&apos;s sauna uses both near-infrared (carbon elements) and far-infrared (ceramic elements), providing the full spectrum of infrared wavelengths in a single session.
-          </p>
-
-          <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
-            How Infrared Saunas Differ from Traditional Saunas
-          </h2>
-          <table className="w-full border-collapse my-4 text-[15px]">
-            <thead>
-              <tr>
-                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info"></th>
-                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Infrared Sauna</th>
-                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Traditional (Finnish) Sauna</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ["How it heats", "Light wavelengths heat the body directly", "Heated air (or steam) warms the body"],
-                ["Air temperature", "110–150°F", "150–195°F"],
-                ["Humidity", "Low (dry heat)", "Variable (dry to moderate)"],
-                ["Sweating onset", "Slower, more gradual", "Faster, more intense"],
-                ["Tolerance", "Generally easier for beginners", "Can feel overwhelming for some"],
-                ["Session length", "20–40 minutes typical", "10–20 minutes typical"],
-              ].map(([label, infrared, traditional]) => (
-                <tr key={label} className="border-b border-wr-border-light">
-                  <td className="py-2.5 px-3 font-semibold">{label}</td>
-                  <td className="py-2.5 px-3">{infrared}</td>
-                  <td className="py-2.5 px-3">{traditional}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="mb-3">
-            Both types raise core body temperature, induce sweating, and increase heart rate. The choice often comes down to personal comfort — many people who find traditional saunas too intense prefer the gentler heat of infrared.
-          </p>
-
-          <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
-            What the Research Says
-          </h2>
-          <p className="mb-3">
-            Research on infrared saunas is growing but still early-stage. Most of the robust, large-scale sauna research has been conducted on traditional Finnish saunas. However, a body of smaller studies on infrared saunas shows promising results across several areas.
-          </p>
-          <h3 className="text-base font-semibold mt-6 mb-2">Cardiovascular health</h3>
-          <p className="mb-3">
-            A 2018 review published in Mayo Clinic Proceedings found that regular sauna bathing is associated with reduced risk of cardiovascular events, lower blood pressure, and improved vascular function. A 2009 review in Canadian Family Physician found that far-infrared sauna therapy showed benefits for systolic blood pressure, congestive heart failure symptoms, and vascular endothelial function, with no adverse events reported across the studies reviewed.
-          </p>
-          <h3 className="text-base font-semibold mt-6 mb-2">Pain and muscle recovery</h3>
-          <p className="mb-3">
-            A two-year study found infrared sauna therapy to be a promising method for treatment of chronic pain. Smaller studies have shown reduced delayed-onset muscle soreness (DOMS) when using infrared sauna after intense exercise. A 2009 study also found infrared saunas can improve short-term pain and stiffness for those with rheumatoid arthritis and ankylosing spondylitis.
-          </p>
-          <h3 className="text-base font-semibold mt-6 mb-2">Stress and relaxation</h3>
-          <p className="mb-3">
-            Heat exposure triggers the release of endorphins and can lower cortisol levels. While this is harder to quantify in clinical studies, subjective well-being and relaxation are consistently reported benefits across sauna research. A systematic review of 40 clinical studies found that sauna bathing may improve quality of life, with no serious adverse events reported.
-          </p>
-          <h3 className="text-base font-semibold mt-6 mb-2">What&apos;s not well-supported</h3>
-          <p className="mb-3">
-            Some commonly marketed claims lack strong evidence. Detoxification through sweating is frequently promoted, but medical experts note that the liver and kidneys — not sweat glands — are the body&apos;s primary detoxification organs. Cleveland Clinic and WebMD have both noted that detox claims are &ldquo;more marketing than science&rdquo; for most healthy individuals. Claims about significant weight loss are also overstated; any weight lost during a session is primarily water weight from sweating.
-          </p>
-          <div className="bg-wr-cream border border-wr-border rounded-lg p-4 px-5 my-5">
-            <p>
-              <strong>Bottom line:</strong> Infrared sauna therapy shows genuine promise for cardiovascular health, pain management, muscle recovery, and stress reduction. The research is still emerging and most studies are small, but no serious adverse effects have been reported. It&apos;s best understood as a complementary wellness practice — not a medical treatment — and is most beneficial as part of a broader health routine.
-            </p>
-          </div>
-          <p className="text-[13px] text-wr-text-muted italic">
-            Sources: Mayo Clinic Proceedings (2018), Canadian Family Physician (2009), PMC Systematic Review (2018), Cleveland Clinic, Popular Science (2025)
-          </p>
-
-          <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
-            Who Is Infrared Sauna Good For?
-          </h2>
-          <p className="mb-3">
-            <strong>Good candidates:</strong> People looking for relaxation and stress relief. Those with muscle soreness or chronic pain conditions (as a complement to other treatments). Athletes seeking post-workout recovery. People who find traditional saunas too hot or uncomfortable. Anyone curious about heat therapy who wants an accessible entry point.
-          </p>
-          <p className="mb-3">
-            <strong>Who should consult a doctor first:</strong> People with cardiovascular conditions, peripheral neuropathy, or autoimmune conditions. Those taking medications that affect sweating or heat regulation. Pregnant women. People with difficulty sensing temperature changes.
-          </p>
-          <p className="mb-3">
-            <strong>General safety:</strong> Stay hydrated before, during, and after your session. Avoid alcohol and heavy meals beforehand. Start with shorter sessions at lower temperatures if you&apos;re new to sauna therapy. Cleveland Clinic recommends beginning at around 110°F for 5–10 minutes and building up gradually.
-          </p>
+          <p className="mb-3"><strong>Good candidates:</strong> {service.candidacy.goodFor}</p>
+          <p className="mb-3"><strong>Who should consult a doctor first:</strong> {service.candidacy.consultFirst}</p>
+          {service.candidacy.safety && (
+            <p className="mb-3"><strong>General safety:</strong> {service.candidacy.safety}</p>
+          )}
         </>
       )}
 
@@ -281,24 +242,15 @@ export default async function ServiceInfoPage({
       </h2>
       <p className="mb-3">{service.description}</p>
 
-      {isSauna && (
+      {/* What's included */}
+      {whatsIncluded.length > 0 && (
         <>
-          <h3 className="text-base font-semibold mt-6 mb-2">What&apos;s included in every session</h3>
-          <p className="mb-3">
-            <strong>Private room.</strong> {business.name}&apos;s sauna room is never shared with other clients. It&apos;s a spacious room with a 4-person infrared sauna — all to yourself (or bring a partner or friend).
-          </p>
-          <p className="mb-3">
-            <strong>Near + far infrared.</strong> The sauna uses both carbon (near-infrared) and ceramic (far-infrared) heating elements, delivering both wavelength ranges in a single session.
-          </p>
-          <p className="mb-3">
-            <strong>Red light therapy.</strong> Built into the sauna at no extra charge. Red light (near-infrared spectrum) is associated with skin health, collagen production, and cellular repair.
-          </p>
-          <p className="mb-3">
-            <strong>Bluetooth connectivity.</strong> Connect your phone to play music, a podcast, or whatever helps you unwind.
-          </p>
-          <p className="mb-3">
-            <strong>Towels and amenities.</strong> Clean towels provided, including cold towels for cooling down after your session. The space includes a comfortable lounge area for before and after.
-          </p>
+          <h3 className="text-base font-semibold mt-6 mb-2">What&apos;s included</h3>
+          {whatsIncluded.map((item, i) => (
+            <p key={i} className="mb-3">
+              <strong>{item.title}.</strong> {item.description}
+            </p>
+          ))}
         </>
       )}
 
@@ -327,13 +279,15 @@ export default async function ServiceInfoPage({
               ))}
             </tbody>
           </table>
-          <p className="mb-3">
-            Multi-packs and bundles are also available at a discount. See{" "}
-            <a href="https://www.wellroomva.com/bundles-packages" className="text-wr-info-link">
-              bundles &amp; packages
-            </a>{" "}
-            for current options.
-          </p>
+          {business.bundlesUrl && (
+            <p className="mb-3">
+              Multi-packs and bundles are also available at a discount. See{" "}
+              <a href={business.bundlesUrl} className="text-wr-info-link">
+                bundles &amp; packages
+              </a>{" "}
+              for current options.
+            </p>
+          )}
         </>
       )}
 
@@ -386,30 +340,31 @@ export default async function ServiceInfoPage({
       )}
 
       {/* External profiles */}
-      <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
-        Reviews &amp; Profiles
-      </h2>
-      <table className="w-full border-collapse my-4 text-[15px]">
-        <thead>
-          <tr>
-            <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Platform</th>
-            <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Rating</th>
-            <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="border-b border-wr-border-light">
-            <td className="py-2.5 px-3">Google</td>
-            <td className="py-2.5 px-3">{business.rating} ★ ({business.reviewCount}+ reviews)</td>
-            <td className="py-2.5 px-3"><a href="https://g.co/kgs/WHegSC" className="text-wr-info-link">Google Business Profile →</a></td>
-          </tr>
-          <tr className="border-b border-wr-border-light">
-            <td className="py-2.5 px-3">Yelp</td>
-            <td className="py-2.5 px-3">5.0 ★</td>
-            <td className="py-2.5 px-3"><a href="https://www.yelp.com/biz/well-room-charlottesville" className="text-wr-info-link">Yelp →</a></td>
-          </tr>
-        </tbody>
-      </table>
+      {externalProfiles.length > 0 && (
+        <>
+          <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
+            Reviews &amp; Profiles
+          </h2>
+          <table className="w-full border-collapse my-4 text-[15px]">
+            <thead>
+              <tr>
+                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Platform</th>
+                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Rating</th>
+                <th className="text-left py-2.5 px-3 border-b border-wr-border-light font-semibold text-[13px] uppercase tracking-[0.5px] text-wr-text-info">Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              {externalProfiles.map((profile) => (
+                <tr key={profile.platform} className="border-b border-wr-border-light">
+                  <td className="py-2.5 px-3">{profile.platform}</td>
+                  <td className="py-2.5 px-3">{profile.rating}{profile.reviewCount ? ` (${profile.reviewCount})` : ""}</td>
+                  <td className="py-2.5 px-3"><a href={profile.url} className="text-wr-info-link">{profile.platform} →</a></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
 
       {/* How to Book */}
       <h2 className="text-[19px] font-semibold mt-10 mb-4 pb-2 border-b border-wr-border-warm">
