@@ -214,7 +214,7 @@ export default function BusinessLandingClient({ business }: BusinessLandingClien
               <img
                 src="/images/well-room-megan.webp"
                 alt="Megan Kingdon with her dog at Well Room"
-                className="w-full h-full object-cover object-[center_60%]"
+                className="w-full h-full object-cover object-[30%_40%] scale-[1.6]"
               />
             </div>
 

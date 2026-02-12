@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { Business, Service } from "@/lib/types/business";
+import { resolveServiceLP } from "@/lib/resolveServiceLP";
 
 interface ServiceLandingClientProps {
   business: Business;
@@ -15,12 +16,13 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
   const [activeReview, setActiveReview] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const reviews = service.lpReviews || [];
-  const faqs = service.lpFaqs || [];
-  const trustItems = service.lpTrustItems || [];
-  const expectItems = service.lpExpectItems || [];
-  const benefits = service.lpBenefits || [];
-  const pricing = service.pricing || [];
+  const lp = resolveServiceLP(service, business);
+  const reviews = lp.lpReviews;
+  const faqs = lp.lpFaqs;
+  const trustItems = lp.lpTrustItems;
+  const expectItems = lp.lpExpectItems;
+  const benefits = lp.lpBenefits;
+  const pricing = lp.pricing;
   const promo = business.promoCode;
   const practitioner = business.practitioner;
 
@@ -164,12 +166,13 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
           </div>
 
           <div className="flex gap-8 items-stretch max-md:flex-col">
-            {/* Photo placeholder */}
-            <div className="w-[240px] min-h-[300px] rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-[#F0E8DC] to-wr-border flex items-center justify-center border border-wr-border max-md:w-full max-md:min-h-[200px]">
-              <div className="text-center opacity-45">
-                <div className="text-[32px] mb-1">📷</div>
-                <div className="text-[10px] text-wr-text-muted tracking-[0.5px]">{service.name} photo</div>
-              </div>
+            {/* Service photo */}
+            <div className="w-[240px] min-h-[300px] rounded-xl overflow-hidden shrink-0 border border-wr-border max-md:w-full max-md:min-h-[200px]">
+              <img
+                src={`/images/services/${service.slug}.jpg`}
+                alt={service.name}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Expect items */}
@@ -264,10 +267,10 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
           <div className="max-w-[600px] mx-auto">
             <div className="text-center mb-9">
               <div className="text-[11px] tracking-[3px] uppercase text-wr-copper mb-2.5 font-medium">
-                {service.lpBenefitLabel || "Benefits"}
+                {lp.lpBenefitLabel}
               </div>
               <h2 className="font-wr-heading text-[clamp(26px,4vw,32px)] font-light text-wr-text">
-                {service.lpBenefitSectionTitle || "What it does for you"}
+                {lp.lpBenefitSectionTitle}
               </h2>
             </div>
 
@@ -280,7 +283,9 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
                   <div className="w-1.5 h-1.5 rounded-full bg-wr-copper shrink-0 mt-2" />
                   <div>
                     <span className="text-sm font-medium text-wr-text">{item.title}</span>
-                    <span className="text-sm text-wr-text-body font-light"> — {item.description}</span>
+                    {item.description && (
+                      <span className="text-sm text-wr-text-body font-light"> — {item.description}</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -297,7 +302,7 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
           className="py-14 px-8 max-md:px-5 max-w-[560px] mx-auto text-center"
         >
           <div className="text-[11px] tracking-[3px] uppercase text-wr-copper mb-7 font-medium">
-            {service.lpReviewLabel || "What clients say"}
+            {lp.lpReviewLabel}
           </div>
           <div className={`fade-up ${isVisible("reviews") ? "visible" : ""} min-h-[140px]`}>
             <div className="text-wr-copper-light mb-4 tracking-[3px] text-lg">★ ★ ★ ★ ★</div>
@@ -332,7 +337,7 @@ export default function ServiceLandingClient({ business, service }: ServiceLandi
               FAQ
             </div>
             <h2 className="font-wr-heading text-[clamp(26px,4vw,32px)] font-light text-wr-text">
-              {service.lpFaqLabel || "Common questions"}
+              {lp.lpFaqLabel}
             </h2>
           </div>
 
