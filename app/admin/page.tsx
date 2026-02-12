@@ -27,16 +27,16 @@ export default function AdminPage() {
   const businesses = getAllBusinesses();
 
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground">
-      <header className="border-b border-border px-6 py-4">
+    <div className="min-h-screen bg-white font-sans text-foreground">
+      <header className="border-b border-border bg-background px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="font-display text-xl">Lantern Admin</h1>
             <p className="text-xs text-muted-foreground">Onboarded businesses</p>
           </div>
-          <span className="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full">
-            {businesses.length} business{businesses.length !== 1 ? "es" : ""}
-          </span>
+          <button className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+            + New Customer
+          </button>
         </div>
       </header>
 
@@ -45,7 +45,7 @@ export default function AdminPage() {
           const totalPages = 2 + biz.services.length * 2;
 
           return (
-            <div key={biz.slug} className="border border-border rounded-xl bg-card p-6">
+            <div key={biz.slug} className="border border-border rounded-xl bg-background p-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
                 <div>
                   <h2 className="font-display text-lg">{biz.name}</h2>
