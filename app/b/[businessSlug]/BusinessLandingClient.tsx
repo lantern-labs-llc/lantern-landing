@@ -160,42 +160,26 @@ export default function BusinessLandingClient({ business }: BusinessLandingClien
         </div>
 
         <div className="grid grid-cols-2 max-md:grid-cols-1 gap-3.5">
-          {serviceCards.map((s, i) => (
+          {business.services.map((s, i) => (
             <a
-              key={i}
-              href={s.bookingUrl}
+              key={s.slug}
+              href={`/b/${business.slug}/s/${s.slug}`}
               className={`lp-service-card fade-up stagger-${(i % 4) + 1} ${isVisible("services") ? "visible" : ""} bg-white border border-wr-border rounded-xl no-underline text-inherit block`}
             >
               <div className="p-[22px]">
-                <div className="flex justify-between items-start mb-2 gap-2">
-                  <div className="font-wr-heading text-[19px] font-medium text-wr-text">
-                    {s.name}
-                  </div>
-                  {s.tag && (
-                    <span className="text-[10px] tracking-[0.3px] uppercase text-wr-copper bg-wr-tag-bg py-[3px] px-2 rounded font-medium whitespace-nowrap border border-wr-tag-border">
-                      {s.tag}
-                    </span>
-                  )}
+                <div className="font-wr-heading text-[19px] font-medium text-wr-text mb-2">
+                  {s.name}
                 </div>
                 <p className="text-[13px] text-wr-text-body leading-[1.6] mb-3.5 font-light">
-                  {s.description}
+                  {s.shortDescription}
                 </p>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-wr-text font-medium">{s.price}</span>
-                  <span className="text-xs text-wr-copper font-medium">Book →</span>
+                  {s.price && <span className="text-sm text-wr-text font-medium">{s.price}</span>}
+                  <span className="text-xs text-wr-copper font-medium ml-auto">Learn more →</span>
                 </div>
               </div>
             </a>
           ))}
-        </div>
-
-        <div className="text-center mt-6">
-          <a
-            href={`${business.website}/services`}
-            className="text-[13px] text-wr-copper no-underline border-b border-wr-copper/30 pb-0.5"
-          >
-            See all services on {business.website?.replace(/^https?:\/\/(www\.)?/, "")} →
-          </a>
         </div>
       </div>
 
