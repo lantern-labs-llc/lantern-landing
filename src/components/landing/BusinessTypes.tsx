@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import {
-  UtensilsCrossed, Scissors, Wrench, Dumbbell, Stethoscope, GraduationCap,
+  Briefcase, Scissors, Wrench, Dumbbell, Stethoscope, GraduationCap,
 } from "lucide-react";
 
 const businesses = [
-  { icon: UtensilsCrossed, name: "Restaurants & Cafés", desc: "Get recommended when locals ask 'Where should I eat tonight?'" },
+  { icon: Briefcase, name: "Professional Services", desc: "Lawyers, accountants, financial advisors, agents, and more — be the 1st expert AI recommends." },
   { icon: Scissors, name: "Salons & Spas", desc: "Show up when someone searches for the best haircut in town." },
   { icon: Wrench, name: "Home Services", desc: "Plumbers, electricians, contractors — be the first name AI suggests." },
   { icon: Dumbbell, name: "Fitness & Wellness", desc: "Yoga studios, gyms, personal trainers — stand out in AI results." },
