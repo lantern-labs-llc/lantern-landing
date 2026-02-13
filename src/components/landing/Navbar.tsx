@@ -11,7 +11,7 @@ const lanternLogo = "/lantern-logo-2.png";
 const navLinks = [
   { label: "How It Works", hash: "how-it-works" },
   { label: "For Businesses", hash: "businesses" },
-  { label: "Team", hash: "team" },
+  { label: "Our Story", hash: "team" },
 ];
 
 const Navbar = () => {
