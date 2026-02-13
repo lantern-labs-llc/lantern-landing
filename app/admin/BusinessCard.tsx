@@ -4,21 +4,18 @@ import { useState } from "react";
 import { ExternalLink, ChevronRight, MapPin, Tag, Code, Globe } from "lucide-react";
 import type { Business } from "@/lib/types/business";
 
-function PageCell({ href }: { href: string }) {
+function PageCell({ href, label }: { href: string; label: string }) {
   return (
     <td className="border border-border/50 p-0">
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center gap-2 px-3 py-2.5 no-underline text-inherit"
+        className="flex items-center justify-center px-3 py-2.5 no-underline"
       >
         <span className="inline-flex items-center gap-1 text-sm text-primary">
-          Preview
+          {label}
           <ExternalLink size={11} />
-        </span>
-        <span className="text-[11px] text-muted-foreground italic">
-          (Awaiting review)
         </span>
       </a>
     </td>
@@ -109,8 +106,8 @@ export default function BusinessCard({ biz }: { biz: Business }) {
                     </span>
                   )}
                 </td>
-                <PageCell href={row.infoHref} />
-                <PageCell href={row.lpHref} />
+                <PageCell href={row.infoHref} label="Info" />
+                <PageCell href={row.lpHref} label="Landing" />
               </tr>
             ))}
           </tbody>
