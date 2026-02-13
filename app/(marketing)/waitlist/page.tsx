@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,14 @@ const US_STATES = [
 ];
 
 export default function WaitlistPage() {
+  return (
+    <Suspense>
+      <WaitlistContent />
+    </Suspense>
+  );
+}
+
+function WaitlistContent() {
   const searchParams = useSearchParams();
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
@@ -231,3 +239,4 @@ export default function WaitlistPage() {
     </div>
   );
 }
+
