@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/b/",
-        disallow: [],
+        disallow: "/admin/",
       },
     ],
     sitemap: "https://www.lantern.llc/sitemap.xml",

@@ -19,7 +19,6 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-const businesses = getAllBusinesses();
 const outDir = path.join(ROOT, "public/images/maps");
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -38,6 +37,8 @@ const styles = [
 ].join("&");
 
 async function main() {
+  const businesses = await getAllBusinesses();
+
   for (const biz of businesses) {
     if (!biz.latitude || !biz.longitude) {
       console.log(`Skipping ${biz.slug} — no coordinates`);

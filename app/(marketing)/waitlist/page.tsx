@@ -54,13 +54,43 @@ export default function WaitlistPage() {
   const update = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [field]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    toast({
-      title: "You're on the list!",
-      description: "We'll reach out soon with early access details.",
-    });
+    setLoading(true);
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          businessName: form.business,
+          city: form.city,
+          state: form.state,
+          phone: form.phone,
+          note: form.note,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Something went wrong");
+      }
+      setSubmitted(true);
+      toast({
+        title: "You're on the list!",
+        description: "We'll reach out soon with early access details.",
+      });
+    } catch (err) {
+      toast({
+        title: "Submission failed",
+        description: err instanceof Error ? err.message : "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -184,9 +214,9 @@ export default function WaitlistPage() {
                 />
               </div>
 
-              <Button type="submit" size="lg" className="w-full shadow-lantern h-12 mt-2">
-                Join Waitlist
-                <ArrowRight size={16} className="ml-2" />
+              <Button type="submit" size="lg" className="w-full shadow-lantern h-12 mt-2" disabled={loading}>
+                {loading ? "Submitting…" : "Join Waitlist"}
+                {!loading && <ArrowRight size={16} className="ml-2" />}
               </Button>
 
               <p className="text-center text-xs text-muted-foreground">

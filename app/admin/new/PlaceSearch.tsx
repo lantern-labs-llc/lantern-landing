@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   Command,
   CommandInput,
@@ -17,6 +17,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import {
   Search,
   MapPin,
@@ -25,7 +26,11 @@ import {
   Star,
   Clock,
   ExternalLink,
+  ArrowRight,
+  Loader2,
+  Bot,
 } from "lucide-react";
+import OnboardingForm, { type BusinessDraft } from "./OnboardingForm";
 
 type Suggestion = {
   placeId: string;
@@ -46,6 +51,8 @@ type PlaceDetails = {
   location: { latitude: number; longitude: number } | null;
   types: string[];
 };
+
+type Phase = "search" | "confirm" | "generating" | "form";
 
 function useDebounce(value: string, delay: number) {
   const [debounced, setDebounced] = useState(value);
@@ -70,6 +77,36 @@ async function fetchPlaceDetails(placeId: string): Promise<PlaceDetails> {
   return res.json();
 }
 
+async function generateAndSave(
+  place: PlaceDetails,
+): Promise<{ draft: BusinessDraft; businessId: string }> {
+  // Step 1: Generate AI content
+  const genRes = await fetch("/api/admin/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(place),
+  });
+  if (!genRes.ok) {
+    const err = await genRes.json().catch(() => ({ error: "Generation failed" }));
+    throw new Error(err.error || "Generation failed");
+  }
+  const draft: BusinessDraft = await genRes.json();
+
+  // Step 2: Save to DB as draft
+  const saveRes = await fetch("/api/admin/businesses", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(draft),
+  });
+  if (!saveRes.ok) {
+    const err = await saveRes.json().catch(() => ({ error: "Save failed" }));
+    throw new Error(err.error || "Save failed");
+  }
+  const { id } = await saveRes.json();
+
+  return { draft, businessId: id };
+}
+
 function DetailSkeleton() {
   return (
     <Card>
@@ -90,9 +127,13 @@ function DetailSkeleton() {
 function DetailCard({
   place,
   onReset,
+  onConfirm,
+  isGenerating,
 }: {
   place: PlaceDetails;
   onReset: () => void;
+  onConfirm?: () => void;
+  isGenerating?: boolean;
 }) {
   return (
     <Card>
@@ -165,14 +206,94 @@ function DetailCard({
             </div>
           </div>
         )}
-        <div className="pt-4">
-          <button
-            onClick={onReset}
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
-          >
-            <Search size={14} />
-            Search again
-          </button>
+
+        {onConfirm && (
+          <div className="pt-4 border-t space-y-3">
+            <Button
+              onClick={onConfirm}
+              disabled={isGenerating}
+              className="w-full"
+            >
+              {isGenerating ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  Generating content...
+                </>
+              ) : (
+                <>
+                  Add business & fetch core data
+                  <ArrowRight size={16} />
+                </>
+              )}
+            </Button>
+            <button
+              onClick={onReset}
+              disabled={isGenerating}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5 mx-auto disabled:opacity-50"
+            >
+              <Search size={14} />
+              Search again
+            </button>
+          </div>
+        )}
+
+        {!onConfirm && (
+          <div className="pt-4">
+            <button
+              onClick={onReset}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+            >
+              <Search size={14} />
+              Search again
+            </button>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+const PROGRESS_MESSAGES = [
+  "Scraping website...",
+  "Analyzing business data...",
+  "Generating tagline & description...",
+  "Building FAQs & trust signals...",
+  "Finalizing content...",
+];
+
+function GeneratingState() {
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessageIndex((i) => Math.min(i + 1, PROGRESS_MESSAGES.length - 1));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <Card>
+      <style>{`
+        @keyframes robot-dance {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          15% { transform: translateY(-6px) rotate(-8deg); }
+          30% { transform: translateY(0) rotate(8deg); }
+          45% { transform: translateY(-4px) rotate(-5deg); }
+          60% { transform: translateY(0) rotate(5deg); }
+          75% { transform: translateY(-6px) rotate(-8deg); }
+          90% { transform: translateY(0) rotate(8deg); }
+        }
+        .robot-dance { animation: robot-dance 1.2s ease-in-out infinite; }
+      `}</style>
+      <CardContent className="py-12">
+        <div className="flex flex-col items-center gap-4">
+          <Bot size={36} className="robot-dance text-primary" />
+          <div className="text-center">
+            <p className="font-medium">Generating business content</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {PROGRESS_MESSAGES[messageIndex]}
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -182,6 +303,9 @@ function DetailCard({
 export default function PlaceSearch() {
   const [input, setInput] = useState("");
   const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
+  const [phase, setPhase] = useState<Phase>("search");
+  const [draft, setDraft] = useState<BusinessDraft | null>(null);
+  const [businessId, setBusinessId] = useState<string | null>(null);
   const debouncedInput = useDebounce(input, 300);
 
   const {
@@ -204,23 +328,81 @@ export default function PlaceSearch() {
     staleTime: 10 * 60 * 1000,
   });
 
+  const generateMutation = useMutation({
+    mutationFn: generateAndSave,
+    onSuccess: ({ draft: d, businessId: id }) => {
+      setDraft(d);
+      setBusinessId(id);
+      setPhase("form");
+    },
+  });
+
   const handleSelect = useCallback((placeId: string) => {
     setSelectedPlaceId(placeId);
     setInput("");
+    setPhase("confirm");
   }, []);
 
   const handleReset = useCallback(() => {
     setSelectedPlaceId(null);
     setInput("");
-  }, []);
+    setPhase("search");
+    setDraft(null);
+    generateMutation.reset();
+  }, [generateMutation]);
 
-  if (selectedPlaceId) {
+  const handleConfirm = useCallback(() => {
+    if (!placeDetails) return;
+    setPhase("generating");
+    generateMutation.mutate(placeDetails);
+  }, [placeDetails, generateMutation]);
+
+  // Phase: form — show the editable onboarding form
+  if (phase === "form" && draft && businessId) {
+    return <OnboardingForm defaultValues={draft} businessId={businessId} />;
+  }
+
+  // Phase: generating — show progress UI
+  if (phase === "generating" && !generateMutation.isError) {
+    return <GeneratingState />;
+  }
+
+  // Phase: confirm — show detail card with confirm button
+  if (selectedPlaceId && (phase === "confirm" || phase === "generating")) {
     if (isFetchingDetails || !placeDetails) {
       return <DetailSkeleton />;
     }
-    return <DetailCard place={placeDetails} onReset={handleReset} />;
+
+    return (
+      <div className="space-y-4">
+        <DetailCard
+          place={placeDetails}
+          onReset={handleReset}
+          onConfirm={handleConfirm}
+          isGenerating={generateMutation.isPending}
+        />
+        {generateMutation.isError && (
+          <Card className="border-destructive">
+            <CardContent className="py-4">
+              <p className="text-sm text-destructive">
+                {generateMutation.error.message}
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                className="mt-2"
+                onClick={handleConfirm}
+              >
+                Try again
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    );
   }
 
+  // Phase: search — show search input
   return (
     <Command shouldFilter={false} className="rounded-lg border bg-background">
       <CommandInput

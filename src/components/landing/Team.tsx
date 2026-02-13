@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 
 const team = [
-  { name: "Cindy", role: "Head of Partnerships", bio: "10 years helping SMBs grow. She's really just an AI construct.", initials: "C" },
   { name: "Matt King", role: "Co‑Founder", bio: "Passionate about supporting local businesses and community. Lover of Skink.", initials: "MK" },
   { name: "Jay Ashton", role: "Co‑Founder", bio: "Invented the Internet. Also loves Skink.", initials: "JA" },
 ] as const;
@@ -18,14 +17,14 @@ const Team = () => (
         className="text-center max-w-2xl mx-auto mb-16"
       >
         <h2 className="font-display text-3xl sm:text-4xl mb-4">
-          Meet the <span className="italic text-gradient-lantern">Team</span>
+          We&apos;re on a <span className="italic text-gradient-lantern">mission.</span>
         </h2>
         <p className="text-muted-foreground text-lg">
           We're builders who believe local businesses are the heartbeat of every community.
         </p>
       </motion.div>
 
-      <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+      <div className="grid sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
         {team.map((member, i) => (
           <motion.div
             key={i}

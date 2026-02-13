@@ -2,8 +2,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getBusinessBySlug, getAllBusinessSlugs } from "@/data/businesses";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
-  return getAllBusinessSlugs().map((slug) => ({ businessSlug: slug }));
+  const slugs = await getAllBusinessSlugs();
+  return slugs.map((slug) => ({ businessSlug: slug }));
 }
 
 export async function generateMetadata({
@@ -12,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ businessSlug: string }>;
 }): Promise<Metadata> {
   const { businessSlug } = await params;
-  const business = getBusinessBySlug(businessSlug);
+  const business = await getBusinessBySlug(businessSlug);
   if (!business) return {};
 
   return {
@@ -28,7 +31,7 @@ export default async function BusinessLayout({
   params: Promise<{ businessSlug: string }>;
 }) {
   const { businessSlug } = await params;
-  const business = getBusinessBySlug(businessSlug);
+  const business = await getBusinessBySlug(businessSlug);
   if (!business) notFound();
 
   return (

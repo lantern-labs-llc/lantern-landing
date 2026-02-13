@@ -1,26 +1,28 @@
 import type { MetadataRoute } from "next";
-import { getAllBusinessSlugs, getBusinessBySlug } from "@/data/businesses";
+import { getPublishedPages } from "@/data/businesses";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.lantern.llc";
   const entries: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
   ];
 
-  for (const slug of getAllBusinessSlugs()) {
-    const business = getBusinessBySlug(slug);
-    if (!business) continue;
+  const pages = await getPublishedPages();
+  for (const biz of pages) {
+    if (biz.hasLP) {
+      entries.push({ url: `${baseUrl}/b/${biz.slug}`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 });
+    }
+    if (biz.hasInfo) {
+      entries.push({ url: `${baseUrl}/b/${biz.slug}/info`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 });
+    }
 
-    entries.push(
-      { url: `${baseUrl}/b/${slug}`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-      { url: `${baseUrl}/b/${slug}/info`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-    );
-
-    for (const service of business.services) {
-      entries.push(
-        { url: `${baseUrl}/b/${slug}/s/${service.slug}`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-        { url: `${baseUrl}/b/${slug}/s/${service.slug}/info`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-      );
+    for (const svc of biz.services) {
+      if (svc.hasLP) {
+        entries.push({ url: `${baseUrl}/b/${biz.slug}/s/${svc.slug}`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 });
+      }
+      if (svc.hasInfo) {
+        entries.push({ url: `${baseUrl}/b/${biz.slug}/s/${svc.slug}/info`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 });
+      }
     }
   }
 
