@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalLink, ChevronRight } from "lucide-react";
+import { ExternalLink, ChevronRight, MapPin, Tag, Code, Globe } from "lucide-react";
 import type { Business } from "@/lib/types/business";
 
 function PageCell({ href }: { href: string }) {
@@ -41,22 +41,50 @@ export default function BusinessCard({ biz }: { biz: Business }) {
   return (
     <div className="border border-border rounded-xl bg-background p-6">
       <div
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 cursor-pointer select-none"
+        className="flex items-start gap-2 cursor-pointer select-none"
         onClick={() => setOpen(!open)}
       >
-        <div className="flex items-center gap-2">
           <ChevronRight
             size={16}
-            className={`shrink-0 text-muted-foreground transition-transform duration-200 ${open ? "rotate-90" : ""}`}
+            className={`shrink-0 mt-1 text-muted-foreground transition-transform duration-200 ${open ? "rotate-90" : ""}`}
           />
-          <div>
-            <h2 className="font-display text-lg">{biz.name}</h2>
-            <p className="text-xs text-muted-foreground font-mono">/b/{biz.slug}</p>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center justify-between">
+              <h2 className="font-display text-lg">{biz.name}</h2>
+              <span className="text-xs font-semibold text-muted-foreground shrink-0">
+                {totalPages} pages &middot; {biz.services.length} services
+              </span>
+            </div>
+            <div className="flex items-center justify-between mt-3 text-xs text-muted-foreground">
+              <span className="inline-flex items-center gap-1">
+                <MapPin size={11} className="text-primary/40" />
+                {biz.city}, {biz.state}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Tag size={11} className="text-primary/40" />
+                {biz.category ?? "Uncategorized"}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Code size={11} className="text-primary/40" />
+                <span className="font-mono">/b/{biz.slug}</span>
+              </span>
+              {biz.cname && (
+                <span className="inline-flex items-center gap-1">
+                  <Globe size={11} className="text-primary/40" />
+                  <span className="font-mono">{biz.cname}</span>
+                  <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide leading-none ${
+                    biz.cnameStatus === "active"
+                      ? "bg-green-100 text-green-700"
+                      : biz.cnameStatus === "error"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-yellow-100 text-yellow-700"
+                  }`}>
+                    {biz.cnameStatus ?? "Pending"}
+                  </span>
+                </span>
+              )}
+            </div>
           </div>
-        </div>
-        <span className="text-xs text-muted-foreground">
-          {totalPages} pages &middot; {biz.services.length} services
-        </span>
       </div>
 
       {open && (

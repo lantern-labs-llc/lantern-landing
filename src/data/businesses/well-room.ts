@@ -23,6 +23,9 @@ export const wellRoom: Business = {
   reviewCount: 150,
   parking: "Free on-site",
   founded: "2020",
+  category: "Health & Wellness",
+  cname: "info.wellroomva.com",
+  cnameStatus: "pending",
   bundlesUrl: "https://www.wellroomva.com/bundles-packages",
   externalProfiles: [
     { platform: "Google", rating: "4.9 ★", reviewCount: "150+ reviews", url: "https://g.co/kgs/WHegSC" },

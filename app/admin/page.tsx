@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getAllBusinesses } from "@/data/businesses";
 import BusinessCard from "./BusinessCard";
 
@@ -17,9 +18,12 @@ export default function AdminPage() {
             <h1 className="font-display text-xl">Lantern Admin</h1>
             <p className="text-xs text-muted-foreground">{businesses.length} onboarded {businesses.length === 1 ? "business" : "businesses"}</p>
           </div>
-          <button className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+          <Link
+            href="/admin/new"
+            className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+          >
             + New Customer
-          </button>
+          </Link>
         </div>
       </header>
 

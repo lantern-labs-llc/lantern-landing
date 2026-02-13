@@ -173,6 +173,9 @@ export interface Business {
   practitioner?: PractitionerInfo;
   bundlesUrl?: string;
   externalProfiles?: { platform: string; rating: string; reviewCount?: string; url: string }[];
+  category?: string;
+  cname?: string;
+  cnameStatus?: "pending" | "active" | "error";
   // Info page specific
   infoFacts?: FactCard[];
   infoReviews?: Review[];
