@@ -43,7 +43,7 @@ const Navbar = () => {
           ))}
           {!isWaitlistPage && (
             <Button asChild size="sm">
-              <a href={isHome ? "#waitlist" : "/#waitlist"}>Join the Waitlist</a>
+              <a href="/waitlist">Join the Waitlist</a>
             </Button>
           )}
         </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
               ))}
               {!isWaitlistPage && (
                 <Button asChild size="sm" className="w-fit">
-                  <a href={isHome ? "#waitlist" : "/#waitlist"} onClick={() => setMobileOpen(false)}>Join the Waitlist</a>
+                  <a href="/waitlist" onClick={() => setMobileOpen(false)}>Join the Waitlist</a>
                 </Button>
               )}
             </div>

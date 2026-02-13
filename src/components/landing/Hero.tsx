@@ -35,7 +35,7 @@ const Hero = () => <section className="relative min-h-screen flex items-center b
 
         <div className="flex flex-wrap gap-4">
           <Button asChild size="lg" className="shadow-lantern">
-            <a href="#waitlist">
+            <a href="/waitlist">
               Join the Waitlist
               <ArrowRight size={16} className="ml-2" />
             </a>
