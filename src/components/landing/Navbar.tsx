@@ -41,6 +41,9 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+          <Button asChild variant="outline" size="sm" className="hover:bg-lantern-sage-dark hover:text-lantern-cream hover:border-lantern-sage-dark">
+            <a href="/login">Login</a>
+          </Button>
           {!isWaitlistPage && (
             <Button asChild size="sm">
               <a href="/waitlist">Join the Waitlist</a>
@@ -74,6 +77,9 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
+              <Button asChild variant="outline" size="sm" className="w-fit hover:bg-lantern-sage-dark hover:text-lantern-cream hover:border-lantern-sage-dark">
+                <a href="/login" onClick={() => setMobileOpen(false)}>Login</a>
+              </Button>
               {!isWaitlistPage && (
                 <Button asChild size="sm" className="w-fit">
                   <a href="/waitlist" onClick={() => setMobileOpen(false)}>Join the Waitlist</a>
